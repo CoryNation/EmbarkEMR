@@ -1,3 +1,8 @@
 node_modules
-dist
 .env
+.env-sample.env
+.gitignore
+.prettierrc
+CHANGELOG.md
+LICENSE.md
+package-lock.json
