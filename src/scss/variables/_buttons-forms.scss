@@ -1,0 +1,65 @@
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+$input-btn-padding-y:         0.40625rem;
+$input-btn-padding-x:         1rem;
+$input-btn-font-size:         0.875rem;
+
+$input-btn-font-size-sm:      0.75rem;
+
+$input-btn-border-width:      $border-width;
+
+// Buttons
+
+$btn-padding-y-xs:            .25rem;
+$btn-padding-x-xs:            .35rem;
+$btn-font-size-xs:            $font-size-xs;
+
+$btn-padding-y-xl:            1rem;
+$btn-padding-x-xl:            1.5rem;
+$btn-font-size-xl:            $font-size-xl;
+
+$btn-font-weight:             500;
+
+$btn-text-transform:          uppercase; // Set to `null` to avoid uppercase
+$btn-letter-spacing:          0.0892857143em;
+
+$btn-border-radius-xs:        $border-radius-sm;
+$btn-border-radius-xl:        $border-radius-lg;
+
+$btn-transition:              box-shadow .15s ease-in-out;
+
+// Forms
+
+$form-label-margin-bottom:              .25rem;
+$form-label-font-size:                  $font-size-sm;
+
+$input-disabled-bg:                     #fafafa;
+$input-disabled-border-color:           fade-out(black, 0.94);
+
+$input-disabled-color:                  fade-out(black, 0.62);
+
+$input-border-color:                    $gray-500;
+$input-focus-border-width:              $input-btn-border-width * 2;
+
+$input-transition:                      box-shadow .15s ease-in-out;
+
+$input-group-addon-bg:                  $gray-100;
+
+$form-select-disabled-bg:               $input-disabled-bg;
+$form-select-disabled-border-color:     $input-disabled-border-color;
+
+$form-range-track-height:               .125rem;
+
+$form-range-track-bg:                   fade-out($primary, 0.75);
+
+$form-range-thumb-width:                   0.75rem;
+$form-range-thumb-box-shadow:              0;
+$form-range-thumb-focus-box-shadow:        0;
+$form-range-thumb-focus-box-shadow-width:  0; // For focus box shadow issue in Edge
+$form-range-thumb-active-bg:               $primary;
+
+$form-range-thumb-disabled-bg:             #9a9a9a;
+
+$form-range-thumb-transition:              transform 0.15s ease-in-out;

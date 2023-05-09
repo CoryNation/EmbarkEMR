@@ -1,0 +1,218 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Date Picker'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Styles  * *
+//- * * * * * * * * * * * * * * *
+
+//- The main CSS is already included within the layout.
+//- Below, the Pug `prepend` directive is used to load stylesheets
+//- that are specific to this page.
+prepend css
+    // Load Litepicker stylesheet
+    link(href='https://cdn.jsdelivr.net/npm/litepicker/dist/css/style.css', rel='stylesheet')
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/datepicker.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Date Picker
+        .row.gx-5
+            .col-lg-9
+                p
+                    | Material Admin Pro uses a third party plugin to handle the functionality for the date picker element.
+                    a(href='https://litepicker.com/', target='_blank') Litepicker
+                    | is a lightweight date range picker plugin with no dependencies, meaning it will integrate well with any framework.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Single date * *
+                //- * * * * * * * * * *
+
+                #single-date
+                    h2.mb-4 Single Date Example
+                    p.mb-4
+                        | The single date example is the most basic implementation of Litepicker. Keep in mind that JavaScript is required to implement the date picker, which you can read more about on
+                        a(href='https://litepicker.com/', target='_blank') Litepicker's documentation
+                        | page.
+
+                    +demo({
+                        id: 'singleDate'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-5.bg-light
+                                .w-100(style='max-width: 21.875rem;')
+                                    label.form-label(for='litepickerSingleDate') Date:
+                                    input.form-control#litepickerSingleDate(placeholder='Select a date...')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><label class="form-label" for="litepickerSingleDate">Date:</label>
+                                <input class="form-control" id="litepickerSingleDate" placeholder="Select a date..."></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>label.form-label(for='litepickerSingleDate') Date:
+                                input.form-control#litepickerSingleDate(placeholder='Select a date...')</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Date range  * *
+                //- * * * * * * * * * *
+
+                #date-range
+                    h2.mb-4 Date Range Example
+                    p.mb-4 The simple date range opens a single month at a time in the date range picker dropdown, allowing users to select a range of dates rather than a single one.
+
+                    +demo({
+                        id: 'dateRange'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-5.bg-light
+                                .w-100(style='max-width: 21.875rem;')
+                                    label.form-label(for='litepickerDateRange') Date range:
+                                    input.form-control#litepickerDateRange(placeholder='Select date range...')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><label class="form-label" for="litepickerDateRange">Date range:</label>
+                                <input class="form-control" id="litepickerDateRange" placeholder="Select date range..."></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>label.form-label(for='litepickerDateRange') Date range:
+                                input.form-control#litepickerDateRange(placeholder='Select date range...')</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Two month range * *
+                //- * * * * * * * * * * * *
+
+                #date-range-two-month
+                    h2.mb-4 Two Month Range Example
+                    p.mb-4 The number of  months shown in the date range picker can be modified. The below example shows two months opening for easier selection of wider date ranges.
+
+                    +demo({
+                        id: 'dateRangeTwoMonths'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-5.bg-light
+                                .w-100(style='max-width: 21.875rem;')
+                                    label.form-label(for='litepickerDateRange2Months') Date range:
+                                    input.form-control#litepickerDateRange2Months(placeholder='Select date range...')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><label class="form-label" for="litepickerDateRange2Months">Date range:</label>
+                                <input class="form-control" id="litepickerDateRange2Months" placeholder="Select date range..."></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>label.form-label(for='litepickerDateRange2Months') Date range:
+                                input.form-control#litepickerDateRange2Months(placeholder='Select date range...')</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/litepicker.png', alt='Litepicker logo')
+                                .card-title.text-truncate.mb-2 Litepicker
+                                p.card-text A lightweight date range picker plugin with no dependencies
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://litepicker.com/', target='_blank', title='Litepicker Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+            
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#single-date') Single Date
+                        li.nav-item
+                            a.nav-link(href='#date-range') Date Range
+                        li.nav-item
+                            a.nav-link(href='#date-range-two-month') Two Month Range
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Litepicker plugin scripts
+    script(src='https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.nocss.js', crossorigin='anonymous')
+    script(src='js/litepicker.js')
+    // Load Prism plugin
+    script(src='/js/prism.js')

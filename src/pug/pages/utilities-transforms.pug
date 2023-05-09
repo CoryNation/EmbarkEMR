@@ -1,0 +1,149 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Transforms'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/transforms.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Transforms
+
+        .row.gx-5
+            .col-lg-9
+                p Transform utilities allow manipulation of content on the page using built-in CSS transformations.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * *
+                //- * * Rotation  * *
+                //- * * * * * * * * *
+
+                #rotation
+                    h2.mb-4 Rotation
+                    p.mb-4
+                        | Rotation utilities have been created for rotating elements in 45 degree increments. These rotation utilities are named using the format
+                        code.code-inline rotate-{degrees}
+                        | where
+                        em degrees
+                        | is any 45 degree increment from 45 to 315.
+
+                    +demo({
+                        id: 'transformRotation'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-wrap.justify-content-center.border.border-top-0.px-3.py-5.p-sm-5.bg-light
+                                .rotate-45.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-45
+                                .rotate-90.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-90
+                                .rotate-135.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-135
+                                .rotate-180.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-180
+                                .rotate-225.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-225
+                                .rotate-270.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-270
+                                .rotate-315.bg-primary.d-flex.align-items-center.justify-content-center.m-5(style='height: 7rem; width: 7rem;')
+                                    code.text-white .rotate-315
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="rotate-45">.rotate-45</div>
+                                <div class="rotate-90">.rotate-90</div>
+                                <div class="rotate-135">.rotate-135</div>
+                                <div class="rotate-180">.rotate-180</div>
+                                <div class="rotate-225">.rotate-225</div>
+                                <div class="rotate-270">.rotate-270</div>
+                                <div class="rotate-315">.rotate-315</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.rotate-45 .rotate-45
+                                .rotate-90 .rotate-90
+                                .rotate-135 .rotate-135
+                                .rotate-180 .rotate-180
+                                .rotate-225 .rotate-225
+                                .rotate-270 .rotate-270
+                                .rotate-315 .rotate-315</script>
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#rotation') Rotation
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

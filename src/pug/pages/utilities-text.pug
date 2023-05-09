@@ -1,0 +1,622 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Text'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/text.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Text
+
+        .row.gx-5
+            .col-lg-9
+                p Text utilities allow you to control the styling of text within an app.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Text Color  * *
+                //- * * * * * * * * * *
+
+                #color
+                    h2.mb-4 Color
+                    p.mb-4
+                        | In addition to the text color utilities included with the Bootstrap framework, we have included the 
+                        code.code-inline .text-black 
+                        | utility to provide a true black text color when needed.
+
+                    +demo({
+                        id: 'textUtilityColor'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .row.gx-3.gx-lg-5
+                                    .col
+                                        .p-3.text-center.border.rounded
+                                            .mb-1.text-primary .text-primary
+                                            .mb-1.text-secondary .text-secondary
+                                            .mb-1.text-success .text-success
+                                            .mb-1.text-danger .text-danger
+                                            .mb-1.text-info .text-info
+                                            .mb-1.text-dark .text-dark
+                                            .mb-1.text-body .text-body
+                                            .mb-1.text-muted .text-muted
+                                            .mb-1.text-black .text-black
+                                            .text-black-50 .text-black-50
+                                    .col
+                                        .p-3.text-center.bg-dark.rounded
+                                            .mb-1.text-warning .text-warning
+                                            .mb-1.text-light .text-light
+                                            .mb-1.text-white .text-white
+                                            .text-white-50 .text-white-50
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="text-primary">.text-primary</div>
+                                <div class="text-secondary">.text-secondary</div>
+                                <div class="text-success">.text-success</div>
+                                <div class="text-danger">.text-danger</div>
+                                <div class="text-info">.text-info</div>
+                                <div class="text-dark">.text-dark</div>
+                                <div class="text-body">.text-body</div>
+                                <div class="text-muted">.text-muted</div>
+                                <div class="text-black">.text-black</div>
+                                <div class="text-black-50">.text-black-50</div>
+                                <div class="text-warning">.text-warning</div>
+                                <div class="text-light">.text-light</div>
+                                <div class="text-white">.text-white</div>
+                                <div class="text-white-50">.text-white-50</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.text-primary .text-primary
+                                .text-secondary .text-secondary
+                                .text-success .text-success
+                                .text-danger .text-danger
+                                .text-info .text-info
+                                .text-dark .text-dark
+                                .text-body .text-body
+                                .text-muted .text-muted
+                                .text-black .text-black
+                                .text-black-50 .text-black-50
+                                .text-warning .text-warning
+                                .text-light .text-light
+                                .text-white .text-white
+                                .text-white-50 .text-white-50</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Link Color  * *
+                //- * * * * * * * * * *
+
+                #link-color
+                    h2.mb-4 Link Color
+                    p.mb-4 Link color utilities are also available to specifically set the color of links.
+
+                    +demo({
+                        id: 'textUtilitiesLinkColor'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .mb-1
+                                    a.link-primary(href='#') Primary link
+                                .mb-1
+                                    a.link-secondary(href='#') Secondary link
+                                .mb-1
+                                    a.link-success(href='#') Success link
+                                .mb-1
+                                    a.link-danger(href='#') Danger link
+                                .mb-1
+                                    a.link-warning(href='#') Warning link
+                                .mb-1
+                                    a.link-info(href='#') Info link
+                                .mb-1
+                                    a.link-light(href='#') Light link
+                                .mb-0
+                                    a.link-dark(href='#') Dark link
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><a href="#" class="link-primary">Primary link</a>
+                                <a href="#" class="link-secondary">Secondary link</a>
+                                <a href="#" class="link-success">Success link</a>
+                                <a href="#" class="link-danger">Danger link</a>
+                                <a href="#" class="link-warning">Warning link</a>
+                                <a href="#" class="link-info">Info link</a>
+                                <a href="#" class="link-light">Light link</a>
+                                <a href="#" class="link-dark">Dark link</a></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>a.link-primary(href='#') Primary link
+                                a.link-secondary(href='#') Secondary link
+                                a.link-success(href='#') Success link
+                                a.link-danger(href='#') Danger link
+                                a.link-warning(href='#') Warning link
+                                a.link-info(href='#') Info link
+                                a.link-light(href='#') Light link
+                                a.link-dark(href='#') Dark link</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Text Alignment  * *
+                //- * * * * * * * * * * * *
+
+                #alignment
+                    h2.mb-4 Alignmnet
+                    p.mb-4 You can easily set text alignment using the following utilities. Left and right alignmnet was discontinued in Bootstrap 5 in favor of the RTL-friendly start and finish classes. Responsive text alignment is also supported for each breakpoint.
+
+                    +demo({
+                        id: 'textUtilitiesAlignment'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                p.text-start Start aligned text on all viewport sizes.
+                                p.text-center Center aligned text on all viewport sizes.
+                                p.text-end End aligned text on all viewport sizes.
+                                p.text-sm-start Start aligned text on viewports sized SM or wider.
+                                p.text-md-start Start aligned text on viewports sized MD or wider.
+                                p.text-lg-start Start aligned text on viewports sized LG or wider.
+                                p.text-xl-start Start aligned text on viewports sized XL or wider.
+                                p.text-xxl-start.mb-0 Start aligned text on viewports sized XXL or wider.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="text-start">Start aligned text on all viewport sizes.</p>
+                                <p class="text-center">Center aligned text on all viewport sizes.</p>
+                                <p class="text-end">End aligned text on all viewport sizes.</p>
+                                <p class="text-sm-start">Start aligned text on viewports sized SM or wider.</p>
+                                <p class="text-md-start">Start aligned text on viewports sized MD or wider.</p>
+                                <p class="text-lg-start">Start aligned text on viewports sized LG or wider.</p>
+                                <p class="text-xl-start">Start aligned text on viewports sized XL or wider.</p>
+                                <p class="text-xxl-start">Start aligned text on viewports sized XXL or wider.</p></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.text-start Start aligned text on all viewport sizes.
+                                p.text-center Center aligned text on all viewport sizes.
+                                p.text-end End aligned text on all viewport sizes.
+                                p.text-sm-start Start aligned text on viewports sized SM or wider.
+                                p.text-md-start Start aligned text on viewports sized MD or wider.
+                                p.text-lg-start Start aligned text on viewports sized LG or wider.
+                                p.text-xl-start Start aligned text on viewports sized XL or wider.
+                                p.text-xxl-start Start aligned text on viewports sized XXL or wider.</script>
+                    
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Text Wrapping  * *
+                //- * * * * * * * * * * * *
+                #wrapping
+                    h2.mb-4 Wrapping
+                    p.mb-4
+                        | You can force or prevent text wrapping using the
+                        code.code-inline .text-wrap
+                        | and
+                        code.code-inline .text-nowrap
+                        | utility classes.
+                    
+                    +demo({
+                        id: 'textUtilitiesWrapping'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .text-wrap.p-3.border.rounded.mb-5.bg-white(style='width: 8rem;')
+                                    | This text will wrap.
+                                .text-nowrap.p-3.border.rounded.bg-white(style='width: 8rem;')
+                                    | This text will overflow the parent.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="text-wrap">This text will wrap.</div>
+                                <div class="text-nowrap">This text will overflow the parent.</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.text-wrap This text will wrap.
+                                .text-nowrap This text will overflow the parent.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Word Break  * *
+                //- * * * * * * * * * *
+
+                #word-break
+                    h2.mb-4 Word Break
+                    p.mb-4
+                        | The
+                        code.code-inline .text-break
+                        | utility is available to use with content that will break past the width of the layout. Notice the very long word below breaks to new lines instead of overflowing the container.
+
+                    +demo({
+                        id: 'textUtilitiesWordBreak'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .p-3.border.rounded.bg-white(style='width: 10rem;')
+                                    p.text-break.mb-0 Hippopotomonstrosesquippedaliophobia
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="text-break">Hippopotomonstrosesquippedaliophobia</p></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.text-break Hippopotomonstrosesquippedaliophobia</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Transforms  * *
+                //- * * * * * * * * * *
+
+                #text-transforms
+                    h2.mb-4 Transforms
+                    p.mb-4 Adjust the capitalization of text using text transfrom utilities.
+
+                    +demo({
+                        id: 'textUtilitiesTransforms'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                p.text-lowercase THIS text will all be Lowercase.
+                                p.text-uppercase THIS text will all be Uppercase.
+                                p.text-capitalize.mb-0 THIS text will all be Capitalized.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="text-lowercase">THIS text will all be Lowercase.</p>
+                                <p class="text-uppercase">THIS text will all be Uppercase.</p>
+                                <p class="text-capitalize">THIS text will all be Capitalized.</p></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.text-lowercase THIS text will all be Lowercase.
+                                p.text-uppercase THIS text will all be Uppercase.
+                                p.text-capitalize THIS text will all be Capitalized.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * *
+                //- * * Font Size * *
+                //- * * * * * * * * *
+
+                #font-size
+                    h2.mb-4 Font Size
+                    p
+                        | Use font size utilities to change the size of text independently of the text element that is being used. These classes are named using the format
+                        code.code-inline .fs-{number}
+                        | where
+                        em number
+                        | is a number 1 to 6.
+                    p.mb-4
+                        | These font size utilities follow use the same font size as the headings, referenced on the
+                        a(hre='content-typography.html') Typography
+                        | page.
+
+                    +demo({
+                        id: 'textUtilitiesFontSize'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .fs-1.mb-2 Font Size 1
+                                .fs-2.mb-2 Font Size 2
+                                .fs-3.mb-2 Font Size 3
+                                .fs-4.mb-2 Font Size 4
+                                .fs-5.mb-2 Font Size 5
+                                .fs-6.mb-2 Font Size 6
+                                .small.mb-2 Small
+                                .text-xs Extra Small
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="fs-1">Font Size 1</div>
+                                <div class="fs-2">Font Size 2</div>
+                                <div class="fs-3">Font Size 3</div>
+                                <div class="fs-4">Font Size 4</div>
+                                <div class="fs-5">Font Size 5</div>
+                                <div class="fs-6">Font Size 6</div>
+                                <div class="small">Small</div>
+                                <div class="text-xs">Extra Small</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.fs-1 Font Size 1
+                                .fs-2 Font Size 2
+                                .fs-3 Font Size 3
+                                .fs-4 Font Size 4
+                                .fs-5 Font Size 5
+                                .fs-6 Font Size 6
+                                .small Small
+                                .text-xs Extra Small</script>
+                    
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * *
+                //- * * Font Weight & Style * *
+                //- * * * * * * * * * * * * * *
+
+                #font-weight
+                    h2.mb-4 Font Weight &amp; Style
+                    p
+                        | Font weight and style utilities can be used to adjust the thickness and apperance text.
+                    p
+                        | In Material Admin Pro, we have added an extended set of font weight utilities past what Bootstrap offers by default. These utilities are named using the format
+                        code.code-inline .fw-{weight}
+                        | where
+                        em weight
+                        | is any font weight between 100 and 900.
+                    p.mb-4
+                        | In the below examples, only font weights 300 to 500 are shown since these are the only weights supported with this theme by default. Visit our theming documentation for more information on using different fonts and font weights.
+
+                    +demo({
+                        id: 'textUtilitiesFontWeight'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                p.fw-bold Bold text.
+                                p.fw-bolder Bolder weight text (relative to the parent element).
+                                p.fw-normal Normal weight text.
+                                p.fw-light Light weight text.
+                                p.fw-lighter Lighter weight text (relative to the parent element).
+                                p.fw-300 Font weight 300.
+                                p.fw-400 Font weight 400.
+                                p.fw-500 Font weight 500.
+                                p.fst-italic Italic text.
+                                p.fst-normal Text with normal font style
+                                p.font-monospace.mb-0 This is in monospace.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="fw-bold">Bold text.</p>
+                                <p class="fw-bolder">Bolder weight text (relative to the parent element).</p>
+                                <p class="fw-normal">Normal weight text.</p>
+                                <p class="fw-light">Light weight text.</p>
+                                <p class="fw-lighter">Lighter weight text (relative to the parent element).</p>
+                                <p class="fw-300">Font weight 300.</p>
+                                <p class="fw-400">Font weight 400.</p>
+                                <p class="fw-500">Font weight 500.</p>
+                                <p class="fst-italic">Italic text.</p>
+                                <p class="fst-normal">Text with normal font style</p>
+                                <p class="font-monospace">This is in monospace.</p></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.fw-bold Bold text.
+                                p.fw-bolder Bolder weight text (relative to the parent element).
+                                p.fw-normal Normal weight text.
+                                p.fw-light Light weight text.
+                                p.fw-lighter Lighter weight text (relative to the parent element).
+                                p.fw-300 Font weight 300.
+                                p.fw-400 Font weight 400.
+                                p.fw-500 Font weight 500.
+                                p.fst-italic Italic text.
+                                p.fst-normal Text with normal font style
+                                p.font-monospace This is in monospace.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Line Height * *
+                //- * * * * * * * * * *
+
+                #line-height
+                    h2.mb-4 Line Height
+                    p.mb-4
+                        | Line height utilities come in four variations which are used to manipulate the line height of text elements.
+
+                    +demo({
+                        id: 'textUtilitiesLineHeight'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                p.lh-1 This is a paragraph with a line height of 1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                                p.lh-sm This is a paragraph with small line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                                p.lh-base This is a paragraph using the base line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                                p.lh-lg.mb-0 This is a paragraph with large line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="lh-1">This is a paragraph with a line height of 1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?</p>
+                                <p class="lh-sm">This is a paragraph with small line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?</p>
+                                <p class="lh-base">This is a paragraph using the base line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?</p>
+                                <p class="lh-lg">This is a paragraph with large line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?</p></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.lh-1 This is a paragraph with a line height of 1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                                p.lh-sm This is a paragraph with small line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                                p.lh-base This is a paragraph using the base line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?
+                                p.lh-lg This is a paragraph with large line height. Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus molestiae ut culpa cupiditate ea dolorum impedit beatae explicabo libero perspiciatis distinctio deleniti deserunt ex provident eos nesciunt, atque iste pariatur?</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Letter Spacing  * *
+                //- * * * * * * * * * * * *
+
+                #letter-spacing
+                    h2.mb-4 Letter Spacing
+                    p.mb-4
+                        | The
+                        code.code-inline .text-expanded
+                        | letter spacing utility is available to match Material Design's specification for their "body 1" style. It is best used on paragraphs that you want to have increase legibility with a slight increase in letter spacing.
+
+                    +demo({
+                        id: 'textUtilitiesLetterSpacing'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                p.text-expanded.mb-0 This is an example of a paragraph with expanded type.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="text-expanded">This is an example of a paragraph with expanded type.</p></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.text-expanded This is an example of a paragraph with expanded type.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Text Truncation * *
+                //- * * * * * * * * * * * *
+
+                #text-truncation
+                    h2.mb-4 Text Truncation
+                    p.mb-4
+                        | The
+                        code.code-inline .text-truncate
+                        | helper allows for text within block or inline elements to truncate if the text surpasses the width of the element.
+
+                    +demo({
+                        id: 'textUtilitiesTruncation'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                // Block level
+                                .row
+                                    .col-2.text-truncate
+                                        | Praeterea iter est quasdam res quas ex communi.
+                                // Inline level
+                                span.d-inline-block.text-truncate(style='max-width: 150px;')
+                                    | Praeterea iter est quasdam res quas ex communi.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><!-- Block level-->
+                                <div class="row">
+                                    <div class="col-2 text-truncate">Praeterea iter est quasdam res quas ex communi.</div>
+                                </div>
+
+                                <!-- Inline level-->
+                                <span class="d-inline-block text-truncate" style="max-width: 150px;">Praeterea iter est quasdam res quas ex communi.</span></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>//- Block level
+                                .row
+                                    .col-2.text-truncate
+                                        | Praeterea iter est quasdam res quas ex communi.
+
+                                //- Inline level
+                                span.d-inline-block.text-truncate(style='max-width: 150px;')
+                                    | Praeterea iter est quasdam res quas ex communi.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0.mb-lg-4.mb-xxl-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/icons/typography.svg', alt='Typography Content Icon')
+                                .card-title.text-truncate.mb-2 Typography
+                                p.card-text Material Admin Pro's type system
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='content-typography.html', title='Typography Content') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Text Utilities Documentation
+                                p.card-text Bootstrap's text utilities documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/utilities/text/', target='_blank', title='Bootstrap Text Utilities Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#color') Color
+                        li.nav-item
+                            a.nav-link(href='#alignment') Alignment
+                        li.nav-item
+                            a.nav-link(href='#wrapping') Wrapping
+                        li.nav-item
+                            a.nav-link(href='#word-break') Word Break
+                        li.nav-item
+                            a.nav-link(href='#text-transforms') Text Transforms
+                        li.nav-item
+                            a.nav-link(href='#font-size') Font Size
+                        li.nav-item
+                            a.nav-link(href='#font-weight') Font Weight &amp; Style
+                        li.nav-item
+                            a.nav-link(href='#line-height') Line Height
+                        li.nav-item
+                            a.nav-link(href='#letter-spacing') Letter Spacing
+                        li.nav-item
+                            a.nav-link(href='#text-truncation') Text Truncation
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

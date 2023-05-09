@@ -1,0 +1,357 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Chips'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/chips.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Chips
+        .row.gx-5
+            .col-lg-9
+                p Material Design describes chips as "compact elements that represent an input, attribute, or action." They can allow users to enter information, make slections, filter content, or trigger actions.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Default chips * *
+                //- * * * * * * * * * * *
+
+                #default
+                    h2.mb-4 Default Chips
+                    p.mb-4
+                        | In Material Admin Pro, by default, chips are arranged in a chip set with each chip having it's own individual descriptor. This is a new component that has been custom built using Material Design's standards, and is not part of the Bootstrap framework by default. Active states are also supported for chips.
+
+                    +demo({
+                        id: 'defaultChips'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .chip-set
+                                    .chip.active Option 1
+                                    .chip Option 2
+                                    .chip Option 3
+                                    .chip Option 4
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="chip-set">
+                                    <div class="chip active">Option 1</div>
+                                    <div class="chip">Option 2</div>
+                                    <div class="chip">Option 3</div>
+                                    <div class="chip">Option 4</div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.chip-set
+                                    .chip.active Option 1
+                                    .chip Option 2
+                                    .chip Option 3
+                                    .chip Option 4</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * *
+                //- * * Chips with leading icon * *
+                //- * * * * * * * * * * * * * * * *
+
+                #icon
+                    h2.mb-4 Leading Icon
+                    p.mb-4
+                        | Leading icons are supported within the chip element, and can be added using a Material Icon along with the
+                        code.code-inline .chip-leading-icon
+                        | class definition.
+
+                    +demo({
+                        id: 'iconChips'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .chip-set
+                                    .chip.active
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 1
+                                    .chip
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 2
+                                    .chip
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 3
+                                    .chip
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 4
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="chip-set">
+                                    <div class="chip active">
+                                        <i class="chip-leading-icon material-icons">check</i>
+                                        Option 1
+                                    </div>
+                                    <div class="chip">
+                                        <i class="chip-leading-icon material-icons">check</i>
+                                        Option 2
+                                    </div>
+                                    <div class="chip">
+                                        <i class="chip-leading-icon material-icons">check</i>
+                                        Option 3
+                                    </div>
+                                    <div class="chip">
+                                        <i class="chip-leading-icon material-icons">check</i>
+                                        Option 4
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.chip-set
+                                    .chip.active
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 1
+                                    .chip
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 2
+                                    .chip
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 3
+                                    .chip
+                                        i.chip-leading-icon.material-icons check
+                                        | Option 4</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * *
+                //- * * Chips with close icon * *
+                //- * * * * * * * * * * * * * * *
+
+                #closeIcon
+                    h2.mb-4 Close Icon
+                    p.mb-4
+                        | Close icons are supported within the chip element also, and can be added using a Material Icon along with the
+                        code.code-inline .chip-close-icon
+                        | class definition.
+
+                    +demo({
+                        id: 'closeIconChips'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .chip-set
+                                    .chip
+                                        | Option 1
+                                        i.chip-close-icon.material-icons cancel
+                                    .chip
+                                        | Option 2
+                                        i.chip-close-icon.material-icons cancel
+                                    .chip
+                                        | Option 3
+                                        i.chip-close-icon.material-icons cancel
+                                    .chip
+                                        | Option 4
+                                        i.chip-close-icon.material-icons cancel
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="chip-set">
+                                    <div class="chip">
+                                        Option 1
+                                        <i class="chip-close-icon material-icons">cancel</i>
+                                    </div>
+                                    <div class="chip">
+                                        Option 2
+                                        <i class="chip-close-icon material-icons">cancel</i>
+                                    </div>
+                                    <div class="chip">
+                                        Option 3
+                                        <i class="chip-close-icon material-icons">cancel</i>
+                                    </div>
+                                    <div class="chip">
+                                        Option 4
+                                        <i class="chip-close-icon material-icons">cancel</i>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.chip-set
+                                    .chip
+                                        | Option 1
+                                        i.chip-close-icon.material-icons cancel
+                                    .chip
+                                        | Option 2
+                                        i.chip-close-icon.material-icons cancel
+                                    .chip
+                                        | Option 3
+                                        i.chip-close-icon.material-icons cancel
+                                    .chip
+                                        | Option 4
+                                        i.chip-close-icon.material-icons cancel</script>
+
+                //- * * * * * * * * * * * * * * * * *
+                //- * * Chips with leading image  * *
+                //- * * * * * * * * * * * * * * * * *
+
+                #image
+                    h2.mb-4 Leading Image
+                    p.mb-4
+                        | Small, leading images are also supported within chips. Leading images are rounded to a circle by default. We recommend using images that are
+                        strong 48x48 pixels
+                        | in width and height. To use a leading image, simply insert an image into the chip before the chip text along with the
+                        code.code-inline .chip-leading-image
+                        | class definition.
+
+                    +demo({
+                        id: 'imageChips'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .chip-set
+                                    .chip.active
+                                        img.chip-leading-image(src='https://source.unsplash.com/pVoEPpLw818/48x48', alt='...')
+                                        | Option 1
+                                    .chip
+                                        img.chip-leading-image(src='https://source.unsplash.com/FURFqaPGs3U/48x48', alt='...')
+                                        | Option 2
+                                    .chip
+                                        img.chip-leading-image(src='https://source.unsplash.com/lDtmU_ABtcU/48x48', alt='...')
+                                        | Option 3
+                                    .chip
+                                        img.chip-leading-image(src='https://source.unsplash.com/g2Zf3hJyYAc/48x48', alt='...')
+                                        | Option 4
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="chip-set">
+                                    <div class="chip active">
+                                        <img class="chip-leading-image" src="https://source.unsplash.com/pVoEPpLw818/48x48" alt="..." />
+                                        Option 1
+                                    </div>
+                                    <div class="chip">
+                                        <img class="chip-leading-image" src="https://source.unsplash.com/FURFqaPGs3U/48x48" alt="..." />
+                                        Option 2
+                                    </div>
+                                    <div class="chip">
+                                        <img class="chip-leading-image" src="https://source.unsplash.com/lDtmU_ABtcU/48x48" alt="..." />
+                                        Option 3
+                                    </div>
+                                    <div class="chip">
+                                        <img class="chip-leading-image" src="https://source.unsplash.com/g2Zf3hJyYAc/48x48" alt="..." />
+                                        Option 4
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.chip-set
+                                    .chip.active
+                                        img.chip-leading-image(src='https://source.unsplash.com/pVoEPpLw818/48x48', alt='...')
+                                        | Option 1
+                                    .chip
+                                        img.chip-leading-image(src='https://source.unsplash.com/FURFqaPGs3U/48x48', alt='...')
+                                        | Option 2
+                                    .chip
+                                        img.chip-leading-image(src='https://source.unsplash.com/lDtmU_ABtcU/48x48', alt='...')
+                                        | Option 3
+                                    .chip
+                                        img.chip-leading-image(src='https://source.unsplash.com/g2Zf3hJyYAc/48x48', alt='...')
+                                        | Option 4</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Chips Web Component Documentation
+                                p.card-text Docs for Material's chips web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc', target='_blank', title='Material Chips Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#icon') Leading Icon
+                        li.nav-item
+                            a.nav-link(href='#closeIcon') Close Icon
+                        li.nav-item
+                            a.nav-link(href='#image') Leading Image
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

@@ -1,0 +1,43 @@
+doctype html
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page. In this layout, the below values are
+//- default fallbacks which a page will use if the config
+//- options are not included with the page.
+
+block config
+    - var bodyClasses = 'bg-primary';
+    - var pageTitle = 'Page Title';
+
+html(lang='en')
+
+    head
+
+        include includes/head/meta.pug
+        include includes/head/title.pug
+        include includes/head/icons.pug
+        include includes/head/css.pug
+
+    body(class=bodyClasses)
+
+        // Layout wrapper
+        #layoutAuthentication
+            
+            // Layout content
+            #layoutAuthentication_content
+
+                // Main page content
+                main
+                    
+                    block content
+
+            // Layout footer
+            #layoutAuthentication_footer
+                    
+                block footer
+
+        include includes/scripts.pug

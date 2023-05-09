@@ -1,0 +1,31 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/error.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var pageTitle = '503 Error'; // String. Enter the page title within a string
+
+block content
+    .container
+        .row.justify-content-center
+            .col-lg-6
+                // Error message content
+                .text-center.my-5.mt-sm-10
+                    img.img-fluid.mb-4(src='assets/img/illustrations/error-503.svg', alt='503 Error Image by Freepik Storyset', style='max-width: 30rem;')
+                    p.lead Service unavailable.
+                    a.btn.btn-primary(href='index.html')
+                        i.material-icons.leading-icon arrow_back
+                        | Return to Dashboard

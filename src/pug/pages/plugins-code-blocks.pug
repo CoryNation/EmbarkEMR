@@ -1,0 +1,292 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Code Blocks'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/code-blocks.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Code Blocks
+        
+        .row.gx-5
+            .col-lg-9
+                p
+                    | By default, HTML code blocks lack any form of syntax highlighting. In the case that syntax highlighting is not needed, the default
+                    code.code-inline &lt;code&gt;
+                    | and
+                    code.code-inline &lt;pre&gt;
+                    | elements are sufficient, which you can reference on the
+                    a(href='content-typography.html') typography
+                    | reference.
+                p
+                    | In situations where syntax highlighting is preferred, for example, within documentation or complex code examples,
+                    a(href='#!', target='_blank') Prism
+                    | has been brought in and styled for use in this project.
+
+                //- Divider
+                hr.my-5
+
+                #examples
+                    h2.mb-4 Code Block Examples
+                    p.mb-4 Below is an example of Prism being used to highlight the HTML markup of a blank page example for Material Admin Pro.
+                        
+                    .border.bg-light.p-3.p-sm-4.mb-4
+                        pre
+                            code.language-html.
+                                <script type="text/plain"><!DOCTYPE html>
+                                <html lang="en">
+
+                                <head>
+                                    <title>Title</title>
+                                </head>
+
+                                <body>
+                                    <h1>Example Page</h1>
+                                    <div class="container">
+                                        <p>You are amazing!</p>
+                                        <p>
+                                            Prism is a lightweight, extensible syntax
+                                            highlighter, built with modern web standards
+                                            in mind. It’s used in millions of websites,
+                                            including some of those you visit daily.
+                                        </p>
+                                    </div>
+                                </body>
+
+                                </html></script>
+
+                    p.mb-4 HTML isn't the only language that is supported. Here is an example of some CSS marked up using Prism.
+
+                    .border.bg-light.p-3.p-sm-4.mb-4
+                        pre
+                            code.language-css.
+                                <script type="text/plain">.declaration-order {
+                                    /* Positioning */
+                                    position: absolute;
+                                    top: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    left: 0;
+                                    z-index: 100;
+
+                                    /* Box-model */
+                                    display: block;
+                                    float: right;
+                                    width: 100px;
+                                    height: 100px;
+
+                                    /* Typography */
+                                    font: normal 13px "Helvetica Neue", sans-serif;
+                                    line-height: 1.5;
+                                    color: #333;
+                                    text-align: center;
+
+                                    /* Visual */
+                                    background-color: #f5f5f5;
+                                    border: 1px solid #e5e5e5;
+                                    border-radius: 3px;
+
+                                    /* Misc */
+                                    opacity: 1;
+                                }</script>
+
+                    p.mb-4
+                        | Prism is certainly not limited to just HTML and CSS, almost 250 languages are supported with Prism. Visit Prism's documentation to see their
+                        a(href='https://prismjs.com/#supported-languages', target='_blank') list of supported languages
+                        | and more examples.
+
+                #usage
+                    h2.mb-4 Usage
+                    p
+                        | Since Prism has been restyled to fit the Material Admin Pro theme, we recommend wrapping the code block in an outer element in order to make adjusting the background, padding, and spacing of the code block simpler. Prism can be used without a styled outer wrapper for certain use cases as well.
+                    p.mb-4
+                        | The recommended way to mark up a code block (both for semantics and for Prism) is a 
+                        code.code-inline &lt;pre&gt;
+                        | element with a
+                        code.code-inline &lt;code&gt;
+                        | element inside, which is demonstrated below. When using this pattern, the
+                        code.code-inline &lt;pre&gt;
+                        | element will automatically get the
+                        code.code-inline .language-{name}
+                        | class, where
+                        em name
+                        | is one of the
+                        a(href='https://prismjs.com/#supported-languages', target='_blank') supported languages
+                        | available with Prism.
+                    
+                    +demo({
+                        id: 'prismExample'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-4
+
+                                p.mb-1.small.fst-italic Code block with styled wrapper:
+                                .border.bg-light.p-3.p-sm-4.mb-4
+                                    pre
+                                        code.language-html.
+                                            <script type="text/plain"><h1>Code Block</h1>
+                                            <p>This is an example of a code block with a styled outer wrapper.</p></script>
+
+                                p.mb-1.small.fst-italic Code block without wrapper:
+                                pre
+                                    code.language-html.
+                                        <script type="text/plain"><h1>Code Block</h1>
+                                        <p>This is an example of a code block with a styled outer wrapper.</p></script>
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><!-- Code block with styled wrapper-->
+                                <div class="border bg-light p-3 p-sm-4">
+                                    <pre>
+                                        <code class="language-html">
+                                            &lt;h1&gt;Code Block&lt;/h1&gt;
+                                            &lt;p&gt;This is an example of a code block with a styled outer wrapper.&lt;/p&gt;
+                                        </code>
+                                    </pre>
+                                </div>
+
+                                <!-- Code block without wrapper-->
+                                <pre>
+                                    <code class="language-html">
+                                        &lt;h1&gt;Code Block&lt;/h1&gt;
+                                        &lt;p&gt;This is an example of a code block with a styled outer wrapper.&lt;/p&gt;
+                                    </code>
+                                </pre></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>//- Code block with styled wrapper
+                                .border.bg-light.p-3.p-sm-4
+                                    pre
+                                        code.language-html
+                                            &lt;h1&gt;Code Block&lt;/h1&gt;
+                                            &lt;p&gt;This is an example of a code block with a styled outer wrapper.&lt;/p&gt;
+                                
+                                //- Code block without wrapper
+                                pre
+                                    code.language-html
+                                        &lt;h1&gt;Code Block&lt;/h1&gt;
+                                        &lt;p&gt;This is an example of a code block with a styled outer wrapper.&lt;/p&gt;</script>
+
+                    p.mb-4
+                        | Use of this plugin requires Prism to be brought into the page, which is loaded via CDN. Some JavaScript may be necessary if you are using uncommon languages as well, which is covered in the
+                        a(href='#!', target='_blank') Material Admin Pro Documentation
+                        | for this plugin.
+
+                    h3.mb-4 Wrapping Code
+
+                    p.mb-5
+                        | In the above examples, unicode is being used to create the
+                        code.code-inline &lt;
+                        | and
+                        code.code-inline &gt;
+                        | symbols, which can be cumbersome when documenting larger blocks of code. An alternative, which will allow you to wrap large blocks of code without using unicode for characters, is to wrap code in the
+                        code.code-inline &lt;script type='text/plain'&gt;&lt;/script&gt;
+                        | tag. You can see examples of this in action throughout the component, content, and utility documentation for Material Admin Pro.
+
+                #theming
+                    h2.mb-4 Theming
+                    p.mb-4
+                        | The Prism theme included with Material Admin Pro is a custom theme. In order to change the colors, spacing, font, or any other characteristic of the theme, you can do so in the
+                        code.code-inline /scss/plugins/_prism.scss
+                        | source code, or in the theme's CSS file if your license does not include the SCSS source.
+
+                //- Divider
+                hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/prism.svg', alt='Prism Syntax Highlighting SVG Logo')
+                                .card-title.text-truncate.mb-2 Prism
+                                p.card-text Prism is a lightweight, extensible syntax highlighter.
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://prismjs.com/', target='_blank', title='Prism Syntax Highlighting') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#examples') Examples
+                        li.nav-item
+                            a.nav-link(href='#usage') Usage
+                        li.nav-item
+                            a.nav-link(href='#theming') Theming
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

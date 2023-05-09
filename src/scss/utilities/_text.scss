@@ -1,0 +1,71 @@
+// * * * * * * *
+// * * Text  * *
+// * * * * * * *
+
+// 
+// Create custom text utilities for use throughout the theme
+// 
+
+// Expanded text 
+
+.text-expanded {
+    letter-spacing: 0.03125em !important;
+}
+
+// Font weight utilities
+
+.fw-100 {
+    font-weight: 100 !important;
+}
+
+.fw-200 {
+    font-weight: 200 !important;
+}
+
+.fw-300 {
+    font-weight: 300 !important;
+}
+
+.fw-400 {
+    font-weight: 400 !important;
+}
+
+.fw-500 {
+    font-weight: 500 !important;
+}
+
+.fw-600 {
+    font-weight: 600 !important;
+}
+
+.fw-700 {
+    font-weight: 700 !important;
+}
+
+.fw-800 {
+    font-weight: 800 !important;
+}
+
+.fw-900 {
+    font-weight: 900 !important;
+}
+
+// Button font style
+
+.fst-button {
+    text-transform: $btn-text-transform;
+    letter-spacing: $btn-letter-spacing;
+    font-weight: $btn-font-weight;
+}
+
+// Font sizes
+.text-xs {
+    font-size: 0.75rem !important;
+    line-height: 1.25rem !important;
+    letter-spacing: 0.0333333333em !important;
+}
+
+// Alternative white color utilities
+.text-white-75 {
+    color: fade-out($white, 0.25) !important;
+}

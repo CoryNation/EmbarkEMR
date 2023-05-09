@@ -1,0 +1,41 @@
+// * * * * * * * * 
+// * * Z-index * * 
+// * * * * * * * * 
+
+// 
+// Z-index utilities have been created to use
+// with components and elements independent of
+// their previously set Z-index.
+// 
+
+.z-index-dropdown {
+    z-index: $zindex-dropdown !important;
+}
+
+.z-index-sticky {
+    z-index: $zindex-sticky !important;
+}
+
+.z-index-fixed {
+    z-index: $zindex-fixed !important;
+}
+
+.z-index-modal-backdrop {
+    z-index: $zindex-modal-backdrop !important;
+}
+
+.z-index-modal {
+    z-index: $zindex-modal !important;
+}
+
+.z-index-popover {
+    z-index: $zindex-popover !important;
+}
+
+.z-index-tooltip {
+    z-index: $zindex-tooltip !important;
+}
+
+.z-index-toast {
+    z-index: $zindex-toast !important;
+}

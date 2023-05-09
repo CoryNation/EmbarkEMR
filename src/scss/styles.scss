@@ -1,0 +1,77 @@
+// * * * * * * * * * * * * *
+// * * Import Variables  * *
+// * * * * * * * * * * * * *
+
+@import './variables';
+
+// * * * * * * * * * * * * *
+// * * Import Bootstrap  * *
+// * * * * * * * * * * * * *
+
+@import 'bootstrap/scss/bootstrap';
+
+// * * * * * * * * * * * * * * * * * * * * *
+// * * Import Ripple Material Component  * *
+// * * * * * * * * * * * * * * * * * * * * *
+
+@import '@material/ripple/styles';
+
+// * * * * * * * * * * * * * *
+// * * Import Custom SCSS  * *
+// * * * * * * * * * * * * * *
+
+// Import Custom SCSS
+@import './global';
+
+// Layout
+@import './layouts/authentication';
+@import './layouts/dashboard-default';
+@import './layouts/dashboard-fixed';
+@import './layouts/error';
+@import './layouts/footer';
+
+// Utilities
+@import './utilities/background';
+@import './utilities/borders';
+@import './utilities/shadows';
+@import './utilities/ripple';
+@import './utilities/text';
+@import './utilities/transforms';
+@import './utilities/z-index';
+
+// Content
+@import './content/icons';
+@import './content/tables';
+@import './content/typography';
+
+// Forms
+@import './forms/checks-radios';
+@import './forms/form-inputs';
+@import './forms/range';
+
+// Components
+@import './components/alerts';
+@import './components/badges';
+@import './components/buttons';
+@import './components/cards';
+@import './components/chips';
+@import './components/drawer';
+@import './components/dropdowns';
+@import './components/icon-button';
+@import './components/list-group';
+@import './components/masthead';
+@import './components/modals';
+@import './components/navs';
+@import './components/popovers';
+@import './components/spinners';
+@import './components/stick';
+@import './components/toasts';
+@import './components/top-app-bar';
+
+// Plugins
+@import './plugins/litepicker';
+@import './plugins/prism';
+@import './plugins/simple-datatables';
+
+// Project Styles
+@import './project-global';

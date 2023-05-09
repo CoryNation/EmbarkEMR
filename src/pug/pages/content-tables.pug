@@ -1,0 +1,1143 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Tables'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/tables.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Tables
+
+
+        .row.gx-5
+            .col-lg-9
+                p
+                    | Tables present tabular information in a two-dimensional format. By default, Bootstrap's table styling is slightly more minimal than what Material Design specifies, but builds to offer more options than what is in Material's specifications. For this reason, we start with Bootstrap's default table, style it to fit Material Design's guidelines, and build on additional, optional classes from the default state.
+                p
+                    | Material Admin Pro also provides an interactive
+                    a(href='plugins-data-tables.html') data tables plugin
+                    | in addition to the table content styling on this page.
+
+                hr.my-5
+
+                //- Default Table
+
+                #default
+                    h2.mb-4 Default Table
+                    p Bootstrap's default table has been modified to match Material's table styling. The font size has been brought down in size, with the text color being made intentionally darker for higher contrast and greater legibility.
+                    p.mb-4 The below is an example of the default table. Material's base styling for tables, which features hoverable rows and borders surrounding the table, are shown in the examples after this one.
+
+                    +demo({
+                        id: 'tableDefault'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Bordered Table
+
+                #bordered
+                    h2.mb-4 Bordered Table
+                    p.mb-4
+                        | By adding the 
+                        <code class='code-inline'>.table-bordered</code>
+                        | class to the table element, the Bootstrap table design is one step closer Material's default design.
+
+                    +demo({
+                        id: 'tableBordered'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Hoverable Table
+
+                #hoverable
+                    h2.mb-4 Hoverable Rows
+                    p.mb-4
+                        | By adding the 
+                        <code class='code-inline'>.table-hover</code>
+                        | class to the table element in conjunction with the 
+                        <code class='code-inline'>.table-bordered</code>
+                        | class, the table design now matches the Material Design default.
+
+                    +demo({
+                        id: 'tableHoverable'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Striped Table
+
+                #striped
+                    h2.mb-4 Striped Rows
+                    p.mb-4
+                        | By adding the 
+                        <code class='code-inline'>.table-striped</code>
+                        | class to the table element, every other row will feature a slightly darker background color. This feature is outside of Materail Design's specifications, but can enhance the readability of a table, especially when working with large data sets.
+
+                    +demo({
+                        id: 'tableStriped'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.table-striped.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover.table-striped
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Small Table
+
+                #small
+                    h2.mb-4 Small Table
+                    p.mb-4
+                        | By adding the 
+                        <code class='code-inline'>.table-sm</code>
+                        | class to the table element, the padding of each table cell is decresed. This table format is especially useful for considerably large data sets.
+
+                    +demo({
+                        id: 'tableSmall'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.table-striped.table-sm.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover.table-striped.table-sm
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Dark Table
+
+                #dark
+                    h2.mb-4 Dark Table
+                    p.mb-4
+                        | By adding the 
+                        <code class='code-inline'>.table-dark</code>
+                        | class to the table element, the table will take on an inverse color system with a dark background and light text.
+
+                    +demo({
+                        id: 'tableDark'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.table-striped.table-dark.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover table-striped table-dark">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover.table-striped.table-dark
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Colored Tables
+
+                #color
+                    h2.mb-4 Adding Color
+                    p.mb-4
+                        | Color can be added to the entire table by using a table background class. These classes are named using the format
+                        code.code-inline .table-{color}
+                        | where
+                        em color
+                        | is any color defined on the color map.
+
+                    +demo({
+                        id: 'tableColors'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.table-primary.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover table-primary">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover.table-primary
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    p.mb-4
+                        | Color can be added to a single row as well, also using the same
+                        code.code-inline .table-{color}
+                        | classes.
+
+                    +demo({
+                        id: 'tableColorsRow'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr.table-primary
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr.table-primary
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td(colspan='2') Larry the Bird
+                                            td @twitter</script>
+
+                    p.mb-4 Color can also be applied to a single cell using the table color classes.
+
+                    +demo({
+                        id: 'tableColorsCell'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td.table-primary(colspan='2') Larry the Bird
+                                            td @twitter
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td class="table-primary" colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr
+                                            th(scope='row') 3
+                                            td.table-primary(colspan='2') Larry the Bird
+                                            td @twitter</script>
+                    
+                    p
+                        | The table specific background classes are used to change the color of entire tables, rows, or individual cells. The classes are named using the format
+                        code.code-inline .table-{color}
+                        | where
+                        em color
+                        | is any color defined within the color map.
+                    p.mb-4
+                        | The color options for tables are compatible with the hover, striped, and other table states.
+
+                    +demo({
+                        id: 'tableColorUtilities'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                table.table.table-bordered.table-hover.mb-0
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr.table-primary
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr.table-secondary
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-success
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-danger
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-warning
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-info
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-light
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-dark
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">First</th>
+                                            <th scope="col">Last</th>
+                                            <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-primary">
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr class="table-secondary">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr class="table-success">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr class="table-danger">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr class="table-warning">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr class="table-info">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr class="table-light">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr class="table-dark">
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                    </tbody>
+                                </table></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>table.table.table-bordered.table-hover
+                                    thead
+                                        tr
+                                            th(scope='col') #
+                                            th(scope='col') First
+                                            th(scope='col') Last
+                                            th(scope='col') Handle
+                                    tbody
+                                        tr.table-primary
+                                            th(scope='row') 1
+                                            td Mark
+                                            td Otto
+                                            td @mdo
+                                        tr.table-secondary
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-success
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-danger
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-warning
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-info
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-light
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat
+                                        tr.table-dark
+                                            th(scope='row') 2
+                                            td Jacob
+                                            td Thornton
+                                            td @fat</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/icons/data-tables.svg')
+                                .card-title.text-truncate.mb-2 Data Tables Plugin
+                                p.card-text Material Admin Pro Data Tables Plugin
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='plugins-data-tables.html', title='Data Tables Plugin') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#bordered') Bordered
+                        li.nav-item
+                            a.nav-link(href='#hoverable') Hoverable
+                        li.nav-item
+                            a.nav-link(href='#striped') Striped
+                        li.nav-item
+                            a.nav-link(href='#small') Small
+                        li.nav-item
+                            a.nav-link(href='#dark') Dark
+                        li.nav-item
+                            a.nav-link(href='#color') Adding Color
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

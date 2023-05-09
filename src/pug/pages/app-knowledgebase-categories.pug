@@ -1,0 +1,175 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Dashboard'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.bg-dark
+        .container-xl.px-5
+            h1.text-white.py-3.mb-0.display-6 Knowledgebase - Categories
+
+    .container-xl.p-5
+
+        .row.row-cols-1.row-cols-md-2.row-cols-xl-3.gx-5
+            .col
+                // Collapsible card (users)
+                #usersCollapse.card.card-raised.card-collapsible.mb-5
+                    .card-header.bg-transparent(data-bs-toggle='collapse', data-bs-target='#usersCollapseContent', aria-expanded='true', aria-controls='usersCollapseContent')
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary person
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Users
+                                .small Add or manage users
+                        i.material-icons.card-header-icon expand_less
+                    #usersCollapseContent.card-body.px-0.collapse.show(data-bs-parent='#usersCollapse')
+                        .nav.flex-column
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Add a user
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Delete a user
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Update a users name or email
+                // Single card (groups)
+                .card.card-raised.ripple-primary.mb-5
+                    .card-body
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary groups
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Groups
+                                a.small.stretched-link.text-reset.text-decoration-none(href='#!') Create or manage groups
+                // Single card (insights)
+                .card.card-raised.ripple-primary.mb-5.mb-xl-0
+                    .card-body
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary insights
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Insights
+                                a.small.stretched-link.text-reset.text-decoration-none(href='#!') View activity reports
+            .col
+                // Collapsible card (billing)
+                #billingCollapse.card.card-raised.card-collapsible.mb-5
+                    .card-header.bg-transparent(data-bs-toggle='collapse', data-bs-target='#billingCollapseContent', aria-expanded='true', aria-controls='billingCollapseContent')
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary credit_card
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Billing
+                                .small Manage subscriptions
+                        i.material-icons.card-header-icon expand_less
+                    #billingCollapseContent.card-body.px-0.collapse.show(data-bs-parent='#billingCollapse')
+                        .nav.flex-column
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Manage subscriptions
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Payment accounts
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Get more services
+                // Single card (devices)
+                .card.card-raised.ripple-primary.mb-5
+                    .card-body
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary devices
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Devices
+                                a.small.stretched-link.text-reset.text-decoration-none(href='#!') Manage devices and data
+                // Single card (support)
+                .card.card-raised.ripple-primary.mb-5.mb-xl-0
+                    .card-body
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary support
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Support
+                                a.small.stretched-link.text-reset.text-decoration-none(href='#!') Connect with the support team
+            .col
+                // Collapsible Card (domains)
+                #domainsCollapse.card.card-raised.card-collapsible.mb-5
+                    .card-header.bg-transparent(data-bs-toggle='collapse', data-bs-target='#domainsCollapseContent', aria-expanded='true', aria-controls='domainsCollapseContent')
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary language
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Domains
+                                .small Manage your domains
+                        i.material-icons.card-header-icon expand_less
+                    #domainsCollapseContent.card-body.px-0.collapse.show(data-bs-parent='#domainsCollapse')
+                        .nav.flex-column
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Manage domains
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Add a domain
+                            a.nav-link.ripple-gray.px-3.py-2(href='#!') Change your primary domain
+                // Single card (security)
+                .card.card-raised.ripple-primary.mb-5
+                    .card-body
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary security
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Security
+                                a.small.stretched-link.text-reset.text-decoration-none(href='#!') Configure security settings
+                // Single card (migration)
+                .card.card-raised.ripple-primary
+                    .card-body
+                        .d-flex.align-items-center
+                            i.material-icons.text-primary input
+                            .ms-3
+                                .fs-6.mb-1.fw-500 Migration
+                                a.small.stretched-link.text-reset.text-decoration-none(href='#!') Move data from other platforms
+        // Divider
+        hr.my-5
+        section.text-center
+            .subheading-1.mb-2 Was this article helpful?
+            .mb-3
+                button.btn.btn-outline-primary.mx-1(type='button')
+                    i.material-icons.leading-icon thumb_up
+                    | Yes
+                button.btn.btn-outline-primary.mx-1(type='button')
+                    i.material-icons.leading-icon thumb_down
+                    | No
+            .small.text-muted 4 out of 5 found this article helpful

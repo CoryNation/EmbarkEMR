@@ -1,0 +1,135 @@
+// * * * * * * * * * *
+// * * Typography  * *
+// * * * * * * * * * *
+
+// 
+// Code type styles
+// 
+
+.font-monospace {
+    -moz-osx-font-smoothing: auto;
+    -webkit-font-smoothing: auto;
+}
+
+code {
+    font-weight: 500;
+    letter-spacing: .0333333333em;
+    line-height: 1.75;
+}
+
+code.code-inline {
+    display: inline-block;
+    background-color: $gray-100;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    border-radius: 2px;
+}
+
+// 
+// Base typography styling
+//
+
+strong,
+.fw-bold {
+    letter-spacing: 0.0073529412em;
+}
+
+//
+// Display typography styling
+// 
+
+*[class*="display-"] {
+    color: $headings-color;
+}
+
+.display-1 {
+    font-weight: 300;
+    line-height: 6rem;
+    letter-spacing: -0.015625em;
+}
+
+.display-2 {
+    line-height: 3.75rem;
+    letter-spacing: -0.0083333333em;
+}
+
+.display-3 {
+    line-height: 3.125rem;
+}
+
+.display-4 {
+    line-height: 2.5rem;
+    letter-spacing: 0.0073529412em;
+}
+
+.display-5 {
+    line-height: 2rem;
+}
+
+.display-6 {
+    line-height: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.0125em;
+}
+
+// 
+// Subheadings
+// 
+
+.subheading-1 {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    font-weight: 400;
+    letter-spacing: 0.009375em;
+}
+
+.subheading-2 {
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    font-weight: 500;
+    letter-spacing: 0.0071428571em;
+}
+
+.overline {
+    font-size: 0.75rem;
+    line-height: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.1666666667em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+// 
+// Small typography styling
+// 
+
+small {
+    letter-spacing: 0.0178571429em;
+}
+
+.small {
+    letter-spacing: 0.0178571429em;
+    font-size: $font-size-sm;
+}
+
+.caption {
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.0333333333em;
+}
+
+// 
+// Page header
+// 
+
+.page-header {
+    @extend .display-2;
+}
+
+//
+// Superscript
+//
+
+sup {
+    top: -0.2em;
+}

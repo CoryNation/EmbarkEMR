@@ -1,0 +1,626 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Cards'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/cards.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Cards
+        .row.gx-5
+            .col-lg-9
+                p Cards contain content and actions about a single subject. In Material Admin Pro, cards support a wide variety of content, including headers and footers, images, actions, and more. Some additions have been made past Bootstrap's default card markup in order to support Material's Design's card styling guidelines.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Example card  * *
+                //- * * * * * * * * * * *
+
+                #example
+                    h2.mb-4 Example Card
+                    p Cards in Material Admin Pro are constructed using HTML markup familiar to Bootstrap with a few additions. Custom elements and utilities have been created to extend Bootstrap's default styling to match Material's design system.
+                    p.mb-4 The example below shows a card created using Bootstrap default elements (image cap, card body, card title, card subtitle, and card text) with the custom card action bar element and the ripple utility.
+
+                    +demo({
+                        id: 'cardExample'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+
+                                    .card.card-raised
+                                        a.ripple-gray(href='#!')
+                                            img.card-img-top(src='https://source.unsplash.com/iEOATKFQyTo/700x394', alt='...')
+                                        .card-body
+                                            h2.card-title Our Changing Planet
+                                            h3.card-subtitle.mb-3 by Start Bootstrap
+                                            p.card-text Visit ten places on our plant that are undergoing the biggest changes today.
+                                        .card-actions
+                                            .card-action-buttons
+                                                button.btn.btn-text-primary(type='button') Read
+                                                button.btn.btn-text-primary(type='button') Bookmark
+                                            .card-action-icons
+                                                button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                    i.material-icons favorite
+                                                button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                    i.material-icons share
+                                                button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                    i.material-icons more_vert
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="card card-raised">
+                                    <a class="ripple-gray" href="#!"><img class="card-img-top" src="https://source.unsplash.com/iEOATKFQyTo/700x394" alt="..."></a>
+                                    <div class="card-body">
+                                        <h2 class="card-title">Our Changing Planet</h2>
+                                        <h3 class="card-subtitle mb-3">by Start Bootstrap</h3>
+                                        <p class="card-text">Visit ten places on our plant that are undergoing the biggest changes today.</p>
+                                    </div>
+                                    <div class="card-actions">
+                                        <div class="card-action-buttons">
+                                            <button class="btn btn-text-primary" type="button">Read</button>
+                                            <button class="btn btn-text-primary" type="button">Bookmark</button>
+                                        </div>
+                                        <div class="card-action-icons">
+                                            <button class="btn btn-text-dark btn-icon btn-lg" type="button"><i class="material-icons">favorite</i></button>
+                                            <button class="btn btn-text-dark btn-icon btn-lg" type="button"><i class="material-icons">share</i></button>
+                                            <button class="btn btn-text-dark btn-icon btn-lg" type="button"><i class="material-icons">more_vert</i></button>
+                                        </div>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.card.card-raised
+                                    a.ripple-gray(href='#!')
+                                        img.card-img-top(src='https://source.unsplash.com/iEOATKFQyTo/700x394', alt='...')
+                                    .card-body
+                                        h2.card-title Our Changing Planet
+                                        h3.card-subtitle.mb-3 by Start Bootstrap
+                                        p.card-text Visit ten places on our plant that are undergoing the biggest changes today.
+                                    .card-actions
+                                        .card-action-buttons
+                                            button.btn.btn-text-primary(type='button') Read
+                                            button.btn.btn-text-primary(type='button') Bookmark
+                                        .card-action-icons
+                                            button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                i.material-icons favorite
+                                            button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                i.material-icons share
+                                            button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                i.material-icons more_vert</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Default card  * *
+                //- * * * * * * * * * * *
+
+                #default
+                    h2.mb-4 Default Card
+                    p.mb-4
+                        | The default styling for the cards in this toolkit match Material's outline card variant. These default cards have a white background with a subtle border and no elevation, appearing flat on the surface.
+
+                    +demo({
+                        id: 'defaultCard'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+                                    .card
+                                        .card-body
+                                            h2.card-title Card Title
+                                            p.card-text Card Body
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="card">
+                                    <div class="card-body">
+                                        <h2 class="card-title">Card Title</h2>
+                                        <p class="card-text">Card Body</p>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.card
+                                    .card-body
+                                        h2.card-title Card Title
+                                        p.card-text Card Body</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Raised card * *
+                //- * * * * * * * * * *
+
+                #raised
+                    h2.mb-4 Raised Card
+                    p.mb-4
+                        | Another styling option for cards is the raised variation. Use the
+                        code.code-inline .card-raised
+                        | class with a card to add a slight elevation to the component giving the card depth and emphasis.
+                    
+                    +demo({
+                        id: 'raisedCard'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+                                    .card.card-raised
+                                        .card-body
+                                            h2.card-title Card Title
+                                            p.card-text Card Body
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="card card-raised">
+                                    <div class="card-body">
+                                        <h2 class="card-title">Card Title</h2>
+                                        <p class="card-text">Card Body</p>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.card.card-raised
+                                    .card-body
+                                        h2.card-title Card Title
+                                        p.card-text Card Body</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * *
+                //- * * Card header and footer  * *
+                //- * * * * * * * * * * * * * * * *
+
+                #headerfooter
+                    h2.mb-4 Header &amp; Footer
+                    p.mb-4
+                        | The card header and footer elements are built into the Bootstrap framework, but are not part of Material Design's specifications. They have been included and styled match Material Design's styling as closely as possible.
+
+                    +demo({
+                        id: 'headerFooterCard'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+                                    .card.card-raised
+                                        .card-header
+                                            | Card Header
+                                        .card-body
+                                            h2.card-title Card Title
+                                            p.card-text Card Body
+                                        .card-footer
+                                            | Card Footer
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="card card-raised">
+                                    <div class="card-header">Card Header</div>
+                                    <div class="card-body">
+                                        <h2 class="card-title">Card Title</h2>
+                                        <p class="card-text">Card Body</p>
+                                    </div>
+                                    <div class="card-footer">Card Footer</div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.card.card-raised
+                                    .card-header
+                                        | Card Header
+                                    .card-body
+                                        h2.card-title Card Title
+                                        p.card-text Card Body
+                                    .card-footer
+                                        | Card Footer</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Card actions  * *
+                //- * * * * * * * * * * *
+
+                #actions
+                    h2.mb-4 Actions
+                    p
+                        | Card actions part of Material Design's card specifications, but are not within the scope of Bootstrap's default card. A completely custom card action element has been created using the same naming logic used by other elements within Bootstrap's card component.
+                    p.mb-4
+                        | The buttons in the card action icons element make use of the custom
+                        a(href='components-icon-buttons.html') icon buttons component
+                        | as well.
+
+                    +demo({
+                        id: 'cardActions'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+                                    .card.card-raised
+                                        .card-body
+                                            h2.card-title Card Title
+                                            p.card-text Card Body
+                                        .card-actions
+                                            .card-action-buttons
+                                                button.btn.btn-text-primary(type='button') Read
+                                                button.btn.btn-text-primary(type='button') Bookmark
+                                            .card-action-icons
+                                                button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                    i.material-icons favorite
+                                                button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                    i.material-icons share
+                                                button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                    i.material-icons more_vert
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="card card-raised">
+                                    <div class="card-body">
+                                        <h2 class="card-title">Card Title</h2>
+                                        <p class="card-text">Card Body</p>
+                                    </div>
+                                    <div class="card-actions">
+                                        <div class="card-action-buttons">
+                                            <button class="btn btn-text-primary" type="button">Read</button>
+                                            <button class="btn btn-text-primary" type="button">Bookmark</button>
+                                        </div>
+                                        <div class="card-action-icons">
+                                            <button class="btn btn-text-dark btn-icon btn-lg"><i class="material-icons">favorite</i></button>
+                                            <button class="btn btn-text-dark btn-icon btn-lg"><i class="material-icons">share</i></button>
+                                            <button class="btn btn-text-dark btn-icon btn-lg"><i class="material-icons">more_vert</i></button>
+                                        </div>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.card.card-raised
+                                    .card-body
+                                        h2.card-title Card Title
+                                        p.card-text Card Body
+                                    .card-actions
+                                        .card-action-buttons
+                                            button.btn.btn-text-primary(type='button') Read
+                                            button.btn.btn-text-primary(type='button') Bookmark
+                                        .card-action-icons
+                                            button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                i.material-icons favorite
+                                            button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                i.material-icons share
+                                            button.btn.btn-text-dark.btn-icon.btn-lg(type='button')
+                                                i.material-icons more_vert</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Card collapsible  * *
+                //- * * * * * * * * * * * * *
+
+                #collapsible
+                    h2.mb-4 Collapsible
+                    p.mb-4
+                        | Using Bootstrap's built-in collapse plugin, we use the card header as a collapse trigger for the card body to create this custom component.
+
+                    +demo({
+                        id: 'cardCollapsible'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+                                    #cardCollapsible.card.card-raised.card-collapsible
+                                        .card-header(data-bs-toggle='collapse', data-bs-target='#cardCollapsibleContent', aria-expanded='true', aria-controls='cardCollapsibleContent')
+                                            | Card Header
+                                            i.material-icons.card-header-icon expand_less
+                                        #cardCollapsibleContent.card-body.collapse.show(data-bs-parent='#cardCollapsible')
+                                            p.card-text This is the contents of the collapisble card. Click on the card header to toggle this feature!
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="card card-raised card-collapsible" id="cardCollapsible">
+                                    <div class="card-header" data-bs-toggle="collapse" data-bs-target="#cardCollapsibleContent" aria-expanded="true" aria-controls="cardCollapsibleContent">Card Header<i class="material-icons card-header-icon">expand_less</i></div>
+                                    <div class="card-body collapse show" id="cardCollapsibleContent" data-bs-parent="#cardCollapsible">
+                                        <p class="card-text>This is the contents of the collapisble card. Click on the card header to toggle this feature!</p>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">#cardCollapsible.card.card-raised.card-collapsible
+                                    .card-header(data-bs-toggle='collapse', data-bs-target='#cardCollapsibleContent', aria-expanded='true', aria-controls='cardCollapsibleContent')
+                                        | Card Header
+                                        i.material-icons.card-header-icon expand_less
+                                    #cardCollapsibleContent.card-body.collapse.show(data-bs-parent='#cardCollapsible')
+                                        p.card-text This is the contents of the collapisble card. Click on the card header to toggle this feature!</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Card images * *
+                //- * * * * * * * * * *
+
+                #images
+                    h2.mb-4 Images
+                    p.mb-4
+                        | There are a few options available for using images within the card component. The most common is an image cap above the card body content. The top image cap, bottom image cap, image overlay, and images horizontal to the content are all supported.
+                    
+                    //- * * Card images - caps * *
+
+                    #imagesCaps
+                        h3.mb-4 Image Caps
+
+                        p.mb-4
+                            | Card image caps can be placed above or below the card body using the 
+                            code.code-inline .card-img-top
+                            | or the 
+                            code.code-inline .card-img-bottom
+                            | classes as demonstrated below.
+
+                        +demo({
+                            id: 'cardImages'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    div.w-100(style='max-width: 21.875rem;')
+                                        //- Card Image Top
+                                        .card.card-raised.mb-4
+                                            img.card-img-top(src='https://source.unsplash.com/iEOATKFQyTo/700x394', alt='...')
+                                            .card-body
+                                                h2.card-title Image Cap (Top)
+                                                p.card-text Card Body
+
+                                        //- Card Image Bottom
+                                        .card.card-raised
+                                            .card-body
+                                                h2.card-title Image Cap (Bottom)
+                                                p.card-text Card Body
+                                            img.card-img-bottom(src='https://source.unsplash.com/iEOATKFQyTo/700x394', alt='...')
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><!-- Card Image Top -->
+                                    <div class="card card-raised">
+                                        <img class="card-img-top" src="https://source.unsplash.com/iEOATKFQyTo/700x394" alt="...">
+                                        <div class="card-body">
+                                            <h2 class="card-title">Image Cap (Top)</h2>
+                                            <p class="card-text">Card Body</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card Image Bottom -->
+                                    <div class="card card-raised">
+                                        <div class="card-body">
+                                            <h2 class="card-title">Image Cap (Bottom)</h2>
+                                            <p class="card-text">Card Body</p>
+                                        </div>
+                                        <img class="card-img-bottom" src="https://source.unsplash.com/iEOATKFQyTo/700x394" alt="...">
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">//- Card Image Top
+                                            .card.card-raised
+                                                img.card-img-top(src='https://source.unsplash.com/iEOATKFQyTo/700x394', alt='...')
+                                                .card-body
+                                                    h2.card-title Image Cap (Top)
+                                                    p.card-text Card Body
+
+                                            //- Card Image Bottom
+                                            .card.card-raised
+                                                .card-body
+                                                    h2.card-title Image Cap (Bottom)
+                                                    p.card-text Card Body
+                                                img.card-img-bottom(src='https://source.unsplash.com/iEOATKFQyTo/700x394', alt='...')</script>
+
+                    //- * * Card images - overlay * *
+
+                    #imagesOverlay
+                        h3.mb-4 Image Overlay
+
+                        p
+                            | Alternatively, an image can overlay the entire background of the card component. Depending on the image you are using, you may need to use a
+                            a(href='utilities-text.html') text utility 
+                            | to change the text color of the content.
+                        p.mb-4
+                            | In the example below, the 
+                            code.code-inline .text-white
+                            | utility is used on the card title and card text.
+
+                        +demo({
+                            id: 'cardImagesOverlay'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    div.w-100(style='max-width: 21.875rem;')
+                                        .card.card-raised
+                                            img.card-img(src='https://source.unsplash.com/K9QHL52rE2k/700x394', alt='...')
+                                            .card-img-overlay
+                                                h2.card-title.text-white Card Title
+                                                p.card-text.text-white Card Body
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><div class="card card-raised">
+                                        <img class="card-img" src="https://source.unsplash.com/K9QHL52rE2k/700x394" alt="...">
+                                        <div class="card-img-overlay">
+                                            <h2 class="card-title text-white">Card Title</h2>
+                                            <p class="card-text text-white">Card Body</p>
+                                        </div>
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">.card.card-raised
+                                        img.card-img(src='https://source.unsplash.com/K9QHL52rE2k/700x394', alt='...')
+                                        .card-img-overlay
+                                            h2.card-title.text-white Card Title
+                                            p.card-text.text-white Card Body</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * *
+                //- * * Experimental cards  * *
+                //- * * * * * * * * * * * * * *
+
+                #experimental
+                    h2.mb-4 Experimental Cards
+                    p
+                        | With the many utility classes and custom styling available with Material Admin Pro, we have created an experimental card element called a
+                        em card quick link.
+                        | This card has it's own class,
+                        code.code-inline .card-quick-link
+                        | which is appended to the
+                        code.code-inline .card
+                        | element.
+                    p.mb-4
+                        | Some of the styling for this card experiment is for modern browsers only, and we recommend testing your desired browser when using this element in a production setting.
+
+                    +demo({
+                        id: 'cardExperiments'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 18rem;')
+                                    .card.card-quick-link.card-raised.ripple-gray
+                                        .card-body
+                                            img.card-quick-link-img(src='assets/img/icons/cards.svg')
+                                            .card-title.text-truncate.mb-2 Card Quick Link
+                                            p.card-text Card quick link text
+                                        .card-actions
+                                            a.card-link.text-muted.text-decoration-none.stretched-link(href='#!', title='Card Quick Link') Related Link
+                                            i.material-icons.text-muted.rotate-45 arrow_upward
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Card Quick Link -->
+                                <div class="card card-quick-link card-raised ripple-gray">
+                                    <div class="card-body">
+                                        <img class="card-quick-link-img" src="/assets/img/icons/cards.svg" />
+                                        <div class="card-title text-truncate mb-2">Card Quick Link</div>
+                                        <p class="card-text">Card quick link text</p>
+                                    </div>
+                                    <div class="card-actions">
+                                        <a class="card-link text-muted text-decoration-none stretched-link" href="#!" title="Card Quick Link">Related Link</a>
+                                        <i class="material-icons text-muted rotate-45">arrow_upward</i>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Card Quick Link
+                                .card.card-quick-link.card-raised.ripple-gray
+                                    .card-body
+                                        img.card-quick-link-img(src='assets/img/icons/cards.svg')
+                                        .card-title.text-truncate.mb-2 Card Quick Link
+                                        p.card-text Card quick link text
+                                    .card-actions
+                                        a.card-link.text-muted.text-decoration-none.stretched-link(href='#!', title='Card Quick Link') Related Link
+                                        i.material-icons.text-muted.rotate-45 arrow_upward</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg')
+                                .card-title.text-truncate.mb-2 Bootstrap Card Documentation
+                                p.card-text Bootstrap's card component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/card/', target='_blank', title='Bootstrap Card Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#example') Card Example
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#raised') Raised
+                        li.nav-item
+                            a.nav-link(href='#headerfooter') Header &amp; Footer
+                        li.nav-item
+                            a.nav-link(href='#actions') Actions
+                        li.nav-item
+                            a.nav-link(href='#collapsible') Collapsible
+                        li.nav-item
+                            a.nav-link(href='#images') Images
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#imagesCaps') Image Caps
+                                li.nav-item
+                                    a.nav-link.border-0(href='#imagesOverlay') Image Overlay
+                        li.nav-item
+                            a.nav-link(href='#experimental') Experimental
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

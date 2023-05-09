@@ -1,0 +1,27 @@
+// Modals
+
+// Padding applied to the modal body
+$modal-inner-padding:               $spacer;
+
+// Margin between elements in footer, must be lower than or equal to 2 * $modal-inner-padding
+$modal-footer-margin-between:       0;
+
+$modal-content-color:               $gray-700;
+$modal-content-border-width:        0;
+$modal-content-border-radius:       $border-radius;
+
+$modal-backdrop-opacity:            .35;
+$modal-header-border-width:         0;
+$modal-footer-border-width:         0;
+
+$modal-body-padding-x:              $modal-inner-padding * 1.5;
+$modal-body-padding-y:              $modal-inner-padding * 1.25;
+
+$modal-footer-padding-x:            $modal-inner-padding * 0.5;
+$modal-footer-padding-y:            $modal-inner-padding * 0.5;
+
+$modal-header-padding-x:            $modal-inner-padding * 1.5;
+$modal-header-padding-y:            $modal-inner-padding;
+
+$modal-fade-transform:              scale(0.8);
+$modal-transition:                  transform .1s ease-out;

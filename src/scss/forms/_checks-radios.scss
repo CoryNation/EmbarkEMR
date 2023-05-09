@@ -1,0 +1,21 @@
+// * * * * * * * * * * * * 
+// * * Checks & Radios * *
+// * * * * * * * * * * * *
+
+//
+// Set the default color (secondary) of the checkbox and
+// radio web components to instead be the primary color of
+// the theme.
+// 
+
+mwc-checkbox {
+    --mdc-theme-secondary: #{$primary};
+}
+
+mwc-radio {
+    --mdc-theme-secondary: #{$primary};
+}
+
+mwc-switch {
+    --mdc-theme-secondary: #{$primary};
+}

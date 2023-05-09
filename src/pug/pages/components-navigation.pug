@@ -1,0 +1,787 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Navigation'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/navs.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Navigation
+        .row.gx-5
+            .col-lg-9
+                p Navigation menus make it easy to explore and switch between different content and views.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * *
+                //- * * Base Nav  * *
+                //- * * * * * * * * *
+
+                #nav-base
+                    h2.mb-4 Base Nav
+                    p.mb-4
+                        | The base nav component from Bootstrap acts as a foundation for building all types of other navigation components.
+
+                    +demo({
+                        id: 'baseNav'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                ul.nav
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    p.mb-4
+                        | The
+                        code.code-inline .nav
+                        | component is built with flexbox. Bootstrap's flex utilities can be used to change the positioning of the component. For example, the nav component can be centered, shown below.
+
+                    +demo({
+                        id: 'baseNavCenter'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                ul.nav.justify-content-center
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav justify-content-center">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav.justify-content-center
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    p.mb-4
+                        | The component can be aligned to the right as well.
+
+                    +demo({
+                        id: 'baseNavRight'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                ul.nav.justify-content-end
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav justify-content-end">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav.justify-content-end
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    p.mb-4
+                        | Or alternatively, the component can be modified to show vertically.
+
+                    +demo({
+                        id: 'baseNavVertical'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                ul.nav.flex-column
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav.flex-column
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    p.mb-4
+                        | All of the above examples use an unordered list element and list items, but using the
+                        code.code-inline &lt;ul&gt;
+                        | and
+                        code.code-inline &lt;li&gt;
+                        | elements are not required in situations where the list context isn't necessary.
+
+                    +demo({
+                        id: 'baseNavNoList'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .nav
+                                    a.nav-link.active(aria-current='page' href='#!') Active
+                                    a.nav-link(href='#!') Link
+                                    a.nav-link(href='#!') Link
+                                    a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="nav">
+                                    <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    <a class="nav-link" href="#!">Link</a><a class="nav-link" href="#!">Link</a>
+                                    <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.nav
+                                    a.nav-link.active(aria-current='page' href='#!') Active
+                                    a.nav-link(href='#!') Link
+                                    a.nav-link(href='#!') Link
+                                    a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * *
+                //- * * Tabs  * *
+                //- * * * * * * *
+
+                #nav-tabs
+                    h2.mb-4 Tabs
+                    p.mb-4
+                        | The tabs styling for the nav component is one variation of presenting a simple navigation. Simply add the
+                        code.code-inline .nav-tabs
+                        | class to the nav component to use this option. The nav tabs retain most of their Bootstrap default styling, except the ripple effect has been added.
+
+                    +demo({
+                        id: 'navTabsDemo'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                ul.nav.nav-tabs
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav.nav-tabs
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * *
+                //- * * Pills * *
+                //- * * * * * * *
+
+                #nav-pills
+                    h2.mb-4 Pills
+                    p.mb-4
+                        | The pills styling for the nav component is another variation for structuring navigation. Simply add the
+                        code.code-inline .nav-pills
+                        | class to the nav component to use this option. This option also retains much of it's Bootstrap default styling, wtih the addition of the ripple effect.
+
+                    +demo({
+                        id: 'navPillsDemo'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                ul.nav.nav-pills
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav.nav-pills
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    p.mb-4
+                        | Flex utilities can be used with pills to make the menu fill the full available width of the components parent using the
+                        code.code-inline .nav-fill
+                        | class.
+
+                    +demo({
+                        id: 'navPillsFillDemo'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                ul.nav.nav-pills.nav-fill
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav nav-pills nav-fill">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="#!">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#!">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#!" tabindex="-1" aria-disabled="true">Disabled</a>
+                                    </li>
+                                </ul></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul.nav.nav-pills.nav-fill
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page' href='#!') Active
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link(href='#!') Link
+                                    li.nav-item
+                                        a.nav-link.disabled(href='#!' tabindex='-1' aria-disabled='true') Disabled</script>
+
+                    p.mb-4
+                        | To expand on the above examples and to see more options available with Bootstrap's nav component, visit
+                        a(href='https://getbootstrap.com/docs/5.2/components/navs-tabs/', target='_blank') Bootstrap's nav and tabs documentation
+                        | page.
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * *
+                //- * * Tab Bar * *
+                //- * * * * * * * *
+
+                #nav-tab-bar
+                    h2.mb-4 Tab Bar
+                    p.mb-4
+                        | The tab bar web component has been brought into this theme from the Material Web Components library as another option for navigation menus. This
+                        em web component
+                        | is a reusable, custom element that has its functionality encapsulated away from the rest of the code, making it easy to implement and use quickly.
+
+                    +demo({
+                        id: 'materialTabBar'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                mwc-tab-bar
+                                    mwc-tab(label='Tab one')
+                                    mwc-tab(label='Tab two')
+                                    mwc-tab(label='Tab three')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><mwc-tab-bar>
+                                    <mwc-tab label='Tab one'></mwc-tab>
+                                    <mwc-tab label='Tab two'></mwc-tab>
+                                    <mwc-tab label='Tab three'></mwc-tab>
+                                </mwc-tab-bar></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>mwc-tab-bar
+                                    mwc-tab(label='Tab one')
+                                    mwc-tab(label='Tab two')
+                                    mwc-tab(label='Tab three')</script>
+                    
+                    p.mb-4
+                        | Material Icons are also supported within the Material tab bar web component.
+
+                    +demo({
+                        id: 'materialTabBarIcons'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                mwc-tab-bar
+                                    mwc-tab(label='Tab one', icon='accessibility')
+                                    mwc-tab(label='Tab two', icon='exit_to_app')
+                                    mwc-tab(label='Tab three', icon='camera')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><mwc-tab-bar>
+                                    <mwc-tab label="Tab one" icon="accessibility"></mwc-tab>
+                                    <mwc-tab label="Tab two" icon="exit_to_app"></mwc-tab>
+                                    <mwc-tab label="Tab three" icon="camera"></mwc-tab>
+                                </mwc-tab-bar></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>mwc-tab-bar
+                                    mwc-tab(label='Tab one', icon='accessibility')
+                                    mwc-tab(label='Tab two', icon='exit_to_app')
+                                    mwc-tab(label='Tab three', icon='camera')</script>
+
+                    p.mb-5
+                        | Additional styling and configuration options are available when using this component like sizing, icons, images, preselection, and others. Visit the
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/tab-bar', target='_blank') Material Web Components Catalog
+                        | to explore more options for the tab bar web component.
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Nav JS Behavior * *
+                //- * * * * * * * * * * * *
+
+                #nav-js
+                    h2.mb-4 JavaScript Behavior
+                    p.mb-4
+                        | Bootstrap includes JavaScript behavior that gives the nav component extended functionality to include tabbable panes of local content. The examples below are enabled using data attributes within the HTML, but JavaScript behavior is also supported.
+
+                    +demo({
+                        id: 'navJsTabs'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                ul#myTab.nav.nav-tabs(role='tablist')
+                                    li.nav-item(role='presentation')
+                                        button#home-tab.nav-link.active(data-bs-toggle='tab', data-bs-target='#home', type='button', role='tab', aria-controls='home', aria-selected='true') Home
+                                    li.nav-item(role='presentation')
+                                        button#profile-tab.nav-link(data-bs-toggle='tab', data-bs-target='#profile', type='button', role='tab', aria-controls='profile', aria-selected='false') Profile
+                                    li.nav-item(role='presentation')
+                                        button#contact-tab.nav-link(data-bs-toggle='tab', data-bs-target='#contact', type='button', role='tab', aria-controls='contact', aria-selected='false') Contact
+                                #myTabContent.tab-content.border.border-top-0.p-3
+                                    #home.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='home-tab') Home Tab Content
+                                    #profile.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab') Profile Tab Content
+                                    #contact.tab-pane.fade(role='tabpanel', aria-labelledby='contact-tab') Contact Tab Content
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content border border-top-0 p-3" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">Home Tab Content</div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">Profile Tab Content</div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Contact Tab Content</div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul#myTab.nav.nav-tabs(role='tablist')
+                                    li.nav-item(role='presentation')
+                                        button#home-tab.nav-link.active(data-bs-toggle='tab', data-bs-target='#home', type='button', role='tab', aria-controls='home', aria-selected='true') Home
+                                    li.nav-item(role='presentation')
+                                        button#profile-tab.nav-link(data-bs-toggle='tab', data-bs-target='#profile', type='button', role='tab', aria-controls='profile', aria-selected='false') Profile
+                                    li.nav-item(role='presentation')
+                                        button#contact-tab.nav-link(data-bs-toggle='tab', data-bs-target='#contact', type='button', role='tab', aria-controls='contact', aria-selected='false') Contact
+                                #myTabContent.tab-content.border.border-top-0.p-3
+                                    #home.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='home-tab') Home Tab Content
+                                    #profile.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab') Profile Tab Content
+                                    #contact.tab-pane.fade(role='tabpanel', aria-labelledby='contact-tab') Contact Tab Content</script>
+
+                    p.mb-4
+                        | Nav pills are also supported in a similar fashion.
+
+                    +demo({
+                        id: 'navJsPills'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                ul#pills-tab.nav.nav-pills.mb-3(role='tablist')
+                                    li.nav-item(role='presentation')
+                                        button#pills-home-tab.nav-link.active(data-bs-toggle='pill', data-bs-target='#pills-home', type='button', role='tab', aria-controls='pills-home', aria-selected='true') Home
+                                    li.nav-item(role='presentation')
+                                        button#pills-profile-tab.nav-link(data-bs-toggle='pill', data-bs-target='#pills-profile', type='button', role='tab', aria-controls='pills-profile', aria-selected='false') Profile
+                                    li.nav-item(role='presentation')
+                                        button#pills-contact-tab.nav-link(data-bs-toggle='pill', data-bs-target='#pills-contact', type='button', role='tab', aria-controls='pills-contact', aria-selected='false') Contact
+                                #pills-tabContent.tab-content
+                                    #pills-home.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='pills-home-tab') Home Tab Content
+                                    #pills-profile.tab-pane.fade(role='tabpanel', aria-labelledby='pills-profile-tab') Profile Tab Content
+                                    #pills-contact.tab-pane.fade(role='tabpanel', aria-labelledby='pills-contact-tab') Contact Tab Content
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="pills-tabContent">
+                                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">Home Tab Content</div>
+                                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">Profile Tab Content</div>
+                                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">Contact Tab Content</div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>ul#pills-tab.nav.nav-pills.mb-3(role='tablist')
+                                    li.nav-item(role='presentation')
+                                        button#pills-home-tab.nav-link.active(data-bs-toggle='pill', data-bs-target='#pills-home', type='button', role='tab', aria-controls='pills-home', aria-selected='true') Home
+                                    li.nav-item(role='presentation')
+                                        button#pills-profile-tab.nav-link(data-bs-toggle='pill', data-bs-target='#pills-profile', type='button', role='tab', aria-controls='pills-profile', aria-selected='false') Profile
+                                    li.nav-item(role='presentation')
+                                        button#pills-contact-tab.nav-link(data-bs-toggle='pill', data-bs-target='#pills-contact', type='button', role='tab', aria-controls='pills-contact', aria-selected='false') Contact
+                                #pills-tabContent.tab-content
+                                    #pills-home.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='pills-home-tab') Home Tab Content
+                                    #pills-profile.tab-pane.fade(role='tabpanel', aria-labelledby='pills-profile-tab') Profile Tab Content
+                                    #pills-contact.tab-pane.fade(role='tabpanel', aria-labelledby='pills-contact-tab') Contact Tab Content</script>
+
+                    p.mb-4
+                        | The Material tab bar web component can also be used alongside Bootstrap's JavaScript plugin.
+
+                    +demo({
+                        id: 'materialTabBarJs'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                mwc-tab-bar.nav.nav-tabs(role='tablist')
+                                    mwc-tab#home-tab-bar.active(
+                                        label='Home',
+                                        data-bs-toggle='tab',
+                                        data-bs-target='#home-bar',
+                                        role='tab',
+                                        aria-controls='home-bar',
+                                        aria-selected='true'
+                                        )
+                                    mwc-tab#profile-tab-bar(
+                                        label='Profile',
+                                        data-bs-toggle='tab',
+                                        data-bs-target='#profile-bar',
+                                        role='tab',
+                                        aria-controls='profile-bar',
+                                        aria-selected='false'
+                                    )
+                                    mwc-tab#contact-tab-bar(
+                                        label='Contact',
+                                        data-bs-toggle='tab',
+                                        data-bs-target='#contact-bar',
+                                        role='tab',
+                                        aria-controls='contact-bar',
+                                        aria-selected='false'
+                                    )
+                                .tab-content.border.border-top-0.p-3#myTabBarContent
+                                    .tab-pane.fade.show.active#home-bar(role='tabpanel', aria-labelledby='home-tab-bar')
+                                        | Home Tab Content
+                                    .tab-pane.fade#profile-bar(role='tabpanel', aria-labelledby='profile-tab-bar')
+                                        | Profile Tab Content
+                                    .tab-pane.fade#contact-bar(role='tabpanel', aria-labelledby='contact-tab-bar')
+                                        | Contact Tab Content
+                                
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><!-- Tab bar navigation -->
+                                <mwc-tab-bar class="nav nav-tabs" role='tablist">
+                                    <mwc-tab id="home-tab" label="Home" data-bs-toggle='tab"'data-bs-target="#home" role='tab"'aria-controls="home" aria-selected="true"></mwc-tab>
+                                    <mwc-tab id="profile-tab" label="Profile" data-bs-toggle='tab"'data-bs-target="#profile" role='tab"'aria-controls="profile" aria-selected="false"></mwc-tab>
+                                    <mwc-tab id="contact-tab" label="Contact" data-bs-toggle='tab"'data-bs-target="#contact" role='tab"'aria-controls="contact" aria-selected="false"></mwc-tab>
+                                </mwc-tab-bar>
+
+                                <!-- Tab content -->
+                                <div class='tab-content'border border-top-0 p-3" id="myTabContent">
+                                    <div class='tab-pane'fade show active" id="home" role='tabpanel"'aria-labelledby="home-tab">Home Tab Content</div>
+                                    <div class='tab-pane'fade" id="profile" role='tabpanel"'aria-labelledby="profile-tab">Profile Tab Content</div>
+                                    <div class='tab-pane'fade" id="contact" role='tabpanel"'aria-labelledby="contact-tab">Contact Tab Content</div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>//- Tab bar navigation
+                                mwc-tab-bar.nav.nav-tabs(role='tablist')
+                                    mwc-tab#home-tab(
+                                        label='Home',
+                                        data-bs-toggle='tab',
+                                        data-bs-target='#home',
+                                        role='tab',
+                                        aria-controls='home',
+                                        aria-selected='true'
+                                        )
+                                    mwc-tab#profile-tab(
+                                        label='Profile',
+                                        data-bs-toggle='tab',
+                                        data-bs-target='#profile',
+                                        role='tab',
+                                        aria-controls='profile',
+                                        aria-selected='false'
+                                    )
+                                    mwc-tab#contact-tab(
+                                        label='Contact',
+                                        data-bs-toggle='tab',
+                                        data-bs-target='#contact',
+                                        role='tab',
+                                        aria-controls='contact',
+                                        aria-selected='false'
+                                    )
+                                
+                                //- Tab content
+                                .tab-content.border.border-top-0.p-3#myTabContent
+                                    .tab-pane.fade.show.active#home(role='tabpanel', aria-labelledby='home-tab')
+                                        | Home Tab Content
+                                    .tab-pane.fade#profile(role='tabpanel', aria-labelledby='profile-tab')
+                                        | Profile Tab Content
+                                    .tab-pane.fade#contact(role='tabpanel', aria-labelledby='contact-tab')
+                                        | Contact Tab Content</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Nav &amp; Tabs Documentation
+                                p.card-text Bootstrap's nav and tabs documentation page
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/navs-tabs/', target='_blank', title='Bootstrap Nav and Tabs Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Tab Bar Web Component Documentation
+                                p.card-text Docs for Material's tab bar web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/tab-bar', target='_blank', title='Material Tab Bar Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#nav-base') Base Nav
+                        li.nav-item
+                            a.nav-link(href='#nav-tabs') Tabs
+                        li.nav-item
+                            a.nav-link(href='#nav-pills') Pills
+                        li.nav-item
+                            a.nav-link(href='#nav-tab-bar') Tab Bar
+                        li.nav-item
+                            a.nav-link(href='#nav-js') JavaScript Behavior
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

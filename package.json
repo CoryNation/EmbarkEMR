@@ -1,0 +1,89 @@
+{
+    "title": "Material Admin Pro",
+    "name": "material-admin-pro",
+    "version": "1.0.6",
+    "scripts": {
+        "build": "npm run clean && npm run build:pug && npm run build:scss && npm run build:scripts && npm run build:assets",
+        "build:assets": "node scripts/build-assets.js",
+        "build:pug": "node scripts/build-pug.js",
+        "build:scripts": "node scripts/build-scripts.js",
+        "build:scss": "node scripts/build-scss.js",
+        "clean": "node scripts/clean.js",
+        "start": "npm run build && node scripts/start.js",
+        "start:debug": "npm run build && node scripts/start-debug.js",
+        "webpack": "webpack"
+    },
+    "description": "A material admin dashboard template based on Bootstrap, created by Start Bootstrap.",
+    "keywords": [
+        "material",
+        "material-design",
+        "bootstrap",
+        "css",
+        "sass",
+        "html",
+        "responsive",
+        "theme",
+        "template",
+        "admin",
+        "app",
+        "dashboard"
+    ],
+    "homepage": "https://startbootstrap.com/theme/material-admin-pro",
+    "bugs": {
+        "url": "https://github.com/StartBootstrap/material-admin-pro/issues",
+        "email": "feedback@startbootstrap.com"
+    },
+    "license": "SEE_LICENSE",
+    "author": "Start Bootstrap",
+    "contributors": [
+        "David Miller (https://davidmiller.io/)"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/StartBootstrap/material-admin-pro.git"
+    },
+    "dependencies": {
+        "@material/elevation": "14.0.0",
+        "@material/mwc-button": "0.27.0",
+        "@material/mwc-checkbox": "0.27.0",
+        "@material/mwc-circular-progress": "0.27.0",
+        "@material/mwc-circular-progress-four-color": "0.27.0",
+        "@material/mwc-formfield": "0.27.0",
+        "@material/mwc-icon": "0.27.0",
+        "@material/mwc-icon-button": "0.27.0",
+        "@material/mwc-linear-progress": "0.27.0",
+        "@material/mwc-radio": "0.27.0",
+        "@material/mwc-select": "0.27.0",
+        "@material/mwc-slider": "0.27.0",
+        "@material/mwc-snackbar": "0.27.0",
+        "@material/mwc-switch": "0.27.0",
+        "@material/mwc-tab": "0.27.0",
+        "@material/mwc-tab-bar": "0.27.0",
+        "@material/mwc-textarea": "0.27.0",
+        "@material/mwc-textfield": "0.27.0",
+        "@material/ripple": "14.0.0",
+        "bootstrap": "5.2.3",
+        "workerpool": "6.4.0"
+    },
+    "devDependencies": {
+        "autoprefixer": "10.4.13",
+        "browser-sync": "2.27.12",
+        "chokidar": "3.5.3",
+        "clipboard": "2.0.11",
+        "concurrently": "6.3.0",
+        "dotenv": "16.0.3",
+        "lit-element": "3.2.2",
+        "p-limit": "3.1.0",
+        "postcss": "8.4.21",
+        "prettier": "2.8.4",
+        "prismjs": "1.29.0",
+        "pug": "3.0.2",
+        "sass": "1.58.3",
+        "shelljs": "0.8.5",
+        "ts-loader": "9.4.2",
+        "typescript": "4.9.5",
+        "upath": "2.0.1",
+        "webpack": "^5.76.2",
+        "webpack-cli": "5.0.1"
+    }
+}

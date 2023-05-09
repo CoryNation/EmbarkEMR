@@ -1,0 +1,44 @@
+// Navbar
+
+$navbar-padding-y:                  0;
+
+$navbar-brand-font-size:            $font-size-base;
+$navbar-brand-padding-y:            0;
+$navbar-brand-margin-right:         1rem;
+
+$navbar-dark-color:                 $white;
+
+// Color variables for the drawer
+
+// -- Drawer Dark
+$drawer-dark-color:              fade-out($white, 0.25);
+$drawer-dark-heading-color:      $white;
+$drawer-dark-link-color:         $drawer-dark-color;
+$drawer-dark-link-active-color:  $white;
+$drawer-dark-icon-color:         fade-out($white, 0.75);
+$drawer-dark-footer-bg:          fade-out($black, 0.9);
+$drawer-dark-border-color:       fade-out($white, 0.9);
+
+// -- Drawer Dark Scrollbar
+$drawer-dark-scrollbar-track:       #2e2e2e;
+$drawer-dark-scrollbar-thumb:       #6d6d6d;
+$drawer-dark-scrollbar-thumb-hover: #979797;
+
+// -- Drawer Light
+$drawer-light-color:             $gray-700;
+$drawer-light-heading-color:     $gray-900;
+$drawer-light-link-color:        $drawer-light-color;
+$drawer-light-link-active-color: $gray-900;
+$drawer-light-icon-color:        $gray-600;
+$drawer-light-footer-bg:         $gray-100;
+$drawer-light-border-color:      $gray-300;
+$drawer-light-link-hover-bg:     $gray-100;
+
+// Color variables for the topnav
+$topnav-dark-toggler-color:      $white;
+$topnav-light-toggler-color:     $gray-900;
+
+$top-app-bar-box-shadow:         0 2px 4px rgba(0, 0, 0, 0.5);
+$top-app-bar-nav-link-height:    $app-bar-base-height;
+$top-app-bar-nav-link-padding-x: 1rem;
+$top-app-bar-nav-link-padding-y: 0;

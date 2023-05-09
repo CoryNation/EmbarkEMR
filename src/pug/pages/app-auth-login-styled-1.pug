@@ -1,0 +1,53 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/authentication.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-pattern-waihou';
+    - var pageTitle = 'Login'; // String. Enter the page title within a string
+
+block content
+    // Main content container
+    .container
+        .row.justify-content-center
+            .col-xxl-10.col-xl-10.col-lg-12
+                .card.card-raised.shadow-10.mt-5.mt-xl-10.mb-4
+                    .row.g-0
+                        .col-lg-5.col-md-6
+                            .card-body.p-5
+                                // Auth header with logo image
+                                .text-center
+                                    img.mb-3(src='assets/img/icons/background.svg', alt='...', style='height: 48px;')
+                                    h1.display-5.mb-0 Login
+                                    .subheading-1.mb-5 to continue to app
+                                // Login submission form
+                                form.mb-5
+                                    .mb-4
+                                        mwc-textfield.w-100(label='Username', outlined)
+                                    .mb-4
+                                        mwc-textfield.w-100(label='Password', outlined, icontrailing='visibility_off', type='password')
+                                    .d-flex.align-items-center
+                                        mwc-formfield(label='Remember password')
+                                            mwc-checkbox
+                                    .form-group.d-flex.align-items-center.justify-content-between.mt-4.mb-0
+                                        a.small.fw-500.text-decoration-none(href='app-auth-password-basic.html') Forgot Password?
+                                        a.btn.btn-primary(href='index.html') Login
+                                // Auth card message
+                                .text-center
+                                    a.small.fw-500.text-decoration-none(href='app-auth-register-basic.html') New User? Create an account!
+                        // Background image column using inline CSS
+                        .col-lg-7.col-md-6.d-none.d-md-block(
+                            style='background-image: url("https://source.unsplash.com/-uHVRvDr7pg/1600x900"); background-size: cover; background-repeat: no-repeat; background-position: center;')

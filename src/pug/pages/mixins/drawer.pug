@@ -1,0 +1,256 @@
+//- The mixin for the side navigation drawer.
+//- 
+//- This mixin can be modified or duplicated
+//- to create multiple different drawer options.
+
+mixin drawer(options)
+
+    // Drawer navigation
+    nav(class=['drawer', 'accordion', options.drawerStyle, options.drawerBg])#drawerAccordion
+
+        .drawer-menu
+
+            .nav
+
+                // Drawer section heading (Account)
+                .drawer-menu-heading.d-sm-none
+                    | Account
+                
+                // Drawer link (Notifications)
+                a.nav-link.d-sm-none(href='#!')
+                    .nav-link-icon
+                        i.material-icons notifications
+                    | Notifications
+
+                // Drawer link (Messages)
+                a.nav-link.d-sm-none(href='#!')
+                    .nav-link-icon
+                        i.material-icons mail
+                    | Messages
+
+                // Divider
+                .drawer-menu-divider.d-sm-none
+
+                // Drawer section heading (Interface)
+                .drawer-menu-heading
+                    | Interface
+
+                // Drawer link (Overview)
+                a.nav-link(href='index.html')
+                    .nav-link-icon
+                        i.material-icons language
+                    | Overview
+
+                // Drawer link (Dashboards)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapseDashboards', aria-expanded='false', aria-controls='collapseDashboards')
+                    .nav-link-icon
+                        i.material-icons dashboard
+                    | Dashboards
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Dashboards)
+                #collapseDashboards.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav
+                        a.nav-link(href='app-dashboard-default.html') Default
+                        a.nav-link(href='app-dashboard-minimal.html') Minimal
+                        a.nav-link(href='app-dashboard-analytics.html') Analytics
+                        a.nav-link(href='app-dashboard-accounting.html') Accounting
+                        a.nav-link(href='app-dashboard-orders.html') Orders
+                        a.nav-link(href='app-dashboard-projects.html') Projects
+
+                // Drawer link (Layouts)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapseLayouts', aria-expanded='false', aria-controls='collapseLayouts')
+                    .nav-link-icon
+                        i.material-icons view_compact
+                    | Layouts
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Layouts)
+                #collapseLayouts.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav
+                        a.nav-link(href='layout-dark.html') Dark Theme
+                        a.nav-link(href='layout-light.html') Light Theme
+                        a.nav-link(href='layout-static.html') Static Navigation
+
+                // Drawer link (Pages)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapsePages', aria-expanded='false', aria-controls='collapsePages')
+                    .nav-link-icon
+                        i.material-icons layers
+                    | Pages
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Pages)
+                #collapsePages.collapse(aria-labelledby='headingTwo', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav.accordion#drawerAccordionPages
+                        // Drawer link (Pages -> Account)
+                        a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#pagesCollapseAccount', aria-expanded='false', aria-controls='pagesCollapseAccount')
+                            | Account
+                            .drawer-collapse-arrow
+                                i.material-icons expand_more
+                        // Nested drawer nav (Pages -> Account)
+                        #pagesCollapseAccount.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordionPages')
+                            nav.drawer-menu-nested.nav
+                                a.nav-link(href='app-account-billing.html') Billing
+                                a.nav-link(href='app-account-notifications.html') Notifications
+                                a.nav-link(href='app-account-profile.html') Profile
+                                a.nav-link(href='app-account-security.html') Security
+                        // Drawer link (Pages -> Authentication)
+                        a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#pagesCollapseAuth', aria-expanded='false', aria-controls='pagesCollapseAuth')
+                            | Authentication
+                            .drawer-collapse-arrow
+                                i.material-icons expand_more
+                        // Nested drawer nav (Pages -> Authentication)
+                        #pagesCollapseAuth.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordionPages')
+                            nav.drawer-menu-nested.nav
+                                a.nav-link(href='app-auth-login-basic.html') Login 1
+                                a.nav-link(href='app-auth-login-styled-1.html') Login 2
+                                a.nav-link(href='app-auth-login-styled-2.html') Login 3
+                                a.nav-link(href='app-auth-register-basic.html') Register
+                                a.nav-link(href='app-auth-password-basic.html') Forgot Password
+                        // Drawer link (Pages -> Blank Pages)
+                        a.nav-link(href='app-blank-page.html') Blank Page
+                        // Drawer link (Pages -> Error)
+                        a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#pagesCollapseError', aria-expanded='false', aria-controls='pagesCollapseError')
+                            | Error
+                            .drawer-collapse-arrow
+                                i.material-icons expand_more
+                        // Nested drawer nav (Pages -> Error)
+                        #pagesCollapseError.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordionPages')
+                            nav.drawer-menu-nested.nav
+                                a.nav-link(href='app-error-400.html') 400 Error Page
+                                a.nav-link(href='app-error-401.html') 401 Error Page
+                                a.nav-link(href='app-error-403.html') 403 Error Page
+                                a.nav-link(href='app-error-404.html') 404 Error Page
+                                a.nav-link(href='app-error-429.html') 429 Error Page
+                                a.nav-link(href='app-error-500.html') 500 Error Page
+                                a.nav-link(href='app-error-503.html') 503 Error Page
+                                a.nav-link(href='app-error-504.html') 504 Error Page
+                        // Drawer link (Pages -> Pricing)
+                        a.nav-link(href='app-invoice.html') Invoice
+                        // Drawer link (Pages -> Knowledgebase)
+                        a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#pagesCollapseKnowledgebase', aria-expanded='false', aria-controls='pagesCollapseKnowledgebase')
+                            | Knowledgebase
+                            .drawer-collapse-arrow
+                                i.material-icons expand_more
+                        // Nested drawer nav (Pages -> Knowledgebase)
+                        #pagesCollapseKnowledgebase.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordionPages')
+                            nav.drawer-menu-nested.nav
+                                a.nav-link(href='app-knowledgebase-home.html') Home
+                                a.nav-link(href='app-knowledgebase-categories.html') Categories
+                                a.nav-link(href='app-knowledgebase-article.html') Article
+                        // Drawer link (Pages -> Pricing)
+                        a.nav-link(href='app-pricing.html') Pricing
+
+                // Divider
+                .drawer-menu-divider
+
+                // Drawer section heading (UI Toolkit)
+                .drawer-menu-heading
+                    | UI Toolkit
+
+                // Drawer link (Components)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapseComponents', aria-expanded='false', aria-controls='collapseComponents')
+                    .nav-link-icon
+                        i.material-icons widgets
+                    | Components
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Components)
+                #collapseComponents.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav
+                        a.nav-link(href='components-alerts.html') Alerts
+                        a.nav-link(href='components-badges.html') Badges
+                        a.nav-link(href='components-buttons.html') Buttons
+                        a.nav-link(href='components-cards.html') Cards
+                        a.nav-link(href='components-chips.html') Chips
+                        a.nav-link(href='components-dropdowns.html') Dropdowns
+                        a.nav-link(href='components-icon-buttons.html') Icon Buttons
+                        a.nav-link(href='components-modals.html') Modals
+                        a.nav-link(href='components-navigation.html') Navigation
+                        a.nav-link(href='components-progress.html') Progress
+                        a.nav-link(href='components-spinners.html') Spinners
+                        a.nav-link(href='components-tooltips.html') Tooltips
+
+                // Drawer link (Content)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapseContent', aria-expanded='false', aria-controls='collapseContent')
+                    .nav-link-icon
+                        i.material-icons amp_stories
+                    | Content
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Content)
+                #collapseContent.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav
+                        a.nav-link(href='content-icons.html') Icons
+                        a.nav-link(href='content-tables.html') Tables
+                        a.nav-link(href='content-typography.html') Typography
+
+                // Drawer link (Forms)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapseForms', aria-expanded='false', aria-controls='collapseForms')
+                    .nav-link-icon
+                        i.material-icons description
+                    | Forms
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Forms)
+                #collapseForms.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav
+                        a.nav-link(href='forms-inputs.html') Inputs
+                        a.nav-link(href='forms-checks-and-radios.html') Checks &amp; Radio
+                        a.nav-link(href='forms-input-groups.html') Input Groups
+                        a.nav-link(href='forms-range.html') Range
+                        a.nav-link(href='forms-select.html') Select
+
+                // Drawer link (Utilities)
+                a.nav-link.collapsed(href='javascript:void(0);', data-bs-toggle='collapse', data-bs-target='#collapseUtilities', aria-expanded='false', aria-controls='collapseUtilities')
+                    .nav-link-icon
+                        i.material-icons build
+                    | Utilities
+                    .drawer-collapse-arrow
+                        i.material-icons expand_more
+                // Nested drawer nav (Utilities)
+                #collapseUtilities.collapse(aria-labelledby='headingOne', data-bs-parent='#drawerAccordion')
+                    nav.drawer-menu-nested.nav
+                        a.nav-link(href='utilities-background.html') Background
+                        a.nav-link(href='utilities-borders.html') Borders
+                        a.nav-link(href='utilities-ripples.html') Ripples
+                        a.nav-link(href='utilities-shadows.html') Shadows
+                        a.nav-link(href='utilities-text.html') Text
+                        a.nav-link(href='utilities-transforms.html') Transforms
+
+                // Divider
+                .drawer-menu-divider
+
+                // Drawer section heading (Plugins)
+                .drawer-menu-heading
+                    | Plugins
+                
+                // Drawer link (Charts)
+                a.nav-link(href='plugins-charts.html')
+                    .nav-link-icon
+                        i.material-icons bar_chart
+                    | Charts
+                // Drawer link (Code Blocks)
+                a.nav-link(href='plugins-code-blocks.html')
+                    .nav-link-icon
+                        i.material-icons code
+                    | Code Blocks
+                // Drawer link (Data Tables)
+                a.nav-link(href='plugins-data-tables.html')
+                    .nav-link-icon
+                        i.material-icons filter_alt
+                    | Data Tables
+                // Drawer link (Date Picker)
+                a.nav-link(href='plugins-date-picker.html')
+                    .nav-link-icon
+                        i.material-icons date_range
+                    | Date Picker
+
+        // Drawer footer        
+        .drawer-footer.border-top
+
+            .d-flex.align-items-center
+                i.material-icons.text-muted account_circle
+                .ms-3
+                    .caption Logged in as:
+                    .small.fw-500 Start Bootstrap

@@ -1,0 +1,108 @@
+// * * * * * * * * *
+// * * Dropdowns * *
+// * * * * * * * * *
+
+// Bring in Material ripple for use with dropdown links
+
+@use "@material/ripple";
+
+// Carets have been disabled via Bootstrap variables
+// and replaced with Material Icons.
+// 
+// Use a Material Icon for the trailing or
+// leading icon within a dropdown and it will
+// rotate when the dropdown menu is showing.
+// 
+// The arrow_right icon is being used by default
+// in most examples.
+
+// 
+// Dropdown base styling
+//
+
+.dropdown {
+    .dropdown-toggle {
+        &.show {
+            .dropdown-caret {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .dropdown-menu {
+        @extend .shadow-8;
+        border: none;
+        max-width: 17.5rem;
+
+        .dropdown-item {
+            overflow: hidden;
+            height: 3rem;
+            align-items: center;
+            display: flex;
+
+            .leading-icon {
+                margin-right: 1.25rem;
+                margin-left: 0.5rem;
+                color: rgba(0, 0, 0, 0.38);
+            }
+        }
+
+        // Sets the ripple effect on all dropdowns
+        // except dark ones
+        &:not(.dropdown-menu-dark) {
+            .dropdown-item {
+                @include ripple.surface;
+                @include ripple.radius-bounded;
+                @include ripple.states-base-color($dropdown-color);
+                @include ripple.states-opacities((hover: .1, focus: .15, press: .2));
+            }
+        }
+
+        // Sets the ripple effect on dark dropdowns
+        &.dropdown-menu-dark {
+            .dropdown-item {
+                @include ripple.surface;
+                @include ripple.radius-bounded;
+                @include ripple.states-base-color($dropdown-dark-color);
+                @include ripple.states-opacities((hover: .1, focus: .15, press: .2));
+
+                .leading-icon {
+                    color: rgba(255, 255, 255, 0.38);
+                }
+            }
+        }
+    }
+}
+
+// 
+// Dropdown notificationos variant - custom component
+//
+
+.dropdown.dropdown-notifications {
+    .dropdown-menu {
+        min-width: 20rem;
+
+        .dropdown-item {
+            height: auto;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            .dropdown-item-content {
+                .dropdown-item-content-text {
+                    font-size: $font-size-sm;
+                    white-space: normal;
+                }
+
+                .dropdown-item-content-subtext {
+                    color: $text-muted;
+                    font-size: 0.75rem;
+                    white-space: normal;
+                }
+            }
+            &.unread {
+                .dropdown-item-content-text {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}

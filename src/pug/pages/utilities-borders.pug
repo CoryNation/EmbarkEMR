@@ -1,0 +1,598 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Borders'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/borders.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Borders
+        .row.gx-5
+            .col-lg-9
+                p Border utilities are used to add or remove an element’s borders. These utilities can be used one at a time or combined together.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * *
+                //- * * * * * * * *
+                //- * * Borders * *
+                //- * * * * * * * *
+                //- * * * * * * * *
+
+                #borders
+                    h2.mb-4 Borders
+                    p.mb-4
+                        | Border utilities can either be additive, where borders are
+                        em added
+                        | to an element, or subtractive, where borders are
+                        em removed
+                        | from an element.
+
+                    //- * * * * * * * * * * * * *
+                    //- * * Additive Borders  * *
+                    //- * * * * * * * * * * * * *
+
+                    #borders-additive
+                        h3.mb-4 Additive
+
+                        +demo({
+                            id: 'bordersAdditive'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-lg-5
+                                    .row.row-cols-1.row-cols-sm-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                        .col.mb-3.mb-lg-5
+                                            .border.bg-light
+                                                .p-4.text-center
+                                                    .small Border
+                                                    code .border
+                                        .col.mb-3.mb-lg-5
+                                            .border-top.bg-light
+                                                .p-4.text-center
+                                                    .small Border Top
+                                                    code .border-top
+                                        .col.mb-3.mb-lg-5
+                                            .border-end.bg-light
+                                                .p-4.text-center
+                                                    .small Border End
+                                                    code .border-end
+                                        .col.mb-3.mb-lg-0
+                                            .border-bottom.bg-light
+                                                .p-4.text-center
+                                                    .small Border Bottom
+                                                    code .border-bottom
+                                        .col
+                                            .border-start.bg-light
+                                                .p-4.text-center
+                                                    .small Border Start
+                                                    code .border-start
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><span class="border">...</span>
+                                    <span class="border-top">...</span>
+                                    <span class="border-end">...</span>
+                                    <span class="border-bottom">...</span>
+                                    <span class="border-start">...</span></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">span.border ...
+                                    span.border-top ...
+                                    span.border-end ...
+                                    span.border-bottom ...
+                                    span.border-start ...</script>
+
+                    //- * * * * * * * * * * * * * *
+                    //- * * Subtractive Borders * *
+                    //- * * * * * * * * * * * * * *
+
+                    #borders-subtractive
+                        h3.mb-4 Subtractive
+
+                        +demo({
+                            id: 'bordersSubtractive'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-lg-5
+                                    .row.row-cols-1.row-cols-sm-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                        .col.mb-3.mb-lg-5
+                                            .border-0.bg-light
+                                                .p-4.text-center
+                                                    .small Border 0
+                                                    code .border-0
+                                        .col.mb-3.mb-lg-5
+                                            .border.border-top-0.bg-light
+                                                .p-4.text-center
+                                                    .small Border Top 0
+                                                    code .border-top-0
+                                        .col.mb-3.mb-lg-5
+                                            .border.border-end-0.bg-light
+                                                .p-4.text-center
+                                                    .small Border End 0
+                                                    code .border-end-0
+                                        .col.mb-3.mb-lg-0
+                                            .border.border-bottom-0.bg-light
+                                                .p-4.text-center
+                                                    .small Border Bottom 0
+                                                    code .border-bottom-0
+                                        .col
+                                            .border.border-start-0.bg-light
+                                                .p-4.text-center
+                                                    .small Border Start 0
+                                                    code .border-start-0
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><span class="border-0">...</span>
+                                    <span class="border-top-0">...</span>
+                                    <span class="border-end-0">...</span>
+                                    <span class="border-bottom-0">...</span>
+                                    <span class="border-start-0">...</span></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">span.border-0 ...
+                                    span.border-top-0 ...
+                                    span.border-end-0 ...
+                                    span.border-bottom-0 ...
+                                    span.border-start-0 ...</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Border Color  * *
+                //- * * * * * * * * * * *
+
+                #border-color
+                    h2.mb-4 Border Color
+                    p.mb-4
+                        | Theme colors can be used to change the color of an elements border. These utilities are named using the format
+                        code.code-inline .border-{color}
+                        | where
+                        em color
+                        | is any theme color defined in the color map.
+
+                    +demo({
+                        id: 'borderColor'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .row.row-cols-1.row-cols-sm-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                    .col.mb-3.mb-lg-5
+                                        .border.border-primary.bg-light
+                                            .p-4.text-center
+                                                .small Border Primary
+                                                code .border-primary
+                                    .col.mb-3.mb-lg-5
+                                        .border.border-secondary.bg-light
+                                            .p-4.text-center
+                                                .small Border Secondary
+                                                code .border-secondary
+                                    .col.mb-3.mb-lg-5
+                                        .border.border-success.bg-light
+                                            .p-4.text-center
+                                                .small Border Success
+                                                code .border-success
+                                    .col.mb-3.mb-lg-0
+                                        .border.border-danger.bg-light
+                                            .p-4.text-center
+                                                .small Border Danger
+                                                code .border-danger
+                                    .col.mb-3.mb-sm-0
+                                        .border.border-warning.bg-light
+                                            .p-4.text-center
+                                                .small Border Warning
+                                                code .border-warning
+                                    .col
+                                        .border.border-info.bg-light
+                                            .p-4.text-center
+                                                .small Border Info
+                                                code .border-info
+                            .border.border-top-0.p-3.p-lg-5.bg-dark
+                                .row.row-cols-1.row-cols-sm-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                    .col.mb-3.mb-sm-0
+                                        .border.border-light
+                                            .p-4.text-center.text-white
+                                                .small Border Light
+                                                code.text-white .border-light
+                                    .col
+                                        .border.border-white
+                                            .p-4.text-center.text-white
+                                                .small Border White
+                                                code.text-white .border-white
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><span class="border-primary">...</span>
+                                <span class="border-secondary">...</span>
+                                <span class="border-success">...</span>
+                                <span class="border-danger">...</span>
+                                <span class="border-warning">...</span>
+                                <span class="border-info">...</span>
+                                <span class="border-light">...</span>
+                                <span class="border-white ">...</span></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">span.border-primary ...
+                                span.border-secondary ...
+                                span.border-success ...
+                                span.border-danger ...
+                                span.border-warning ...
+                                span.border-info ...
+                                span.border-light ...
+                                span.border-white  ...</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Border Width  * *
+                //- * * * * * * * * * * *
+
+                #border-width
+                    h2.mb-4 Border Width
+                    p.mb-4
+                        | Border width utilities change the thickness of the border. These utilities are named using the format
+                        code.code-inline .border-{number}
+                        | where
+                        em number
+                        | is any thickness integer between 1 and 5.
+
+                    +demo({
+                        id: 'borderWidth'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .row.row-cols-1.row-cols-sm-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                    .col.mb-3.mb-lg-5
+                                        .border.border-1.bg-light
+                                            .p-4.text-center
+                                                .small Border 1
+                                                code .border-1
+                                    .col.mb-3.mb-lg-5
+                                        .border.border-2.bg-light
+                                            .p-4.text-center
+                                                .small Border 2
+                                                code .border-2
+                                    .col.mb-3.mb-lg-5
+                                        .border.border-3.bg-light
+                                            .p-4.text-center
+                                                .small Border 3
+                                                code .border-3
+                                    .col.mb-3.mb-lg-0
+                                        .border.border-4.bg-light
+                                            .p-4.text-center
+                                                .small Border 4
+                                                code .border-4
+                                    .col
+                                        .border.border-5.bg-light
+                                            .p-4.text-center
+                                                .small Border 5
+                                                code .border-5
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><span class="border border-1">...</span>
+                                <span class="border border-2">...</span>
+                                <span class="border border-3">...</span>
+                                <span class="border border-4">...</span>
+                                <span class="border border-5">...</span></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">span.border.border-1 ...
+                                span.border.border-2 ...
+                                span.border.border-3 ...
+                                span.border.border-4 ...
+                                span.border.border-5 ...</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * * * * * * * * * *
+                //- * * Border Radius * *
+                //- * * * * * * * * * * *
+                //- * * * * * * * * * * *
+
+                #border-radius
+                    h2.mb-4 Border Radius
+                    p.mb-4
+                        | Border radius utilities are used to modify the roundness of an element.
+
+                    +demo({
+                        id: 'borderRadius'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-wrap.border.border-top-0.p-3.p-lg-5
+                                .rounded.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                    .small 100x100
+                                .rounded-top.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                    .small 100x100
+                                .rounded-end.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                    .small 100x100
+                                .rounded-bottom.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                    .small 100x100
+                                .rounded.start.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                    .small 100x100
+                                .rounded-circle.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                    .small 100x100
+                                .rounded-pill.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 200px;')
+                                    .small 100x200
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><span class="rounded">...</span>
+                                <span class="rounded-top">...</span>
+                                <span class="rounded-end">...</span>
+                                <span class="rounded-bottom">...</span>
+                                <span class="rounded-start">...</span>
+                                <span class="rounded-circle">...</span>
+                                <span class="rounded-pill">...</span></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">span.rounded ...
+                                span.rounded-top ...
+                                span.rounded-end ...
+                                span.rounded-bottom ...
+                                span.rounded-start ...
+                                span.rounded-circle ...
+                                span.rounded-pill ...</script>
+
+                    //- * * * * * * * * * * * * * *
+                    //- * * Border Radius Sizes * *
+                    //- * * * * * * * * * * * * * *
+
+                    #border-radius-sizes
+                        h3.mb-4 Sizes
+                        p.mb-4
+                            | The border radius utilities above can be used in conjunction with additional border radius size utilities. These classes are named using the format
+                            code.code-inline .rounded-{number}
+                            | where
+                            em number
+                            | is any integer between 0 and 3.
+
+                        +demo({
+                            id: 'borderRadiusSizes'
+                        })
+                            +slot('demo')
+                                .d-flex.flex-wrap.border.border-top-0.p-3.p-lg-5
+                                    .rounded-0.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                        .small 100x100
+                                    .rounded-1.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                        .small 100x100
+                                    .rounded-2.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                        .small 100x100
+                                    .rounded-3.d-flex.align-items-center.justify-content-center.bg-primary.text-white.m-2(style='height: 100px; width: 100px;')
+                                        .small 100x100
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><span class="rounded-0">...</span>
+                                    <span class="rounded-1">...</span>
+                                    <span class="rounded-2">...</span>
+                                    <span class="rounded-3">...</span></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">span.rounded-0 ...
+                                    span.rounded-1 ...
+                                    span.rounded-2 ...
+                                    span.rounded-3 ...</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Border Style  * *
+                //- * * * * * * * * * * *
+
+                #border-style
+                    h2.mb-4 Border Style
+                    p.mb-4
+                        | Additional border style utilities have been created for Material Admin Pro to add more design flexibility to utilities. The examples below are shown using the
+                        code.code-inline .border-3
+                        | width to make the effect more visible.
+
+                    +demo({
+                        id: 'borderStyle'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .row.row-cols-1.row-cols-sm-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                    .col.mb-3.mb-md-0
+                                        .border.border-3.border-dotted.bg-light
+                                            .p-4.text-center
+                                                .small Border Dotted
+                                                code .border-dotted
+                                    .col
+                                        .border.border-3.border-dashed.bg-light
+                                            .p-4.text-center
+                                                .small Border Dashed
+                                                code .border-dashed
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><span class="border-dotted">...</span>
+                                <span class="border-dashed">...</span></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">span.border-dotted ...
+                                span.border-dashed ...</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * *
+                //- * * Border Usage Examples * *
+                //- * * * * * * * * * * * * * * *
+
+                #border-examples
+                    h2.mb-4 Usage Examples
+                    p.mb-4
+                        | Border utilities can be used together to acheive various effects, and can be used with existing components to modify the look and styling of the element.
+
+                    +demo({
+                        id: 'borderExamples'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-wrap.justify-content-center.border.border-top-0.p-3.p-lg-5
+                                .m-4.text-center
+                                    .caption.mb-1 Pill Button
+                                    button.btn.btn-primary.rounded-pill(type='button') Pill Button
+                                .m-4.text-center
+                                    .caption.mb-1 Circle Image
+                                    img.rounded-circle(src='https://source.unsplash.com/iEOATKFQyTo/100x100', alt='...')
+                                .m-4.text-center
+                                    .caption.mb-1 Custom Alert
+                                    .alert.alert-primary.border-5(role='alert')
+                                        | A simple primary alert—check it out!
+                                .m-4.text-center
+                                    .caption.mb-1 Custom Card
+                                    .card.border-primary
+                                        .card-header.bg-primary.text-white
+                                            .subheading-2 Card Header
+                                        .card-body This is a custom card using border utilities.
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Pill button example-->
+                                <button class="btn btn-primary rounded-pill" type="button">Pill Button</button>
+
+                                <!-- Circle image example-->
+                                <img class="rounded-circle" src="https://source.unsplash.com/iEOATKFQyTo/100x100" alt="...">
+
+                                <!-- Custom alert example-->
+                                <div class="alert alert-primary border-5" role="alert">A simple primary alert—check it out!</div>
+
+                                <!-- Custom card example-->
+                                <div class="card border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <div class="subheading-2">Card Header</div>
+                                    </div>
+                                    <div class="card-body">This is a custom card using border utilities.</div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Pill button example
+                                button.btn.btn-primary.rounded-pill(type='button') Pill Button
+
+                                //- Circle image example
+                                img.rounded-circle(src='https://source.unsplash.com/iEOATKFQyTo/100x100', alt='...')
+
+                                //- Custom alert example
+                                .alert.alert-primary.border-5(role='alert')
+                                    | A simple primary alert—check it out!
+
+                                //- Custom card example
+                                .card.border-primary
+                                    .card-header.bg-primary.text-white
+                                        .subheading-2 Card Header
+                                    .card-body This is a custom card using border utilities.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg')
+                                .card-title.text-truncate.mb-2 Bootstrap Borders Documentation
+                                p.card-text Bootstrap's border utilities documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/utilities/borders/', target='_blank', title='Bootstrap Borders Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#borders') Borders
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#borders-additive') Additive
+                                li.nav-item
+                                    a.nav-link.border-0(href='#borders-subtractive') Subtractive
+                        li.nav-item
+                            a.nav-link(href='#border-color') Border Color
+                        li.nav-item
+                            a.nav-link(href='#border-width') Border Width
+                        li.nav-item
+                            a.nav-link(href='#border-radius') Border Radius
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#border-radius-sizes') Sizes
+                        li.nav-item
+                            a.nav-link(href='#border-style') Border Style
+                        li.nav-item
+                            a.nav-link(href='#border-examples') Examples
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

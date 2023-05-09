@@ -1,0 +1,197 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Billing'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.bg-dark
+        .container-xl.px-5
+            h1.text-white.py-3.mb-0.display-6 Account Settings - Billing
+
+    // Account billing page content
+
+    .container-xl.p-5
+
+        // Tab bar navigation
+        mwc-tab-bar(style='margin-bottom: -1px;', activeIndex='0')
+            mwc-tab(label='Billing', icon='account_balance', stacked, onClick='location.href="app-account-billing.html"')
+            mwc-tab(label='Notifications', icon='notifications', stacked, onClick='location.href="app-account-notifications.html"')
+            mwc-tab(label='Profile', icon='person', stacked, onClick='location.href="app-account-profile.html"')
+            mwc-tab(label='Security', icon='security', stacked, onClick='location.href="app-account-security.html"')
+
+        // Divider
+        hr.mt-0.mb-5
+
+        // Billing cards row
+        .row.gx-5
+            .col-lg-4.col-sm-6.mb-5
+                // Billing card 1
+                .card.card-raised.h-100
+                    .card-body
+                        .overline.text-muted Current monthly bill
+                        .fs-4.mb-2 $20.00
+                    .card-footer.position-relative.d-flex.align-items-center.justify-content-between.ripple-primary.bg-transparent
+                        a.card-link.text-decoration-none.stretched-link(href='#!') Switch to monthly billing
+                        i.material-icons.text-primary arrow_forward
+            .col-lg-4.col-sm-6.mb-5
+                // Billing card 2
+                .card.card-raised.h-100
+                    .card-body
+                        .overline.text-muted Next payment due
+                        .fs-4.mb-2 July 15
+                    .card-footer.position-relative.d-flex.align-items-center.justify-content-between.ripple-primary.bg-transparent
+                        a.card-link.text-decoration-none.stretched-link(href='#!') View payment history
+                        i.material-icons.text-primary arrow_forward
+            .col-lg-4.col-sm-6.mb-5
+                // Billing card 3
+                .card.card-raised.bg-primary.text-white.h-100
+                    .card-body
+                        .overline.text-white-50 Current plan
+                        .fs-4.mb-2 Freelancer
+                    .card-footer.position-relative.d-flex.align-items-center.justify-content-between.ripple-light
+                        a.card-link.text-white.text-decoration-none.stretched-link(href='#!') Upgrade plan
+                        i.material-icons.text-white upgrade
+
+        // Payment methods
+        h2.font-monospace.text-expanded.text-uppercase.fs-6.my-4 Payment methods
+        .row.gx-5
+            .col-md-6.mb-5
+                // Payment method card 1
+                .card.h-100
+                    .card-body.p-4.d-flex.align-items-center
+                        img(src='assets/img/brands/cc-mastercard.svg', alt='Mastercard Icon', style='height: 48px;')
+                        .ms-3
+                            .display-6 Mastercard •••• 1234
+                            .small.text-muted Expires 01/25
+                    .card-actions.p-3.justify-content-between
+                        span.badge.bg-dark.ms-2 Default
+                        .card-action-buttons
+                            button.btn.btn-text-primary(type='button') Edit
+                            button.btn.btn-text-primary(type='button') Remove
+            .col-md-6.mb-5
+                // Payment method card 2
+                .card.h-100
+                    .card-body.p-4.d-flex.align-items-center
+                        img(src='assets/img/brands/cc-visa.svg', alt='Visa Icon', style='height: 48px;')
+                        .ms-3
+                            .display-6 Visa •••• 1234
+                            .small.text-muted Expires 01/25
+                    .card-actions.p-3.justify-content-end
+                        .card-action-buttons
+                            button.btn.btn-text-primary(type='button') Edit
+                            button.btn.btn-text-primary(type='button') Remove
+            .col-md-6.mb-5
+                // Payment method card 3
+                .card.h-100
+                    .card-body.p-4.d-flex.align-items-center
+                        img(src='assets/img/brands/cc-amex.svg', alt='American Express Icon', style='height: 48px;')
+                        .ms-3
+                            .display-6 American Express •••• 1234
+                            .small.text-muted Expires 01/25
+                    .card-actions.p-3.justify-content-end
+                        .card-action-buttons
+                            button.btn.btn-text-primary(type='button') Edit
+                            button.btn.btn-text-primary(type='button') Remove
+            .col-md-6.mb-5
+                // Add payment method card
+                .card.h-100.border-2.border-dashed.ripple-primary
+                    .card-body.d-flex.align-items-center.justify-content-center
+                        a.stretched-link.fst-button.text-decoration-none.d-inline-flex.align-items-center(href='#!')
+                            i.material-icons.icon-sm.me-2 add
+                            | Add payment method
+
+        // Payment history
+        h2.font-monospace.text-expanded.text-uppercase.fs-6.my-4 Payment history
+        .card.card-raised.overflow-hidden.mb-5
+            .card-body.p-0
+                // Payment history table
+                .table-responsive
+                    table.table.table-striped.table-hover.mb-0
+                        thead.table-dark
+                            tr
+                                th(scope='col') Transaction ID
+                                th(scope='col') Date
+                                th(scope='col') Amount
+                                th(scope='col') Status
+                        tbody
+                            tr
+                                td #39201
+                                td 06/15/2020
+                                td $29.99
+                                td
+                                    span.badge.bg-secondary Pending
+                            tr
+                                td #38594
+                                td 05/15/2020
+                                td $29.99
+                                td
+                                    span.badge.bg-success Paid
+                            tr
+                                td #38223
+                                td 04/15/2020
+                                td $29.99
+                                td
+                                    span.badge.bg-success Paid
+                            tr
+                                td #38125
+                                td 03/15/2020
+                                td $29.99
+                                td
+                                    span.badge.bg-success Paid

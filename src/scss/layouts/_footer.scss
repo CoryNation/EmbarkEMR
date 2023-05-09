@@ -1,0 +1,31 @@
+// * * * * * * * * * * * * 
+// * * Footer Styling  * * 
+// * * * * * * * * * * * * 
+
+// 
+// Two variations for the footer exist,
+// .footer-light and .footer-dark.
+//
+// The light footer is used by default on
+// the dashboard layout, but the dark footer
+// can be used for darker styling. Variables
+// are borrowed from the drawer styling to
+// keep styling consistent.
+// 
+
+.footer-light {
+    @extend .text-muted;
+    @extend .bg-light;
+}
+
+.footer-dark {
+    color: $drawer-dark-color;
+    background-color: $drawer-dark-footer-bg;
+    border-color: $drawer-dark-border-color !important;
+    a {
+        @extend .link-light;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

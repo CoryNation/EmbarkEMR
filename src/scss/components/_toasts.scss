@@ -1,0 +1,34 @@
+// * * * * * * * *
+// * * Toasts  * *
+// * * * * * * * *
+
+// Global styling for toasts
+
+.toast {
+    @extend .small;
+    @extend .shadow-6;
+    border: none;
+    line-height: 1.25rem;
+}
+
+// Adjustment for dark background toasts
+
+.toast.bg-dark {
+    background-color: $toast-background-color-dark !important;
+}
+
+// Color modification to snackbar
+// Material Web Component
+
+$snackbar-action-color: lighten($primary, 30%);
+
+mwc-snackbar {
+    --mdc-snackbar-action-color: #{$snackbar-action-color};
+}
+
+// Sets the z-index for the snackbar
+// Material Web Component
+
+mwc-snackbar {
+    z-index: $zindex-modal;
+}

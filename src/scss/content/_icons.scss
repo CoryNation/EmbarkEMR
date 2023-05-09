@@ -1,0 +1,40 @@
+// * * * * * * *
+// * * Icons * *
+// * * * * * * *
+
+// 
+// Icon sizing options
+// 
+
+.icon-xs {
+    font-size: $icon-font-size-base * 0.5;
+}
+
+.icon-sm {
+    font-size: $icon-font-size-base * 0.75;
+}
+
+.icon-lg {
+    font-size: $icon-font-size-base * 1.5;
+}
+
+.icon-xl {
+    font-size: $font-size-xl * 2;
+}
+
+.icon-xxl {
+    font-size: $font-size-xl * 2.5;
+}
+
+// 
+// Circle icon option
+// 
+
+.icon-circle {
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}

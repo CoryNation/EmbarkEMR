@@ -1,0 +1,143 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Notifications'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.bg-dark
+        .container-xl.px-5
+            h1.text-white.py-3.mb-0.display-6 Account Settings - Notifications
+
+    // Account notifications page content
+
+    .container-xl.p-5
+
+        // Tab bar navigation
+        mwc-tab-bar(style='margin-bottom: -1px;', activeIndex='1')
+            mwc-tab(label='Billing', icon='account_balance', stacked, onClick='location.href="app-account-billing.html"')
+            mwc-tab(label='Notifications', icon='notifications', stacked, onClick='location.href="app-account-notifications.html"')
+            mwc-tab(label='Profile', icon='person', stacked, onClick='location.href="app-account-profile.html"')
+            mwc-tab(label='Security', icon='security', stacked, onClick='location.href="app-account-security.html"')
+
+        // Divider
+        hr.mt-0.mb-5
+
+        // Notifications cards row
+        .row.gx-5
+            .col-lg-7
+                // Email notifications preferences card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Email Notifications
+                        .card-subtitle.mb-4 Choose which types of email updates you will receive.
+                        form
+                            // Form Group (default email)
+                            .mb-4
+                                mwc-textfield.w-100(label='Email Address', outlined, type='email', disabled, value='name@example.com')
+                            // Form Group (email updates checkboxes)
+                            .d-flex.flex-column
+                                mwc-formfield(label='Changes made to your account')
+                                    mwc-checkbox(name='notificationsReceived', checked)
+                                mwc-formfield(label="Changes are made to groups you're part of")
+                                    mwc-checkbox(name='notificationsReceived', checked)
+                                mwc-formfield(label="Product updates for products you've purchased or starred")
+                                    mwc-checkbox(name='notificationsReceived', checked)
+                                mwc-formfield(label="Information on new products and services")
+                                    mwc-checkbox(name='notificationsReceived', checked)
+                                mwc-formfield(label="Marketing and promotional offers")
+                                    mwc-checkbox(name='notificationsReceived')
+                                mwc-formfield(label="Security and account alerts")
+                                    mwc-checkbox(name='notificationsReceived', checked, disabled)
+                // SMS push notifications card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Push Notifications
+                        .card-subtitle.mb-4 Choose which types of push notifications you receive.
+                        form
+                            // Form Group (default SMS number)
+                            .mb-4
+                                mwc-textfield.w-100(label='SMS Number', outlined, type='tel', value='407-555-0187', disabled)
+                            // Form Group (SMS updates checkboxes)
+                            .d-flex.flex-column
+                                mwc-formfield(label='Someone comments on your post')
+                                    mwc-checkbox(name='pushNotifications', checked)
+                                mwc-formfield(label="Someone shares your post")
+                                    mwc-checkbox(name='pushNotifications')
+                                mwc-formfield(label="A user follows your account")
+                                    mwc-checkbox(name='pushNotifications', checked)
+                                mwc-formfield(label="New posts are made in groups you're part of")
+                                    mwc-checkbox(name='pushNotifications')
+                                mwc-formfield(label="You receive a private message")
+                                    mwc-checkbox(name='pushNotifications', checked)
+            .col-lg-5
+                // Notifications preferences card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Notification Preferences
+                        .card-subtitle.mb-4 Global preferences for notifications that you will receive.
+                        form
+                            // Form Group (notification preference checkboxes)
+                            .d-flex.flex-column.mb-4
+                                mwc-formfield(label='Automatically subscribe to group notifications')
+                                    mwc-checkbox(name='notificationPreferences', checked)
+                                mwc-formfield(label="Automatically subscribe to new product notifications")
+                                    mwc-checkbox(name='notificationPreferences')
+                            // Submit button
+                            button.btn.btn-text-danger(type='button') Unsubscribe from all notifications

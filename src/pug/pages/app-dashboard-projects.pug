@@ -1,0 +1,256 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Dashboard'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    .bg-dark
+        .container-xl.px-5.py-10
+            .row.gx-5
+                .col-md-8.mb-4.mb-md-0
+                    .d-flex.flex-column.h-100.justify-content-center
+                        h1.page-header.mb-4.text-white Dashboard
+                        p.text-white.mb-0 Create beautiful and intuitive products with Material Admin Pro
+                .col-md-4
+                    .font-monospace.text-uppercase.small.text-white.fw-300.mb-2 Popular
+                    ul.list-unstyled.mb-0
+                        li.mb-2
+                            a.link-white.fs-5(href='#!') Material Theming
+                        li.mb-2
+                            a.link-white.fs-5(href='#!') Components
+                        li.mb-2
+                            a.link-white.fs-5(href='#!') Utilities
+
+
+    .container-xl.p-5
+
+        .d-flex.justify-content-between.align-items-end
+            h2.display-6.mb-0 Projects
+            a.small.text-decoration-none.fw-500.d-inline-flex.align-items-center(href='#!')
+                | View all
+                i.material-icons.icon-sm chevron_right
+        
+        // Divider
+        hr.mt-2.mb-5
+
+        .row.gx-5
+            .col-sm-6.col-xl-3.mb-5
+                .card.card-raised.h-100
+                    .card-body
+                        .d-flex.align-items-center.justify-content-between.mb-2
+                            i.material-icons.icon-lg.text-primary.me-2 topic
+                            img.rounded-circle(src='https://source.unsplash.com/rDEOVtE7vOs/100x100', style='height: 1.75rem; width: 1.75rem;')
+                        .fs-6.fw-500 Fresh Start Inc.
+                        .card-text.font-monospace.mb-3 4/10 Tasks
+                        .text-xs.text-muted.mb-1 40% complete
+                        .progress(style='height: 0.25rem;')
+                            .progress-bar(role='progressbar' style='width: 40%' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100')
+            .col-sm-6.col-xl-3.mb-5
+                .card.card-raised.h-100
+                    .card-body
+                        .d-flex.align-items-center.justify-content-between.mb-2
+                            i.material-icons.icon-lg.text-primary.me-2 topic
+                            img.rounded-circle(src='https://source.unsplash.com/2LowviVHZ-E/100x100', style='height: 1.75rem; width: 1.75rem;')
+                        .fs-6.fw-500 Project Outsource
+                        .card-text.font-monospace.mb-3 12/30 Tasks
+                        .text-xs.text-muted.mb-1 40% complete
+                        .progress(style='height: 0.25rem;')
+                            .progress-bar(role='progressbar' style='width: 40%' aria-valuenow='40' aria-valuemin='0' aria-valuemax='100')
+            .col-sm-6.col-xl-3.mb-5
+                .card.card-raised.h-100
+                    .card-body
+                        .d-flex.align-items-center.justify-content-between.mb-2
+                            i.material-icons.icon-lg.text-success.me-2 fact_check
+                            img.rounded-circle(src='https://source.unsplash.com/d2MSDujJl2g/100x100', style='height: 1.75rem; width: 1.75rem;')
+                        .fs-6.fw-500 Launch App
+                        .card-text.font-monospace.mb-3 7/7 Tasks
+                        .text-xs.text-muted.mb-1 Complete!
+                        .progress(style='height: 0.25rem;')
+                            .progress-bar.bg-success(role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100')
+            .col-sm-6.col-xl-3.mb-5
+                .card.h-100.border-2.border-dashed.ripple-primary
+                    .card-body.d-flex.flex-column.align-items-center.justify-content-center
+                        i.material-icons.text-primary.mb-2 create_new_folder
+                        a.stretched-link.fst-button.text-decoration-none.d-inline-flex.align-items-center(href='#!')
+                            | Create Project
+
+        .d-flex.justify-content-between.align-items-end
+            h2.display-6.mb-0 Recent
+            a.small.text-decoration-none.fw-500.d-inline-flex.align-items-center(href='#!')
+                | View all
+                i.material-icons.icon-sm chevron_right
+        hr.mt-2.mb-5
+
+        .row.gx-5
+            // Projects column
+            .col-xl-8.col-lg-7.mb-5
+                .card.card-raised.h-100.overflow-hidden
+                    .card-header.bg-primary.text-white.px-4
+                        .fw-500 Project Files
+                    .card-body.p-0
+                        .table-responsive
+                            table.table.table-hover.mb-0
+                                tbody.align-middle
+                                    thead.text-xs.font-monospace
+                                        td.px-4.py-2.border-bottom-0.text-muted Name
+                                        td.px-4.py-2.border-bottom-0.text-muted Members
+                                        td.px-4.py-2.border-bottom-0.text-muted.text-end Size
+                                    tr
+                                        td.px-4.border-top
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 folder
+                                                | Design Assets
+                                        td.px-4.border-top Only you
+                                        td.px-4.border-top.text-end 2.4 GB
+                                    tr
+                                        td.px-4
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 folder_shared
+                                                | Team Photos
+                                        td.px-4 4 members
+                                        td.px-4.text-end 315 MB
+                                    tr
+                                        td.px-4
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 description
+                                                | Memo_FS_Meeting.pdf
+                                        td.px-4 Only you
+                                        td.px-4.text-end 23 MB
+                                    tr
+                                        td.px-4
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 description
+                                                | Brand_Guidelines.pdf
+                                        td.px-4 Only you
+                                        td.px-4.text-end 23 MB
+                                    tr
+                                        td.px-4
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 description
+                                                | Main_Page_Content.pdf
+                                        td.px-4 Only you
+                                        td.px-4.text-end 23 MB
+                                    tr
+                                        td.px-4
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 audiotrack
+                                                | Sound_Byte.mp3
+                                        td.px-4 Only you
+                                        td.px-4.text-end 12 MB
+                                    tr
+                                        td.px-4.border-bottom-0
+                                            .d-flex.align-items-center
+                                                i.material-icons.text-muted.me-2 audiotrack
+                                                | Greeting_Welcome.mp3
+                                        td.px-4.border-bottom-0 Only you
+                                        td.px-4.text-end.border-bottom-0 12 MB
+                    .card-footer.bg-transparent.position-relative.ripple-gray
+                        a.d-flex.align-items-center.justify-content-end.text-decoration-none.stretched-link.text-primary(href='#!')
+                            .fst-button Manage Storage
+                            i.material-icons.icon-sm.ms-1 chevron_right
+
+            // Checklist column
+            .col-xl-4.col-lg-5.mb-5
+                .card.card-raised.h-100.overflow-hidden
+                    .card-header.bg-primary.text-white.px-4
+                        .fw-500 Sprint Checklist
+                    .card-body.p-0
+
+                        // Clickable checklist
+                        ul.list-group.list-group-flush.checklist
+                            li.list-group-item.list-group-item-action.ps-2
+                                .d-flex.align-items-center
+                                    mwc-formfield.pe-none(label='Newsletter draft')
+                                        mwc-checkbox(checked)
+                            li.list-group-item.list-group-item-action.ps-2
+                                .d-flex.align-items-center
+                                    mwc-formfield.pe-none(label='UX testing report')
+                                        mwc-checkbox(checked)
+                            li.list-group-item.list-group-item-action.ps-2
+                                .d-flex.align-items-center
+                                    mwc-formfield.pe-none(label='Color selection for brand')
+                                        mwc-checkbox
+                            li.list-group-item.list-group-item-action.ps-2
+                                .d-flex.align-items-center
+                                    mwc-formfield.pe-none(label='Zone 6 area report')
+                                        mwc-checkbox
+                            li.list-group-item.list-group-item-action.ps-2
+                                .d-flex.align-items-center
+                                    mwc-formfield.pe-none(label='Send crash reports')
+                                        mwc-checkbox
+                            li.list-group-item.list-group-item-action.ps-2
+                                .d-flex.align-items-center
+                                    mwc-formfield.pe-none(label='Setup new marketing page')
+                                        mwc-checkbox
+                    .card-footer.bg-transparent.position-relative.ripple-gray
+                        a.d-flex.align-items-center.justify-content-end.text-decoration-none.stretched-link.text-primary(href='#!')
+                            .fst-button Manage Tasks
+                            i.material-icons.icon-sm.ms-1 chevron_right
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Custom Checkbox Script
+    script(src='js/widgets/checklist.js')

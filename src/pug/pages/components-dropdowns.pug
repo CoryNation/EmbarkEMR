@@ -1,0 +1,412 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Dropdowns'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/dropdowns.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Dropdowns
+        .row.gx-5
+            .col-lg-9
+                p Dropdowns are togglable contextual overlays for displaying lists of links. The Material Design menu component is closely related to the Bootstrap dropdown, which has been restyled using Material Design's specifications.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Default dropdowns * *
+                //- * * * * * * * * * * * * *
+
+                #default
+                    h2.mb-4 Default Dropdowns
+                    p
+                        | There have been some modifications to the default Bootstrap dropdown component in Material Admin Pro. The dropdown carets from Bootstrap have been disabled, and replaced with a Material Icon implementation of a dropdown arrow using the
+                        code.code-inline .trailing-icon
+                        | class with the icon, along with the
+                        code.code-inline .dropdown-caret
+                        | class. This causes the dropdown arrow to behave according to Materail Design's specifications.
+                    p.mb-4
+                        | The styling of the dropdown menu itself has also been restyled to match Materail Design.
+
+                    +demo({
+                        id: 'defaultDropdowns'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .dropdown
+                                    button#dropdownMenuButton.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown button
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown button<i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Action</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Another action</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Something else here</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Separated link</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.dropdown
+                                    button#dropdownMenuButton.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown button
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu(aria-labelledby='dropdownMenuButton')
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link</script>
+                    
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * *
+                //- * * Icons * *
+                //- * * * * * * *
+
+                #icons
+                    h2.mb-4 Dropdown Item Icons
+                    p
+                        | Leading icons can be used in the dropdown items. To use an icon properly in this case, insert an Material Icon before the text within the
+                        code.code-inline .dropdown-item
+                        | with the
+                        code.code-inline .leading-icon
+                        | class.
+
+                    +demo({
+                        id: 'iconDropdowns'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .dropdown
+                                    button#dropdownMenuIconsButton.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown Menu Item Icons
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu(aria-labelledby='dropdownMenuIconsButton', style='min-width: 17.5rem;')
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_copy
+                                                | Item 1
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_paste
+                                                | Item 2
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_cut
+                                                | Item 3
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" id="dropdownMenuIconsButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown Menu Item Icons<i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuIconsButton" style="min-width: 17.5rem;">
+                                        <li>
+                                            <a class="dropdown-item" href="#!">
+                                                <i class="material-icons leading-icon">content_copy</i>
+                                                Item 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">
+                                                <i class="material-icons leading-icon">content_paste</i>
+                                                Item 2
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">
+                                                <i class="material-icons leading-icon">content_cut</i>
+                                                Item 3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Separated link</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.dropdown
+                                    button#dropdownMenuIconsButton.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown Menu Item Icons
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu(aria-labelledby='dropdownMenuIconsButton', style='min-width: 17.5rem;')
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_copy
+                                                | Item 1
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_paste
+                                                | Item 2
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_cut
+                                                | Item 3
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Dark Dropdowns  * *
+                //- * * * * * * * * * * * *
+
+                #dropdown-dark
+                    h2.mb-4 Dark Dropdowns
+                    p
+                        | By adding the
+                        code.code-inline .dropdown-menu-dark
+                        | class to the
+                        code.code-inline .dropdown-menu
+                        | element, a dark effect can be acheived. The colors, icons, dividers, and text have all been restyled to match the dark theme.
+
+                    +demo({
+                        id: 'darkDropdown'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .dropdown
+                                    button#dropdownMenuDarkButton.btn.btn-dark.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dark Dropdown Menu
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu.dropdown-menu-dark(aria-labelledby='dropdownMenuDarkButton', style='min-width: 17.5rem;')
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_copy
+                                                | Item 1
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_paste
+                                                | Item 2
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_cut
+                                                | Item 3
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="dropdown">
+                                    <button class="btn btn-dark dropdown-toggle" id="dropdownMenuDarkButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dark Dropdown Menu<i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i></button>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuDarkButton" style="min-width: 17.5rem;">
+                                        <li>
+                                            <a class="dropdown-item" href="#!">
+                                                <i class="material-icons leading-icon">content_copy</i>
+                                                Item 1
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">
+                                                <i class="material-icons leading-icon">content_paste</i>
+                                                Item 2
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">
+                                                <i class="material-icons leading-icon">content_cut</i>
+                                                Item 3
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Separated link</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#!">Separated link</a>
+                                        </li>
+                                    </ul>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.dropdown
+                                    button#dropdownMenuDarkButton.btn.btn-dark.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dark Dropdown Menu
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu.dropdown-menu-dark(aria-labelledby='dropdownMenuDarkButton', style='min-width: 17.5rem;')
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_copy
+                                                | Item 1
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_paste
+                                                | Item 2
+                                        li
+                                            a.dropdown-item(href='#!')
+                                                i.material-icons.leading-icon content_cut
+                                                | Item 3
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link</script>
+
+                    p.mb-5
+                        | For more usage examples of Bootstrap dropdowns, including menu alignment, button sizing, responsive menu options, and more, visit
+                        a(href='https://getbootstrap.com/docs/5.2/components/dropdowns/', target='_blank') Bootstrap's dropdown documentation
+                        | page.
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg')
+                                .card-title.text-truncate.mb-2 Bootstrap Dropdowns Documentation
+                                p.card-text Bootstrap's dropdowns component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/dropdowns/', target='_blank', title='Bootstrap Dropdowns Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#icons') Icons
+                        li.nav-item
+                            a.nav-link(href='#dropdown-dark') Dark
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

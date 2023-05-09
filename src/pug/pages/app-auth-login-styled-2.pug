@@ -1,0 +1,59 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/authentication.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-pattern-doubs';
+    - var pageTitle = 'Login'; // String. Enter the page title within a string
+
+block content
+    // Main content container
+    .container
+        .row.justify-content-center
+            .col-xxl-4.col-xl-5.col-lg-6.col-md-8
+                .card.card-raised.shadow-10.mt-5.mt-xl-10.mb-4
+                    .card-body.p-5
+                        // Auth header with logo image
+                        .text-center
+                            img.mb-3(src='assets/img/icons/background.svg', alt='...', style='height: 48px;')
+                            h1.display-5.mb-0 Login
+                            .subheading-1.mb-5 to continue to app
+                        // Login submission form
+                        form
+                            .mb-4
+                                mwc-textfield.w-100(label='Username', outlined)
+                            .mb-4
+                                mwc-textfield.w-100(label='Password', outlined, icontrailing='visibility_off', type='password')
+                            .d-flex.align-items-center
+                                mwc-formfield(label='Remember password')
+                                    mwc-checkbox
+                            .form-group.d-flex.align-items-center.justify-content-between.mt-4.mb-0
+                                a.small.fw-500.text-decoration-none(href='app-auth-password-basic.html') Forgot Password?
+                                a.btn.btn-primary(href='index.html') Login
+                // Auth card message
+                .text-center.mb-5
+                    a.small.fw-500.text-decoration-none.link-white(href='app-auth-register-basic.html') Need an account? Sign up!
+
+block footer
+    // Auth footer
+    footer.p-4
+        .d-flex.flex-column.flex-sm-row.align-items-center.justify-content-between.small
+            .me-sm-3.mb-2.mb-sm-0
+                .fw-500.text-white Copyright &copy; Your Website 2023
+            .ms-sm-3
+                a.fw-500.text-decoration-none.link-white(href='#!') Privacy
+                a.fw-500.text-decoration-none.link-white.mx-4(href='#!') Terms
+                a.fw-500.text-decoration-none.link-white(href='#!') Help

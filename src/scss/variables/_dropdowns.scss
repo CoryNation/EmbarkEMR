@@ -1,0 +1,26 @@
+// Dropdowns
+//
+// Dropdown menu container and contents
+
+$dropdown-min-width:                7rem;
+$dropdown-color:                    $body-color;
+$dropdown-bg:                       $white;
+$dropdown-border-color:             rgba($black, .12) !default;
+
+$dropdown-link-color:               $gray-900;
+$dropdown-link-hover-color:         $dropdown-link-color;
+$dropdown-link-hover-bg:            $dropdown-bg;
+
+$dropdown-link-active-color:        $dropdown-link-color;
+$dropdown-link-active-bg:           $dropdown-bg;
+
+
+$dropdown-item-padding-y:           0;
+
+$dropdown-dark-color:               $white;
+$dropdown-dark-bg:                  $gray-900;
+
+$dropdown-dark-link-hover-color:    $dropdown-dark-color;
+$dropdown-dark-link-hover-bg:       $dropdown-dark-bg;
+$dropdown-dark-link-active-color:   $dropdown-dark-color;
+$dropdown-dark-link-active-bg:      $dropdown-dark-bg;

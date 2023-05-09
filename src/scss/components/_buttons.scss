@@ -1,0 +1,305 @@
+// * * * * * * * *
+// * * Buttons * *
+// * * * * * * * *
+
+// Bring in Material ripple for use with buttons
+
+@use "@material/ripple";
+
+//
+// Global button defaults
+//
+
+// Default styling for all buttons. To modify these, change the
+// values in the respective variables referenced in the class below
+
+.btn {
+    text-transform: $btn-text-transform;
+    letter-spacing: $btn-letter-spacing;
+
+    display: inline-flex;
+    align-items: center;
+}
+
+//
+// Default (unelevated) buttons
+//
+
+// Modifies the default Bootstrap button variant combining Bootstrap's
+// styling with Material Design's ripple effect along with Material's
+// styling for their unelevated button variation
+
+@each $color,
+$value in $theme-colors {
+    .btn-#{$color} {
+        @include button-variant($value, $value);
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color(color-contrast($value));
+        @include ripple.states-opacities((hover: .06, focus: .12, press: .18));
+        overflow: hidden;
+        position: relative;
+        border: none;
+        padding: add($btn-padding-y, $btn-border-width) add($btn-padding-x, $btn-border-width);
+
+        &:hover,
+        &:focus {
+            background-color: $value;
+        }
+
+        &:active {
+            background-color: $value;
+        }
+
+        // Support for button sizes
+        &.btn-sm {
+            padding: add($btn-padding-y-sm, $btn-border-width) add($btn-padding-x-sm, $btn-border-width);
+        }
+
+        &.btn-lg {
+            padding: add($btn-padding-y-lg, $btn-border-width) add($btn-padding-x-lg, $btn-border-width);
+        }
+    }
+}
+
+//
+// Raised buttons
+//
+
+// Modifies the default Bootstrap button variant combining Bootstrap's
+// styling with Material Design's ripple effect along with Material's
+// styling for their raised button variation
+
+@each $color,
+$value in $theme-colors {
+    .btn-raised-#{$color} {
+        @extend .shadow-2;
+        @include button-variant($value, $value);
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color(color-contrast($value));
+        @include ripple.states-opacities((hover: .06, focus: .12, press: .18));
+        overflow: hidden;
+        position: relative;
+        border: none;
+        padding: add($btn-padding-y, $btn-border-width) add($btn-padding-x, $btn-border-width);
+
+        &:hover,
+        &:focus {
+            @extend .shadow-4;
+            background-color: $value;
+        }
+
+        &:active {
+            @extend .shadow-8;
+            background-color: $value;
+        }
+
+        &:disabled {
+            @extend .shadow-0;
+        }
+
+        // Support for button sizes
+        &.btn-sm {
+            padding: add($btn-padding-y-sm, $btn-border-width) add($btn-padding-x-sm, $btn-border-width);
+        }
+
+        &.btn-lg {
+            padding: add($btn-padding-y-lg, $btn-border-width) add($btn-padding-x-lg, $btn-border-width);
+        }
+    }
+}
+
+//
+// Outline buttons
+//
+
+// Modifies the outline button variant combining Bootstrap's
+// styling with Material Design's ripple effect along with
+// other slight styling tweaks
+
+@each $color,
+$value in $theme-colors {
+    .btn-outline-#{$color} {
+        @include button-outline-variant($value);
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($value);
+        @include ripple.states-opacities((hover: .06, focus: .12, press: .18));
+        overflow: hidden;
+        position: relative;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: $value;
+            background-color: transparent;
+        }
+
+        &:active {
+            color: $value !important;
+            background-color: transparent !important;
+        }
+    }
+}
+
+// 
+// Text buttons
+// 
+
+// A new button variant to match Material Design's text button
+
+@each $color,
+$value in $theme-colors {
+    .btn-text-#{$color} {
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($value);
+        @include ripple.states-opacities((hover: .06, focus: .12, press: .18));
+        overflow: hidden;
+        position: relative;
+        border: none;
+        padding: add($btn-padding-y, $btn-border-width) add($btn-padding-x * 0.5, $btn-border-width);
+        color: $value;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: $value;
+            background-color: transparent;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 $input-btn-focus-width rgba($value, $input-btn-focus-color-opacity);
+        }
+
+        // Support for button sizes
+        &.btn-sm {
+            padding: add($btn-padding-y-sm, $btn-border-width) add($btn-padding-x-sm * 0.5, $btn-border-width);
+        }
+
+        &.btn-lg {
+            padding: add($btn-padding-y-lg, $btn-border-width) add($btn-padding-x-lg * 0.5, $btn-border-width);
+        }
+    }
+}
+
+//
+// Button Sizes
+//
+
+.btn-xl {
+    @include button-size($btn-padding-y-xl, $btn-padding-x-xl, $btn-font-size-xl, $btn-border-radius-xl);
+}
+
+.btn-xs {
+    @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-border-radius-xs);
+}
+
+//
+// Leading/Trailing Icon Styling
+// 
+
+.btn .leading-icon,
+.btn .trailing-icon {
+    height: $btn-font-size + 0.25rem;
+    width: $btn-font-size + 0.25rem;
+    font-size: $btn-font-size + 0.25rem;
+    vertical-align: top;
+}
+
+.btn-xs .leading-icon,
+.btn-xs .trailing-icon {
+    height: $btn-font-size-xs + 0.1rem;
+    width: $btn-font-size-xs + 0.1rem;
+    font-size: $btn-font-size-xs + 0.1rem;
+}
+
+.btn-sm .leading-icon,
+.btn-sm .trailing-icon {
+    height: $btn-font-size-sm + 0.15rem;
+    width: $btn-font-size-sm + 0.15rem;
+    font-size: $btn-font-size-sm + 0.15rem;
+}
+
+.btn-lg .leading-icon,
+.btn-lg .trailing-icon {
+    height: $btn-font-size-lg + 0.25rem;
+    width: $btn-font-size-lg + 0.25rem;
+    font-size: $btn-font-size-lg + 0.25rem;
+}
+
+.btn-xl .leading-icon,
+.btn-xl .trailing-icon {
+    height: $btn-font-size-xl + 0.35rem;
+    width: $btn-font-size-xl + 0.35rem;
+    font-size: $btn-font-size-xl + 0.35rem;
+}
+
+// 
+// Leading Icon Styling
+// 
+
+.btn .leading-icon {
+    margin-left: -0.25rem;
+    margin-right: 0.5rem;
+}
+
+.btn-xs .leading-icon {
+    margin-left: -0.1rem;
+    margin-right: 0.2rem;
+}
+
+.btn-sm .leading-icon {
+    margin-left: -0.15rem;
+    margin-right: 0.3rem;
+}
+
+.btn-lg .leading-icon {
+    margin-left: -0.35rem;
+    margin-right: 0.7rem;
+}
+
+.btn-xl .leading-icon {
+    margin-left: -0.4rem;
+    margin-right: 0.8rem;
+}
+
+// 
+// Trailing Icon Styling
+// 
+
+.btn .trailing-icon {
+    margin-right: -0.25rem;
+    margin-left: 0.5rem;
+}
+
+.btn-xs .trailing-icon {
+    margin-right: -0.1rem;
+    margin-left: 0.2rem;
+}
+
+.btn-sm .trailing-icon {
+    margin-right: -0.15rem;
+    margin-left: 0.3rem;
+}
+
+.btn-lg .trailing-icon {
+    margin-right: -0.35rem;
+    margin-left: 0.7rem;
+}
+
+.btn-xl .trailing-icon {
+    margin-right: -0.4rem;
+    margin-left: 0.8rem;
+}
+
+// 
+// Spacing container for buttons
+// 
+
+.btn-example {
+    .btn {
+        margin: .25rem .125rem;
+    }
+}

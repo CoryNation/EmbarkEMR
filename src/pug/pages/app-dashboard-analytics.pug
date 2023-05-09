@@ -1,0 +1,298 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Dashboard'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Styles  * *
+//- * * * * * * * * * * * * * * *
+
+//- The main CSS is already included within the layout.
+//- Below, the Pug `prepend` directive is used to load stylesheets
+//- that are specific to this page.
+
+prepend css
+    // Load Litepicker stylesheet
+    link(href='https://cdn.jsdelivr.net/npm/litepicker/dist/css/style.css', rel='stylesheet')
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.bg-dark
+        .container-xl.px-5
+            .d-flex.justify-content-between.align-items-center
+                h1.text-white.py-3.mb-0.display-6 Analytics Overview
+                .ms-4
+                    button.btn.btn-text-white.btn.sm.me-2(type='button')
+                        i.material-icons.leading-icon lightbulb
+                        | Learning
+                    button.btn.btn-text-white.btn.sm(type='button')
+                        i.material-icons.leading-icon insights
+                        | Insights
+
+    .container-xl.px-5.pt-5
+
+        // Example alert
+        .alert.alert-primary.alert-dismissible.fade.show.p-4.mb-5(role='alert')
+            .d-flex.align-items-center
+                i.material-icons-outlined.me-3 info
+                .me-4
+                    | One of your properties is now receiving data.
+                    a.alert-link(href='#!') Check it now.
+            button.btn-close.p-4(type='button' data-bs-dismiss='alert' aria-label='Close', style='top: 4px')
+
+        .row.gx-5
+
+            .col-lg-8.mb-5
+                .card.card-raised.h-100.overflow-hidden
+                    .card-header.bg-white.p-0
+                        mwc-tab-bar
+                            mwc-tab(label='Users', icon='people', stacked, onclick='setMyLineChart("USERS")')
+                            mwc-tab(label='Sessions', icon='timer', stacked, onclick='setMyLineChart("SESSIONS")')
+                            mwc-tab(label='Conversions', icon='timeline', stacked, onclick='setMyLineChart("CONVERSIONS")')
+                    .card-body.pt-4
+                        canvas#dashboardAreaChart(width='100%', height='40')
+                    .card-footer.bg-transparent.p-0
+                        .list-group.list-group-flush
+                            .list-group-item.ripple-gray
+                                .d-flex.align-items-center.justify-content-between
+                                    .me-3 Revenue Target
+                                    .d-flex.align-items-center
+                                        .me-2 25%
+                                        .progress.me-2(style='width: 8rem; height: 0.25rem;')
+                                            .progress-bar(role='progressbar' style='width: 25%' aria-valuenow='25' aria-valuemin='0' aria-valuemax='100')
+                                        .d-flex.align-items-center.p-2.text-primary
+                                            .fst-button Open Report
+                                            i.material-icons.icon-sm.ms-1 chevron_right
+                            .list-group-item.ripple-gray
+                                .d-flex.align-items-center.justify-content-between
+                                    .me-3 Acquisition Goal
+                                    .d-flex.align-items-center
+                                        .me-2 100%
+                                        .progress.me-2(style='width: 8rem; height: 0.25rem;')
+                                            .progress-bar(role='progressbar' style='width: 100%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100')
+                                        .d-flex.align-items-center.p-2.text-primary
+                                            .fst-button Open Report
+                                            i.material-icons.icon-sm.ms-1 chevron_right
+                    
+            .col-lg-4.mb-5
+                .card.card-raised.bg-primary.h-100
+                    .card-body
+                        h2.overline.text-white Content Summary
+                        .list-group.list-group-flush.list-group-light
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                .caption.font-monospace.text-white-50 Top Pages
+                                .caption.font-monospace.text-white-50.ms-2 Visitors
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /
+                                .ms-2 12,842
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /themes
+                                .ms-2 5,549
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /previews
+                                .ms-2 3,923
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /campaign
+                                .ms-2 2,993
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /contact
+                                .ms-2 1,832
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /support
+                                .ms-2 915
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /status
+                                .ms-2 513
+                            .list-group-item.d-flex.justify-content-between.px-0
+                                | /setup
+                                .ms-2 452
+                    .card-footer.p-0
+                        .d-flex.justify-content-end.ripple-white.px-3.py-2
+                            .d-flex.align-items-center.p-2.text-white
+                                .fst-button Advanced report
+                                i.material-icons.icon-sm.ms-1 chevron_right
+
+        .row.gx-5
+            .col-xl-4.col-md-6.mb-5
+                .card.card-raised.overflow-hidden.h-100
+                    .card-header.bg-primary.text-white
+                        .d-flex.justify-content-between.align-items-center
+                            .fw-500 Acquisition
+                            .dropdown.my-n2.me-n2
+                                button#segmentsDropdownButton.btn.btn-lg.btn-text-light.btn-icon.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                    i.material-icons more_vert
+                                ul.dropdown-menu(aria-labelledby='segmentsDropdownButton')
+                                    li
+                                        a.dropdown-item(href='#!') Action
+                                    li
+                                        a.dropdown-item(href='#!') Another action
+                                    li
+                                        a.dropdown-item(href='#!') Something else here
+                                    li
+                                        hr.dropdown-divider
+                                    li
+                                        a.dropdown-item(href='#!') Separated link
+                                    li
+                                        a.dropdown-item(href='#!') Separated link
+                    .card-body
+                        .d-flex.h-100.w-100.align-items-center.justify-content-center
+                            .w-100(style='max-width: 20rem')
+                                canvas#myPieChart
+                    .card-footer.bg-transparent.p-0
+                        .list-group.list-group-flush
+                            .list-group-item.d-flex.justify-content-between
+                                .caption.font-monospace.text-muted Traffic Channel
+                                .caption.font-monospace.text-muted.ms-2 Users
+                            .list-group-item.d-flex.justify-content-between
+                                .me-2
+                                    span.text-primary.me-1 &#x25CF;
+                                    | Search
+                                .ms-2 5,649
+                            .list-group-item.d-flex.justify-content-between
+                                .me-2
+                                    span.text-info.me-1 &#x25CF;
+                                    | Direct
+                                .ms-2 3,919
+                            .list-group-item.d-flex.justify-content-between
+                                .me-2
+                                    span.text-secondary.me-1 &#x25CF;
+                                    | Referral
+                                .ms-2 2,126
+                            .list-group-item.d-flex.justify-content-between
+                                .me-2
+                                    span.text-warning.me-1 &#x25CF;
+                                    | Social
+                                .ms-2 972
+
+            .col-xl-8.col-md-6.mb-5
+                .card.card-raised.h-100
+                    .card-header.bg-primary.text-white
+                        .d-flex.justify-content-between.align-items-center
+                            .fw-500 Demographics
+                            .dropdown.my-n2.me-n2
+                                    button#segmentsDropdownButton.btn.btn-lg.btn-text-light.btn-icon.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        i.material-icons more_vert
+                                    ul.dropdown-menu(aria-labelledby='segmentsDropdownButton')
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                    .card-body
+                        .h-100.d-flex.align-items-center
+                            canvas#dashboardHorizontalBarChart(height='200')
+                    .card-footer.bg-transparent.p-0
+                        .d-flex.justify-content-end.ripple-gray.px-3.py-2
+                            .d-flex.align-items-center.p-2.text-primary
+                                .fst-button Advanced report
+                                i.material-icons.icon-sm.ms-1 chevron_right
+
+        .row.gx-5
+
+            // Privacy suggestions illustrated card
+            .col-xl-6.mb-5
+                .card.card-raised.h-100
+                    .card-body.p-4
+                        .d-flex.justify-content-between
+                            .me-4
+                                h2.card-title.mb-0 Privacy Suggestions
+                                p.card-text Take our privacy checkup to choose which settings are right for you.
+                            img(src='assets/img/illustrations/security.svg', alt='...', style='height: 6rem;')
+                    .card-footer.bg-transparent.position-relative.ripple-gray.px-4
+                        a.stretched-link.text-decoration-none(href='#!') Review suggestions (4)
+
+            // Account storage illustrated card
+            .col-xl-6.mb-5
+                .card.card-raised.h-100
+                    .card-body.p-4
+                        .d-flex.justify-content-between
+                            .me-4
+                                h2.card-title.mb-0 Account Storage
+                                p.card-text Your account storage is shared across all devices.
+                                .progress.mb-2(style='height: 0.25rem;')
+                                    .progress-bar(role='progressbar' style='width: 33%' aria-valuenow='10' aria-valuemin='0' aria-valuemax='30')
+                                .card-text 10 GB of 30 GB used
+                            img(src='assets/img/illustrations/cloud.svg', alt='...', style='height: 6rem;')
+                    .card-footer.bg-transparent.position-relative.ripple-gray.px-4
+                        a.stretched-link.text-decoration-none(href='#!') Manage storage
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Chart.js via CDN
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js', crossorigin='anonymous')
+    // Load Chart.js customized defaults
+    script(src='js/charts/chart-defaults.js')
+    // Load chart demos for this page
+    script(src='js/charts/demos/chart-pie-demo.js')
+    script(src='js/charts/demos/dashboard-chart-area-demo.js')
+    script(src='js/charts/demos/dashboard-chart-bar-horizontal-demo.js')

@@ -1,0 +1,175 @@
+// * * * * * * *
+// * * Cards * *
+// * * * * * * *
+
+// Bring in Material ripple for use with collapsible card
+
+@use "@material/ripple";
+
+// 
+// Global card defaults
+// 
+
+.card {
+
+    @extend .small;
+    line-height: 1.25rem;
+    color: $black;
+
+    .card-title {
+        font-size: 1.25rem;
+        line-height: 2rem;
+        font-weight: 500;
+        letter-spacing: 0.0125em;
+        margin-bottom: 0;
+    }
+
+    // New card subtitle element to match
+    // Material's card styling specs
+    .card-subtitle {
+        font-size: $font-size-sm;
+        line-height: 1.375rem;
+        font-weight: 500;
+        letter-spacing: .0071428571em;
+        margin-bottom: 0;
+        opacity: 0.6;
+    }
+
+    .card-text {
+        opacity: 0.6;
+    }
+
+    // New card actions alternative to the
+    // card footer with more opinionated
+    // styling based on Material's specs
+    .card-actions {
+        min-height: 3.25rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        display: flex;
+        flex-direction: column;
+
+        .card-action-buttons {
+            .btn {
+                margin-right: 0.5rem;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .card-action-icons {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+
+            .btn {
+                box-shadow: none;
+            }
+
+            .btn-text-dark {
+                color: fade-out($black, 0.4) !important;
+            }
+        }
+
+        @media (min-width: 425px) {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            .card-action-icons {
+                padding: 0;
+            }
+        }
+
+    }
+
+}
+
+// 
+// Styling for the raised card variant
+// 
+
+.card-raised {
+    @extend .shadow-1;
+    border: none;
+}
+
+// 
+// Styling for the card quick link variant
+// 
+
+// NOTE:
+// This is an experimental component
+// and may not have 100% browser support!
+
+.card-quick-link {
+
+    .card-body {
+        position: relative;
+        padding-left: 4.75rem;
+
+        .card-quick-link-img {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            height: 44px;
+            width: 44px;
+        }
+
+        .card-title {
+            @extend .subheading-2;
+        }
+
+        .card-text {
+            display: -webkit-box;
+            height: 2.5rem;
+            white-space: normal;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .card-actions {
+        min-height: 0;
+        padding: 0 1rem 0.875rem;
+    }
+}
+
+// 
+// Custom collapsible card variant
+// 
+
+.card-collapsible {
+    overflow: hidden;
+
+    .card-header {
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($primary);
+        @include ripple.states-opacities((hover: .1, focus: .15, press: .2));
+        overflow: hidden;
+        cursor: pointer;
+        user-select: none;
+        border-bottom: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .card-header-icon {
+            color: $gray-600;
+        }
+
+        &.collapsed {
+            .card-header-icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .card-body {
+        border-top: $border-width solid $border-color !important;
+    }
+}

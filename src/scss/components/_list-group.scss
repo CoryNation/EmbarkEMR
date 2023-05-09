@@ -1,0 +1,40 @@
+// * * * * * * * * * *
+// * * List Group  * *
+// * * * * * * * * * *
+
+// Bring in Material ripple for use with list group action items
+
+@use "@material/ripple";
+
+.list-group {
+    .list-group-item-action {
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($gray);
+        @include ripple.states-opacities((hover: .1, focus: .15, press: .2));
+        overflow: hidden;
+
+        &:hover,
+        &:focus,
+        &:active {
+            background-color: inherit;
+        }
+    }
+}
+
+// Creates a custom light variant of the list group
+
+.list-group.list-group-light {
+    .list-group-item {
+        background-color: transparent;
+        color: $white;
+        border-color: fade-out($white, 0.8);
+    }
+
+    .list-group-item-action {
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($light);
+        @include ripple.states-opacities((hover: .1, focus: .15, press: .2));
+    }
+}

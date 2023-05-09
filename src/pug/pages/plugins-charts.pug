@@ -1,0 +1,346 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Charts'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/charts.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Charts
+
+        .row.gx-5
+            .col-lg-9
+                p 
+                    | Charts depict large sets of data in graphical forms to make data easier to visualize and comprehend. In Material Admin Pro, data visualization has been implemented by means of the
+                    a(href='https://www.chartjs.org/docs/master/', target='_blank') Chart.js
+                    | plugin, an open source, JavaScript charting library.
+                p
+                    | The third party plugin has been restyled and customized to fit Material Design's specifications for data visualization. Below are some examples of common use cases for representing data through charts.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * * * * * * * * *
+                //- * * Line Charts * *
+                //- * * * * * * * * * *
+                //- * * * * * * * * * *
+
+                #line-charts
+                    h2.mb-4 Line Charts
+                    p.mb-4 Use line charts to display minor variations in data. In this example, tooltips have been enabled along with axis labels.
+
+                    //- * * * * * * * * * *
+                    //- * * Line Charts * *
+                    //- * * * * * * * * * *
+
+                    #line-chart-default
+                        h3.mb-4 Default Line Chart
+                        p.mb-4 By default, the line chart has no rounding at data points in order to show precise fluctuations in the data set. The axis lables and tooltips are styled according to Material Design specifications.
+
+                        .card.mb-5
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Line Chart
+                            .card-body.p-4
+                                canvas#myLineChart(width='100', height='30')
+
+                    //- * * * * * * * * * * * * *
+                    //- * * Smooth Line Chart * *
+                    //- * * * * * * * * * * * * *
+
+                    #line-chart-smooth
+                        h3.mb-4 Smooth Line Chart
+                        p.mb-4 Modifying the line tension of a line chart can add a new stylistic element to the data presentation. Smoothed line charts are best suited for data sets that represent gradual changes over time where displaying sudden changes is not crucial.
+
+                        .card
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Smooth Line Chart
+                            .card-body.p-4
+                                canvas#mySmoothLineChart(width='100', height='30')
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * * * * * * * * *
+                //- * * Area Charts * *
+                //- * * * * * * * * * *
+                //- * * * * * * * * * *
+
+                #area-charts
+                    h2.mb-4 Area Charts
+                    p.mb-4 Use area charts to summarize relationships between data sets or how individual data points relate to a whole.
+
+                    #area-chart-default
+                        h3.mb-4 Default Area Chart
+                        p.mb-4 By default, the area chart is similar to the line chart except that it has a fill color underneath the line.
+
+                        .card.mb-5
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Area Chart
+                            .card-body.p-4
+                                canvas#myAreaChart(width='100', height='30')
+
+                    //- * * * * * * * * * * * * *
+                    //- * * Smooth Area Chart * *
+                    //- * * * * * * * * * * * * *
+
+                    #area-chart-smooth
+                        h3.mb-4 Smooth Area Chart
+                        p.mb-4 Smooth area charts are also best used for displaying data with gradual changes where visualizing sudden, precise changes in data is not necessary.
+
+                        .card
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Smooth Area Chart
+                            .card-body.p-4
+                                canvas#mySmoothAreaChart(width='100', height='30')
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * * * * * * * * *
+                //- * * Bar Charts  * *
+                //- * * * * * * * * * *
+                //- * * * * * * * * * *
+
+                #bar-charts
+                    h2.mb-4 Bar Chart
+                    p.mb-4 Use bar charts to express larger variations in data, how individual data points relate to a whole, comparisons between data, and ranking.
+
+                    //- * * * * * * * * * * * * *
+                    //- * * Default Bar Chart * *
+                    //- * * * * * * * * * * * * *
+
+                    #bar-chart-default
+                        h3.mb-4 Horizontal Bar Chart
+                        p.mb-4 The default bar chart is a single color and shows axis labels and tooltips when an individual bar is hovered over or interacted with.
+
+                        .card.mb-5
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Bar Chart
+                            .card-body.p-4
+                                canvas#myBarChart(width='100', height='30')
+
+                    //- * * * * * * * * * * * * *
+                    //- * * Grouped Bar Chart * *
+                    //- * * * * * * * * * * * * *
+
+                    #bar-chart-grouped
+                        h3.mb-4 Grouped Bar Chart
+                        p A grouped bar chart shows multiple data sets along the same axis, perfect for comparing two different sets of data.
+                        p.mb-4 The below example shows two data sets, however more can be used.
+
+                        .card.mb-5
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Grouped Bar Chart
+                            .card-body.p-4
+                                canvas#myGroupedBarChart(width='100', height='30')
+
+                    //- * * * * * * * * * * * * * * *
+                    //- * * Horizontal Bar Chart  * *
+                    //- * * * * * * * * * * * * * * *
+
+                    #bar-chart-horizontal
+                    h3.mb-4 Horizontal Bar Chart
+                        p.mb-4 The horizontal bar chart is a variation on the vertical bar chart. This chart type is helpful for showing trend data and comparisons.
+
+                        .card.mb-5
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Horizontal Bar Chart
+                            .card-body.p-4
+                                canvas#myHorizontalBarChart(width='100', height='40')
+
+                    //- * * * * * * * * * * * * * * * * * * *
+                    //- * * Grouped Horizontal Bar Chart  * *
+                    //- * * * * * * * * * * * * * * * * * * *
+
+                    #bar-chart-grouped-horizontal
+                        h3.mb-4 Grouped Horizontal Bar Chart
+                        p.mb-4 Multiple data sets are also supported with horizontal bar charts.
+
+                        .card
+                            .card-header.bg-white.px-4
+                                .fs-5.my-1 Example Horizontal Bar Chart
+                            .card-body.p-4
+                                canvas#myGroupedHorizontalBarChart(width='100', height='40')
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * *
+                //- * * Pie Chart * *
+                //- * * * * * * * * *
+
+                #pie-chart
+                    h2 Pie Chart
+                    p.mb-4 Pie charts express portions of a whole, using arcs or angles within a circle.
+
+                    .card
+                        .card-header.bg-white.px-4
+                            .fs-5.my-1 Example Pie Chart
+                        .card-body.p-4
+                            .row.justify-content-center
+                                .col-xxl-8.col-xl-10
+                                    canvas#myPieChart(width='100', height='50')
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Doughnut Chart  * *
+                //- * * * * * * * * * * * *
+
+                #doughnut-chart
+                    h2 Doughnut Chart
+                    p.mb-4 A variation on the pie chart, a doughnut chart is a pie chart with the center cut out.
+
+                    .card
+                        .card-header.bg-white.px-4
+                            .fs-5.my-1 Example Doughnut Chart
+                        .card-body.p-4
+                            .row.justify-content-center
+                                .col-xxl-8.col-xl-10
+                                    canvas#myDoughnutChart(width='100', height='50')
+
+                    //- Divider
+                    hr.my-5
+
+                p.mb-0 For a full list of available charts, configuration options, and usage instructions for Chart.js, use the link below to view the official plugin documentation.
+
+                //- Divider
+                hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/chartjs.svg', alt='Chart.js Logo')
+                                .card-title.text-truncate.mb-2 Chart.js
+                                p.card-text Simple yet flexible JavaScript charting for designers &amp; developers
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://www.chartjs.org/docs/3.0.2/', target='_blank', title='Chart.js Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#line-charts') Line Charts
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#line-chart-default') Default
+                                li.nav-item
+                                    a.nav-link.border-0(href='#line-chart-smooth') Smooth
+                        li.nav-item
+                            a.nav-link(href='#area-charts') Area Charts
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#area-chart-default') Default
+                                li.nav-item
+                                    a.nav-link.border-0(href='#area-chart-smooth') Smooth
+                        li.nav-item
+                            a.nav-link(href='#bar-charts') Bar Charts
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bar-chart-default') Default
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bar-chart-grouped') Grouped
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bar-chart-horizontal') Horizontal
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bar-chart-grouped-horizontal') Grouped Horizontal
+                        li.nav-item
+                            a.nav-link(href='#pie-chart') Pie Chart
+                        li.nav-item
+                            a.nav-link(href='#doughnut-chart') Doughnut Chart
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Chart.js via CDN
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js', crossorigin='anonymous')
+    // Load Chart.js customized defaults
+    script(src='js/charts/chart-defaults.js')
+    // Load demo line charts
+    script(src='js/charts/demos/chart-line-demo.js')
+    script(src='js/charts/demos/chart-line-smooth-demo.js')
+    // Load demo area charts
+    script(src='js/charts/demos/chart-area-demo.js')
+    script(src='js/charts/demos/chart-area-smooth-demo.js')
+    // Load demo bar charts
+    script(src='js/charts/demos/chart-bar-demo.js')
+    script(src='js/charts/demos/chart-bar-grouped-demo.js')
+    script(src='js/charts/demos/chart-bar-horizontal-demo.js')
+    script(src='js/charts/demos/chart-bar-grouped-horizontal-demo.js')
+    // Load demo pie and doughnut charts
+    script(src='js/charts/demos/chart-doughnut-demo.js')
+    script(src='js/charts/demos/chart-pie-demo.js')

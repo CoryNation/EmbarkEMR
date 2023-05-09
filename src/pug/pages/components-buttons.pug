@@ -1,0 +1,901 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Buttons'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/buttons.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Buttons
+
+        .row.gx-5
+            .col-lg-9
+
+                p Buttons communicate actions users can take. In Material Admin Pro, there are four button variations to choose from which are all based on Material Design's button variants.
+                p All of the buttons include the ripple effect by default in order to emphasize the different states a button can have, providing valuable visual feedback to users who interact with the element.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Default buttons * *
+                //- * * * * * * * * * * * *
+
+                #default
+                    h2.mb-4 Default Buttons
+                    p
+                        | Material Admin Pro's default buttons use Bootstrap's default button class names. These default buttons are equivalent to Material's unelevated button variant.
+                    p.mb-4
+                        | Note that the button examples below use the 
+                        code.code-inline &lt;button&gt;
+                        | element, but you can also use button classes with the
+                        code.code-inline &lt;a&gt;
+                        | and 
+                        code.code-inline &lt;input&gt;
+                        | elements.
+
+                    +demo({
+                        id: 'defaultButton'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+                                .btn-example
+                                    button.btn.btn-primary(type='button') Primary
+                                    button.btn.btn-secondary(type='button') Secondary
+                                    button.btn.btn-success(type='button') Success
+                                    button.btn.btn-danger(type='button') Danger
+                                    button.btn.btn-info(type='button') Info
+                                    button.btn.btn-warning(type='button') Warning
+                                    button.btn.btn-light(type='button') Light
+                                    button.btn.btn-dark(type='button') Dark
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-primary" type="button">Primary</button>
+                                <button class="btn btn-secondary" type="button">Secondary</button>
+                                <button class="btn btn-success" type="button">Success</button>
+                                <button class="btn btn-danger" type="button">Danger</button>
+                                <button class="btn btn-info" type="button">Info</button>
+                                <button class="btn btn-warning" type="button">Warning</button>
+                                <button class="btn btn-light" type="button">Light</button>
+                                <button class="btn btn-dark" type="button">Dark</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-primary(type='button') Primary
+                                button.btn.btn-secondary(type='button') Secondary
+                                button.btn.btn-success(type='button') Success
+                                button.btn.btn-danger(type='button') Danger
+                                button.btn.btn-info(type='button') Info
+                                button.btn.btn-warning(type='button') Warning
+                                button.btn.btn-light(type='button') Light
+                                button.btn.btn-dark(type='button') Dark</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Raised buttons  * *
+                //- * * * * * * * * * * * *
+
+                #raised
+                    h2.mb-4 Raised Button Variant
+                    p
+                        | The raised button variant is a button style created to match Material's raised button. These button classes are named using the format 
+                        code.code-inline .btn-raised-{color}
+                        | where 
+                        em color 
+                        | is any theme color defined in the color map.
+                    p.mb-4
+                        | Raised buttons have a slight box shadow to convey elevation along with a hover effect, which increases the elevation to provide feedback to the user.
+
+                    +demo({
+                        id: 'raisedButton'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+                                .btn-example
+                                    button.btn.btn-raised-primary(type='button') Primary
+                                    button.btn.btn-raised-secondary(type='button') Secondary
+                                    button.btn.btn-raised-success(type='button') Success
+                                    button.btn.btn-raised-danger(type='button') Danger
+                                    button.btn.btn-raised-info(type='button') Info
+                                    button.btn.btn-raised-warning(type='button') Warning
+                                    button.btn.btn-raised-light(type='button') Light
+                                    button.btn.btn-raised-dark(type='button') Dark
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-raised-primary" type="button">Primary</button>
+                                <button class="btn btn-raised-secondary" type="button">Secondary</button>
+                                <button class="btn btn-raised-success" type="button">Success</button>
+                                <button class="btn btn-raised-danger" type="button">Danger</button>
+                                <button class="btn btn-raised-info" type="button">Info</button>
+                                <button class="btn btn-raised-warning" type="button">Warning</button>
+                                <button class="btn btn-raised-light" type="button">Light</button>
+                                <button class="btn btn-raised-dark" type="button">Dark</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-raised-primary(type='button') Primary
+                                button.btn.btn-raised-secondary(type='button') Secondary
+                                button.btn.btn-raised-success(type='button') Success
+                                button.btn.btn-raised-danger(type='button') Danger
+                                button.btn.btn-raised-info(type='button') Info
+                                button.btn.btn-raised-warning(type='button') Warning
+                                button.btn.btn-raised-light(type='button') Light
+                                button.btn.btn-raised-dark(type='button') Dark</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Outline buttons * *
+                //- * * * * * * * * * * * *
+
+                #outline
+                    h2.mb-4 Outline Button Variant
+                    p.mb-4
+                        | Outline button classes are included with Bootstrap's framework by default. In this implementation, the outline button has been modified to match Material Design's specifications. These button classes are named using the format 
+                        code.code-inline .btn-outline-{color}
+                        | where 
+                        em color 
+                        | is any theme color defined in the color map.
+
+                    +demo({
+                        id: 'outlineButton'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+                                .btn-example
+                                    button.btn.btn-outline-primary(type='button') Primary
+                                    button.btn.btn-outline-secondary(type='button') Secondary
+                                    button.btn.btn-outline-success(type='button') Success
+                                    button.btn.btn-outline-danger(type='button') Danger
+                                    button.btn.btn-outline-info(type='button') Info
+                                    button.btn.btn-outline-warning(type='button') Warning
+                                    button.btn.btn-outline-light(type='button') Light
+                                    button.btn.btn-outline-dark(type='button') Dark
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-outline-primary" type="button">Primary</button>
+                                <button class="btn btn-outline-secondary" type="button">Secondary</button>
+                                <button class="btn btn-outline-success" type="button">Success</button>
+                                <button class="btn btn-outline-danger" type="button">Danger</button>
+                                <button class="btn btn-outline-info" type="button">Info</button>
+                                <button class="btn btn-outline-warning" type="button">Warning</button>
+                                <button class="btn btn-outline-light" type="button">Light</button>
+                                <button class="btn btn-outline-dark" type="button">Dark</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-outline-primary(type='button') Primary
+                                button.btn.btn-outline-secondary(type='button') Secondary
+                                button.btn.btn-outline-success(type='button') Success
+                                button.btn.btn-outline-danger(type='button') Danger
+                                button.btn.btn-outline-info(type='button') Info
+                                button.btn.btn-outline-warning(type='button') Warning
+                                button.btn.btn-outline-light(type='button') Light
+                                button.btn.btn-outline-dark(type='button') Dark</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Text buttons  * *
+                //- * * * * * * * * * * *
+
+                #text
+                    h2.mb-4 Text Button Variant
+                    p
+                        | The text button variant is another custom button style created to match Material's text button styling. Button classes for this variant are named using the format 
+                        code.code-inline .btn-text-{color}
+                        | where 
+                        em color 
+                        | is any theme color defined in the color map.
+                    p.mb-4
+                        | Text buttons have no border and less horizontal padding, but still retain the hover and ripple effects.
+
+                    +demo({
+                        id: 'textButtonD'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+
+                                .btn-example
+                                    button.btn.btn-text-primary(type='button') Primary
+                                    button.btn.btn-text-secondary(type='button') Secondary
+                                    button.btn.btn-text-success(type='button') Success
+                                    button.btn.btn-text-danger(type='button') Danger
+                                    button.btn.btn-text-info(type='button') Info
+                                    button.btn.btn-text-warning(type='button') Warning
+                                    button.btn.btn-text-light(type='button') Light
+                                    button.btn.btn-text-dark(type='button') Dark
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-text-primary" type="button">Primary</button>
+                                <button class="btn btn-text-secondary" type="button">Secondary</button>
+                                <button class="btn btn-text-success" type="button">Success</button>
+                                <button class="btn btn-text-danger" type="button">Danger</button>
+                                <button class="btn btn-text-info" type="button">Info</button>
+                                <button class="btn btn-text-warning" type="button">Warning</button>
+                                <button class="btn btn-text-light" type="button">Light</button>
+                                <button class="btn btn-text-dark" type="button">Dark</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-text-primary(type='button') Primary
+                                button.btn.btn-text-secondary(type='button') Secondary
+                                button.btn.btn-text-success(type='button') Success
+                                button.btn.btn-text-danger(type='button') Danger
+                                button.btn.btn-text-info(type='button') Info
+                                button.btn.btn-text-warning(type='button') Warning
+                                button.btn.btn-text-light(type='button') Light
+                                button.btn.btn-text-dark(type='button') Dark</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Button sizing * *
+                //- * * * * * * * * * * *
+
+                #sizing
+                    h2.mb-4 Sizing
+                    p By default, Bootstrap includes three button sizes: small, default, and large. In addition, two more sizing options for buttons have been added, extra small and extra large variants.
+                    p.mb-4 The demo below shows the size variations using the raised button style, however all button styles (default, raised, outline, and text) are supported.
+
+                    +demo({
+                        id: 'sizesButton'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+
+                                .btn-example
+                                    button.btn.btn-raised-primary.btn-xs(type='button') Extra Small
+                                    button.btn.btn-raised-primary.btn-sm(type='button') Small
+                                    button.btn.btn-raised-primary(type='button') Default
+                                    button.btn.btn-raised-primary.btn-lg(type='button') Large
+                                    button.btn.btn-raised-primary.btn-xl(type='button') Extra Large
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-raised-primary btn-xs" type="button">Extra Small</button>
+                                <button class="btn btn-raised-primary btn-sm" type="button">Small</button>
+                                <button class="btn btn-raised-primary" type="button">Default</button>
+                                <button class="btn btn-raised-primary btn-lg" type="button">Large</button>
+                                <button class="btn btn-raised-primary btn-xl" type="button">Extra Large</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-raised-primary.btn-xs(type='button') Extra Small
+                                button.btn.btn-raised-primary.btn-sm(type='button') Small
+                                button.btn.btn-raised-primary(type='button') Default
+                                button.btn.btn-raised-primary.btn-lg(type='button') Large
+                                button.btn.btn-raised-primary.btn-xl(type='button') Extra Large</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Leading icons * *
+                //- * * * * * * * * * * *
+
+                #leading-icon
+                    h2.mb-4 Leading Icon
+                    p
+                        | Add a leading icon within a button element by including any icon from the Material Icons library (included with this theme) before the button text along with the
+                        code.code-inline .leading-icon
+                        | class.
+                    p.mb-4
+                        | Leading icons scale appropriately to the button size.
+
+                    +demo({
+                        id: 'leadingIconButton'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+                                .btn-example
+                                    button.btn.btn-raised-primary.btn-xs(type='button')
+                                        i.leading-icon.material-icons star
+                                        | Extra Small
+                                    button.btn.btn-raised-primary.btn-sm(type='button')
+                                        i.leading-icon.material-icons star
+                                        | Small
+                                    button.btn.btn-raised-primary(type='button')
+                                        i.leading-icon.material-icons star
+                                        | Default
+                                    button.btn.btn-raised-primary.btn-lg(type='button')
+                                        i.leading-icon.material-icons star
+                                        | Large
+                                    button.btn.btn-raised-primary.btn-xl(type='button')
+                                        i.leading-icon.material-icons star
+                                        | Extra Large
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-raised-primary btn-xs" type="button">
+                                    <i class="leading-icon material-icons">star</i>
+                                    Extra Small
+                                </button>
+                                <button class="btn btn-raised-primary btn-sm" type="button">
+                                    <i class="leading-icon material-icons">star</i>
+                                    Small
+                                </button>
+                                <button class="btn btn-raised-primary" type="button">
+                                    <i class="leading-icon material-icons">star</i>
+                                    Default
+                                </button>
+                                <button class="btn btn-raised-primary btn-lg" type="button">
+                                    <i class="leading-icon material-icons">star</i>
+                                    Large
+                                </button>
+                                <button class="btn btn-raised-primary btn-xl" type="button">
+                                    <i class="leading-icon material-icons">star</i>
+                                    Extra Large
+                                </button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-raised-primary.btn-xs(type='button')
+                                    i.leading-icon.material-icons star
+                                    | Extra Small
+                                button.btn.btn-raised-primary.btn-sm(type='button')
+                                    i.leading-icon.material-icons star
+                                    | Small
+                                button.btn.btn-raised-primary(type='button')
+                                    i.leading-icon.material-icons star
+                                    | Default
+                                button.btn.btn-raised-primary.btn-lg(type='button')
+                                    i.leading-icon.material-icons star
+                                    | Large
+                                button.btn.btn-raised-primary.btn-xl(type='button')
+                                    i.leading-icon.material-icons star
+                                    | Extra Large</script>
+
+                    p.mb-5
+                        | To create buttons with an icon, but no text, view the 
+                        a(href='components-icon-buttons.html') icon buttons component
+                        | created specifically for circular action buttons with a single icon.
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Trailing icons  * *
+                //- * * * * * * * * * * * *
+
+                #trailing-icon
+                    h2.mb-4 Trailing Icon
+                    p
+                        | Trailing icons are also supported within the button element. Add any icon from the Material Icons library after the button text along with the
+                        code.code-inline .trailing-icon
+                        | class.
+                    p.mb-4
+                        | Material Design guidelines recommends that you 
+                        em do not use both a leading and trailing icon
+                        | within the same button. Using both icons can make button's meaning unclear to users.
+
+                    +demo({
+                        id: 'trailingIconButton'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-start.border.border-top-0.bg-white.p-3.p-sm-4
+                                .btn-example
+                                    button.btn.btn-raised-primary.btn-xs(type='button')
+                                        | Extra Small
+                                        i.trailing-icon.material-icons arrow_forward
+                                    button.btn.btn-raised-primary.btn-sm(type='button')
+                                        | Small
+                                        i.trailing-icon.material-icons arrow_forward
+                                    button.btn.btn-raised-primary(type='button')
+                                        | Default
+                                        i.trailing-icon.material-icons arrow_forward
+                                    button.btn.btn-raised-primary.btn-lg(type='button')
+                                        | Large
+                                        i.trailing-icon.material-icons arrow_forward
+                                    button.btn.btn-raised-primary.btn-xl(type='button')
+                                        | Extra Large
+                                        i.trailing-icon.material-icons arrow_forward
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-raised-primary btn-xs" type="button">
+                                    Extra Small
+                                    <i class="trailing-icon material-icons">arrow_forward</i>
+                                </button>
+                                <button class="btn btn-raised-primary btn-sm" type="button">
+                                    Small
+                                    <i class="trailing-icon material-icons">arrow_forward</i>
+                                </button>
+                                <button class="btn btn-raised-primary" type="button">
+                                    Default
+                                    <i class="trailing-icon material-icons">arrow_forward</i>
+                                </button>
+                                <button class="btn btn-raised-primary btn-lg" type="button">
+                                    Large
+                                    <i class="trailing-icon material-icons">arrow_forward</i>
+                                </button>
+                                <button class="btn btn-raised-primary btn-xl" type="button">
+                                    Extra Large
+                                    <i class="trailing-icon material-icons">arrow_forward</i>
+                                </button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-raised-primary.btn-xs(type='button')
+                                    | Extra Small
+                                    i.trailing-icon.material-icons arrow_forward
+                                button.btn.btn-raised-primary.btn-sm(type='button')
+                                    | Small
+                                    i.trailing-icon.material-icons arrow_forward
+                                button.btn.btn-raised-primary(type='button')
+                                    | Default
+                                    i.trailing-icon.material-icons arrow_forward
+                                button.btn.btn-raised-primary.btn-lg(type='button')
+                                    | Large
+                                    i.trailing-icon.material-icons arrow_forward
+                                button.btn.btn-raised-primary.btn-xl(type='button')
+                                    | Extra Large
+                                    i.trailing-icon.material-icons arrow_forward</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Button group  * *
+                //- * * * * * * * * * * *
+
+                #button-group
+                    h2.mb-4 Button Group
+                    p
+                        | Button groups are a series of buttons that are grouped together in a single line. They can be used to group actions together, as an alternative to navigation menus, or as form checkboxes and radio elements.
+                    p.mb-4
+                        | Additional styling options for button groups, like the button toolbar, nesting, and vertical groups, can be referenced by visiting
+                        a(href='https://getbootstrap.com/docs/5.2/components/button-group/', target='_blank') Bootstrap's button group documentation
+                        | on their website.
+
+                    //- Button group examples
+                    #button-group-examples
+                        h3.mb-4 Styling Examples
+                        p.mb-4
+                            | Each button within a button group is styled independently, and can be styled using any button variation. For example, each button in a button group can use a different color. 
+
+                        +demo({
+                            id: 'buttonGroup'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.bg-white.p-3.p-sm-4
+                                    .mb-3
+                                        .btn-group(role='group' aria-label='Basic example')
+                                            button.btn.btn-primary(type='button') Button
+                                            button.btn.btn-primary(type='button') Button
+                                            button.btn.btn-primary(type='button') Button
+
+                                    .mb-3
+                                        .btn-group(role='group' aria-label='Raised example')
+                                            button.btn.btn-raised-primary(type='button') Button
+                                            button.btn.btn-raised-primary(type='button') Button
+                                            button.btn.btn-raised-primary(type='button') Button
+
+                                    .mb-3
+                                        .btn-group(role='group' aria-label='Outline example')
+                                            button.btn.btn-outline-primary(type='button') Button
+                                            button.btn.btn-outline-primary(type='button') Button
+                                            button.btn.btn-outline-primary(type='button') Button
+
+                                    .mb-3
+                                        .btn-group(role='group' aria-label='Text example')
+                                            button.btn.btn-text-primary(type='button') Button
+                                            button.btn.btn-text-primary(type='button') Button
+                                            button.btn.btn-text-primary(type='button') Button
+
+                                    .mb-0
+                                        .btn-group(role='group' aria-label='Mixed styles example')
+                                            button.btn.btn-raised-danger(type='button') Button
+                                            button.btn.btn-raised-warning(type='button') Button
+                                            button.btn.btn-raised-success(type='button') Button
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><!-- Basic button group example-->
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button class="btn btn-primary" type="button">Button</button>
+                                        <button class="btn btn-primary" type="button">Button</button>
+                                        <button class="btn btn-primary" type="button">Button</button>
+                                    </div>
+
+                                    <!-- Button group using raised buttons-->
+                                    <div class="btn-group" role="group" aria-label="Raised example">
+                                        <button class="btn btn-raised-primary" type="button">Button</button>
+                                        <button class="btn btn-raised-primary" type="button">Button</button>
+                                        <button class="btn btn-raised-primary" type="button">Button</button>
+                                    </div>
+
+                                    <!-- Button group using outline buttons-->
+                                    <div class="btn-group" role="group" aria-label="Outline example">
+                                        <button class="btn btn-outline-primary" type="button">Button</button>
+                                        <button class="btn btn-outline-primary" type="button">Button</button>
+                                        <button class="btn btn-outline-primary" type="button">Button</button>
+                                    </div>
+
+                                    <!-- Button group using text buttons-->
+                                    <div class="btn-group" role="group" aria-label="Text example">
+                                        <button class="btn btn-text-primary" type="button">Button</button>
+                                        <button class="btn btn-text-primary" type="button">Button</button>
+                                        <button class="btn btn-text-primary" type="button">Button</button>
+                                    </div>
+
+                                    <!-- Button group with mixed styling-->
+                                    <div class="btn-group" role="group" aria-label="Mixed styles example">
+                                        <button class="btn btn-raised-danger" type="button">Button</button>
+                                        <button class="btn btn-raised-warning" type="button">Button</button>
+                                        <button class="btn btn-raised-success" type="button">Button</button>
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">//- Basic button group example
+                                    .btn-group(role='group' aria-label='Basic example')
+                                        button.btn.btn-primary(type='button') Button
+                                        button.btn.btn-primary(type='button') Button
+                                        button.btn.btn-primary(type='button') Button
+
+                                    //- Button group using raised buttons
+                                    .btn-group(role='group' aria-label='Raised example')
+                                        button.btn.btn-raised-primary(type='button') Button
+                                        button.btn.btn-raised-primary(type='button') Button
+                                        button.btn.btn-raised-primary(type='button') Button
+
+                                    //- Button group using outline buttons
+                                    .btn-group(role='group' aria-label='Outline example')
+                                        button.btn.btn-outline-primary(type='button') Button
+                                        button.btn.btn-outline-primary(type='button') Button
+                                        button.btn.btn-outline-primary(type='button') Button
+
+                                    //- Button group using text buttons
+                                    .btn-group(role='group' aria-label='Text example')
+                                        button.btn.btn-text-primary(type='button') Button
+                                        button.btn.btn-text-primary(type='button') Button
+                                        button.btn.btn-text-primary(type='button') Button
+
+                                    //- Button group with mixed styling
+                                    .btn-group(role='group' aria-label='Mixed styles example')
+                                        button.btn.btn-raised-danger(type='button') Button
+                                        button.btn.btn-raised-warning(type='button') Button
+                                        button.btn.btn-raised-success(type='button') Button</script>
+
+                    //- Button group checkboxes
+                    #button-group-checkbox
+                        h3.mb-4 Checkbox Button Groups
+                        p.mb-4
+                            | Button groups can be used as checkbox-style toggle buttons, a feature provided by Bootstrap's framework.
+
+                        +demo({
+                            id: 'buttonGroupCheckbox'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.bg-white.p-3.p-sm-4
+                                    .btn-group(role='group' aria-label='Basic checkbox toggle button group')
+                                        input#btncheck1.btn-check(type='checkbox' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btncheck1') Checkbox 1
+                                        input#btncheck2.btn-check(type='checkbox' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btncheck2') Checkbox 2
+                                        input#btncheck3.btn-check(type='checkbox' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btncheck3') Checkbox 3
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><!-- Button group checkbox example-->
+                                    <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                        <input class="btn-check" id="btncheck1" type="checkbox" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
+
+                                        <input class="btn-check" id="btncheck2" type="checkbox" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
+
+                                        <input class="btn-check" id="btncheck3" type="checkbox" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">//- Button group checkbox example
+                                    .btn-group(role='group' aria-label='Basic checkbox toggle button group')
+                                        input#btncheck1.btn-check(type='checkbox' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btncheck1') Checkbox 1
+
+                                        input#btncheck2.btn-check(type='checkbox' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btncheck2') Checkbox 2
+
+                                        input#btncheck3.btn-check(type='checkbox' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btncheck3') Checkbox 3</script>
+
+                    //- Button group radio
+                    #button-group-radio
+                        h3.mb-4 Radio Button Groups
+                        p.mb-4
+                            | Button groups can also be used as radio-style toggle buttons, where only one button can be selected at a time.
+
+                        +demo({
+                            id: 'buttonGroupRadio'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.bg-white.p-3.p-sm-4
+                                    .btn-group(role='group' aria-label='Basic radio toggle button group')
+                                        input#btnradio1.btn-check(type='radio' name='btnradio' autocomplete='off' checked='')
+                                        label.btn.btn-outline-primary(for='btnradio1') Radio 1
+                                        input#btnradio2.btn-check(type='radio' name='btnradio' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btnradio2') Radio 2
+                                        input#btnradio3.btn-check(type='radio' name='btnradio' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btnradio3') Radio 3
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><!-- Button group radio example-->
+                                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                        <input class="btn-check" id="btnradio1" type="radio" name="btnradio" autocomplete="off" checked="">
+                                        <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+
+                                        <input class="btn-check" id="btnradio2" type="radio" name="btnradio" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
+
+                                        <input class="btn-check" id="btnradio3" type="radio" name="btnradio" autocomplete="off">
+                                        <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">//- Button group radio example
+                                    .btn-group(role='group' aria-label='Basic radio toggle button group')
+                                        input#btnradio1.btn-check(type='radio' name='btnradio' autocomplete='off' checked='')
+                                        label.btn.btn-outline-primary(for='btnradio1') Radio 1
+
+                                        input#btnradio2.btn-check(type='radio' name='btnradio' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btnradio2') Radio 2
+
+                                        input#btnradio3.btn-check(type='radio' name='btnradio' autocomplete='off')
+                                        label.btn.btn-outline-primary(for='btnradio3') Radio 3</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Close button  * *
+                //- * * * * * * * * * * *
+
+                #close-button
+                    h2.mb-4 Close Button
+                    p.mb-4 The close button is a generic button you can use to dismiss content. It is available in the default style and a white variant, both of which have a disabled state.
+
+                    +demo({
+                        id: 'closeButton'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.border-bottom-0.bg-white.p-3.p-sm-4
+                                button.btn-close(type='button' aria-label='Close')
+                                button.btn-close(type='button' disabled aria-label='Close')
+                            .border.border-top-0.bg-dark.p-3.p-sm-4
+                                button.btn-close.btn-close-white(type='button' aria-label='Close')
+                                button.btn-close.btn-close-white(type='button' disabled aria-label='Close')
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Close button-->
+                                <button class="btn-close" type="button" aria-label="Close"></button>
+
+                                <!-- Close button (disabled)-->
+                                <button class="btn-close" type="button" disabled aria-label="Close"></button>
+
+                                <!-- Close button white (for use on darker backgrounds)-->
+                                <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
+
+                                <!-- Close button white (disabled)-->
+                                <button class="btn-close btn-close-white" type="button" disabled aria-label="Close"></button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Close button
+                                button.btn-close(type='button' aria-label='Close')
+
+                                //- Close button (disabled)
+                                button.btn-close(type='button' disabled aria-label='Close')
+
+                                //- Close button white (for use on darker backgrounds)
+                                button.btn-close.btn-close-white(type='button' aria-label='Close')
+
+                                //- Close button white (disabled)
+                                button.btn-close.btn-close-white(type='button' disabled aria-label='Close')</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Button styling  * *
+                //- * * * * * * * * * * * *
+
+                #styling
+                    h2.mb-4 Styling Examples
+                    p.mb-4 You can use utility classes to modify the appearance of buttons.
+
+                    +demo({
+                        id: 'stylingButton'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.bg-white.p-3.p-sm-4
+                                
+                                p.mb-2
+                                    | Sharp edges using the
+                                    code.code-inline .rounded-0
+                                    | utility class.
+
+                                button.btn.btn-raised-primary.rounded-0.mb-4(type='button') Sharp
+
+                                p.mb-2
+                                    | Extra padding using the
+                                    code.code-inline .px-4
+                                    | and
+                                    code.code-inline .py-3
+                                    | utility classes.
+
+                                button.btn.btn-raised-secondary.px-4.py-3.mb-4(type='button') Extra Padding
+
+                                p.mb-2
+                                    | Text variations using the
+                                    code.code-inline .text-capitalize
+                                    | and
+                                    code.code-inline .fw-bold
+                                    | utility classes.
+
+                                button.btn.btn-raised-success.text-capitalize.fw-bold(type='button') Capital and Bold
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Remove Border Radius -->
+                                <button class="btn btn-raised-primary rounded-0" type="button">Sharp</button>
+
+                                <!-- Add Extra Padding -->
+                                <button class="btn btn-raised-secondary px-4 py-3" type="button">Extra Padding</button>
+
+                                <!-- Change Text Styling -->
+                                <button class="btn btn-raised-success text-capitalize fw-bold" type="button">Capital and Bold</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Remove Border Radius
+                                button.btn.btn-raised-primary.rounded-0(type='button') Sharp
+
+                                //- Add Extra Padding
+                                button.btn.btn-raised-secondary.px-4.py-3(type='button') Extra Padding
+
+                                //- Change Text Styling
+                                button.btn.btn-raised-success.text-capitalize.fw-bold(type='button') Capital and Bold</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/icons/icon-buttons.svg', alt='Icon Button Component Icon')
+                                .card-title.text-truncate.mb-2 Icon Buttons Component
+                                p.card-text An alternative button styling featuring icons
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='components-icon-buttons.html', title='Icon Buttons Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Button Documentation
+                                p.card-text Bootstrap's button component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/buttons/', target='_blank', title='Bootstrap Button Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Button Group Documentation
+                                p.card-text Bootstrap's button group component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/button-group/', target='_blank', title='Bootstrap Button Group Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Close Button Documentation
+                                p.card-text Bootstrap's close button component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/close-button/', target='_blank', title='Bootstrap Close Button Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#raised') Raised
+                        li.nav-item
+                            a.nav-link(href='#outline') Outline
+                        li.nav-item
+                            a.nav-link(href='#text') Text
+                        li.nav-item
+                            a.nav-link(href='#sizing') Sizing
+                        li.nav-item
+                            a.nav-link(href='#leading-icon') Leading Icon
+                        li.nav-item
+                            a.nav-link(href='#trailing-icon') Trailing Icon
+                        li.nav-item
+                            a.nav-link(href='#button-group') Button Group
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#button-group-examples') Examples
+                                li.nav-item
+                                    a.nav-link.border-0(href='#button-group-checkbox') Checkboxes
+                                li.nav-item
+                                    a.nav-link.border-0(href='#button-group-radio') Radio
+                        li.nav-item
+                            a.nav-link(href='#close-button') Close Button
+                        li.nav-item
+                            a.nav-link(href='#styling') Styling
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

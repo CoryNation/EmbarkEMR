@@ -1,0 +1,510 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Checks & Radios'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/checks-and-radios.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Checks &amp; Radios
+        .row.gx-5
+            .col-lg-9
+
+                p Checkboxes and radios allow users to select one or more items from a set of items within a form.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Material Checkbox * *
+                //- * * * * * * * * * * * * *
+
+                #material-checkbox
+                    h2.mb-4 Material Checkbox
+
+                    p
+                        | The checkbox web component from the 
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/checkbox', target='blank') Material Web Components Catalog
+                        | has been utilized in this specific case to add true Material Design checkboxes to this theme.
+                    p
+                        | These checkboxes are larger than most browser default styling for this element allowing for a larger tap target area, which is especially helpful on mobile devices.
+                    p.mb-4
+                        | The web component supports unchecked, checked, indeterminate, and disabled states for each checkbox.
+
+                    +demo({
+                        id: 'materialCheckbox'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-column.align-items-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .mb-4
+                                    mwc-checkbox
+                                    mwc-checkbox(checked)
+                                    mwc-checkbox(indeterminate)
+                                .mb-0
+                                    mwc-checkbox(disabled)
+                                    mwc-checkbox(disabled, checked)
+                                    mwc-checkbox(disabled, indeterminate)
+
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><mwc-checkbox></mwc-checkbox>
+                                <mwc-checkbox checked></mwc-checkbox>
+                                <mwc-checkbox indeterminate></mwc-checkbox>
+
+                                <mwc-checkbox disabled></mwc-checkbox>
+                                <mwc-checkbox disabled checked></mwc-checkbox>
+                                <mwc-checkbox disabled indeterminate></mwc-checkbox></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>mwc-checkbox
+                                mwc-checkbox(checked)
+                                mwc-checkbox(indeterminate)
+
+                                mwc-checkbox(disabled)
+                                mwc-checkbox(disabled, checked)
+                                mwc-checkbox(disabled, indeterminate)</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * *
+                //- * * Material Radio Buttons  * *
+                //- * * * * * * * * * * * * * * * *
+
+                #material-radio
+                    h2.mb-4 Material Radio Buttons
+
+                    p
+                        | The radio web component from the 
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/radio', target='blank') Material Web Components Catalog
+                        | have also been utilized in this specific case to add true Material Design radio buttons to this theme.
+                    p.mb-4
+                        | Similar to the checkboxes above, these radio buttons are larger than most browser defaults. The web component supports unchecked, checked, and disabled states are all supported.
+
+                    +demo({
+                        id: 'materialRadio'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-column.align-items-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .mb-4
+                                    mwc-radio(name='myGroup', value='value1')
+                                    mwc-radio(name='myGroup', value='value2', checked)
+                                .mb-0
+                                    mwc-radio(disabled, name='disabledGroup')
+                                    mwc-radio(disabled, name='disabledGroup', checked)
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><mwc-radio name="myGroup" value="value1"></mwc-radio>
+                                <mwc-radio name="myGroup" value="value2" checked></mwc-radio>
+
+                                <mwc-radio disabled name="disabledGroup"></mwc-radio>
+                                <mwc-radio disabled name="disabledGroup" checked></mwc-radio></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>mwc-radio(name='myGroup', value='value1')
+                                mwc-radio(name='myGroup', value='value2', checked)
+
+                                mwc-radio(disabled, name='disabledGroup')
+                                mwc-radio(disabled, name='disabledGroup', checked)</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Material Switch * *
+                //- * * * * * * * * * * * *
+
+                #material-switch
+                    h2.mb-4 Material Switch
+
+                    p.mb-4
+                        | The switch web component from 
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/radio', target='blank') Material Web Components Catalog
+                        | is also available to use in Material Admin Pro. Switches allow an option to be toggled on and off. The checked and disabled states are both available for this component.
+
+                    +demo({
+                        id: 'materailSwitch'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-column.align-items-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                .mb-4
+                                    mwc-switch
+                                .mb-4
+                                    mwc-switch(checked)
+                                .mb-4
+                                    mwc-switch(disabled)
+                                .mb-0
+                                    mwc-switch(checked, disabled)
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><mwc-switch></mwc-switch>
+                                <mwc-switch checked></mwc-switch>
+
+                                <mwc-switch disabled></mwc-switch>
+                                <mwc-switch checked disabled></mwc-switch></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>mwc-switch
+                                mwc-switch(checked)
+                                
+                                mwc-switch(disabled)
+                                mwc-switch(checked, disabled)</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * *
+                //- * * Bootstrap Checkbox  * *
+                //- * * * * * * * * * * * * * *
+
+                #bootstrap-checkbox
+                    h2.mb-4 Bootstrap Checkbox
+
+                    p
+                        | By default, the Bootstrap checkbox is much smaller than the Material option, and works well with inline forms. This styling option does not match Material Design specifications, rather, it is closer to browser defaults.
+                    p.mb-4
+                        | For additional information and options regarding the use the Bootstrap checkbox, visit
+                        a(href='https://getbootstrap.com/docs/5.2/forms/checks-radios/#checks', target='_blank') Bootstrap's checks &amp; radios documentation
+                        | page.
+
+                    +demo({
+                        id: 'bootstrapCheckbox'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-10.bg-light
+                                .mb-4
+                                    .form-check
+                                        input#flexCheckDefault.form-check-input(type='checkbox', value='')
+                                        label.form-check-label(for='flexCheckDefault')
+                                            | Default checkbox
+                                    .form-check
+                                        input#flexCheckChecked.form-check-input(type='checkbox', value='', checked)
+                                        label.form-check-label(for='flexCheckChecked')
+                                            | Checked checkbox
+                                .mb-0
+                                    .form-check
+                                        input#checkDisabled.form-check-input(type='checkbox', value='', disabled)
+                                        label.form-check-label(for='checkDisabled')
+                                            | Default disabled checkbox
+                                    .form-check
+                                        input#checkDisabledChecked.form-check-input(type='checkbox', value='', checked, disabled)
+                                        label.form-check-label(for='checkDisabledChecked')
+                                            | Checked disabled checkbox
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="form-check">
+                                    <input class="form-check-input" id="flexCheckDefault" type="checkbox" value="">
+                                    <label class="form-check-label" for="flexCheckDefault">Default checkbox</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="flexCheckChecked" type="checkbox" value="" checked>
+                                    <label class="form-check-label" for="flexCheckChecked">Checked checkbox</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" id="checkDisabled" type="checkbox" value="" disabled>
+                                    <label class="form-check-label" for="checkDisabled">Default disabled checkbox</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="checkDisabledChecked" type="checkbox" value="" checked disabled>
+                                    <label class="form-check-label" for="checkDisabledChecked">Checked disabled checkbox</label>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.form-check
+                                    input#flexCheckDefault.form-check-input(type='checkbox', value='')
+                                    label.form-check-label(for='flexCheckDefault')
+                                        | Default checkbox
+                                .form-check
+                                    input#flexCheckChecked.form-check-input(type='checkbox', value='', checked)
+                                    label.form-check-label(for='flexCheckChecked')
+                                        | Checked checkbox
+
+                                .form-check
+                                    input#checkDisabled.form-check-input(type='checkbox', value='', disabled)
+                                    label.form-check-label(for='checkDisabled')
+                                        | Default disabled checkbox
+                                .form-check
+                                    input#checkDisabledChecked.form-check-input(type='checkbox', value='', checked, disabled)
+                                    label.form-check-label(for='checkDisabledChecked')
+                                        | Checked disabled checkbox</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * *
+                //- * * Bootstrap Radio Buttons * *
+                //- * * * * * * * * * * * * * * * *
+
+                #bootstrap-radios
+                    h2.mb-4 Bootstrap Radio Buttons
+
+                    p
+                        | Bootstrap's radio buttons are also much smaller than the Material option. Certain situations may favor using this smaller radio button option.
+                    p.mb-4
+                        | For additional information and options regarding the use the Bootstrap radio buttons, visit
+                        a(href='https://getbootstrap.com/docs/5.2/forms/checks-radios/#radios', target='_blank') Bootstrap's checks &amp; radios documentation
+                        | page.
+
+                    +demo({
+                        id: 'bootstrapRadio'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-10.bg-light
+                                .mb-4
+                                    .form-check
+                                        input#flexRadioDefault1.form-check-input(type='radio' name='flexRadioDefault')
+                                        label.form-check-label(for='flexRadioDefault1')
+                                            | Default radio
+                                    .form-check
+                                        input#flexRadioDefault2.form-check-input(type='radio' name='flexRadioDefault' checked='')
+                                        label.form-check-label(for='flexRadioDefault2')
+                                            | Default checked radio
+                                .mb-0
+                                    .form-check
+                                        input#flexRadioDisabled.form-check-input(type='radio' name='flexRadioDisabled' disabled='')
+                                        label.form-check-label(for='flexRadioDisabled')
+                                            | Disabled radio
+                                    .form-check
+                                        input#flexRadioCheckedDisabled.form-check-input(type='radio' name='flexRadioDisabled' checked='' disabled='')
+                                        label.form-check-label(for='flexRadioCheckedDisabled')
+                                            | Disabled checked radio
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="form-check">
+                                    <input class="form-check-input" id="flexRadioDefault1" type="radio" name="flexRadioDefault">
+                                    <label class="form-check-label" for="flexRadioDefault1">Default radio</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="flexRadioDefault2" type="radio" name="flexRadioDefault" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">Default checked radio</label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" id="flexRadioDisabled" type="radio" name="flexRadioDisabled" disabled>
+                                    <label class="form-check-label" for="flexRadioDisabled">Disabled radio</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" id="flexRadioCheckedDisabled" type="radio" name="flexRadioDisabled" checked disabled>
+                                    <label class="form-check-label" for="flexRadioCheckedDisabled">Disabled checked radio</label>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.form-check
+                                    input#flexRadioDefault1.form-check-input(type='radio' name='flexRadioDefault')
+                                    label.form-check-label(for='flexRadioDefault1')
+                                        | Default radio
+                                .form-check
+                                    input#flexRadioDefault2.form-check-input(type='radio' name='flexRadioDefault' checked='')
+                                    label.form-check-label(for='flexRadioDefault2')
+                                        | Default checked radio
+
+                                .form-check
+                                    input#flexRadioDisabled.form-check-input(type='radio' name='flexRadioDisabled' disabled='')
+                                    label.form-check-label(for='flexRadioDisabled')
+                                        | Disabled radio
+                                .form-check
+                                    input#flexRadioCheckedDisabled.form-check-input(type='radio' name='flexRadioDisabled' checked='' disabled='')
+                                    label.form-check-label(for='flexRadioCheckedDisabled')
+                                        | Disabled checked radio</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Bootstrap Switch  * *
+                //- * * * * * * * * * * * * *
+
+                #bootstrap-switch
+                    h2.mb-4 Bootstrap Switch
+
+                    p.mb-4
+                        | The slimmer, more compact, Bootstrap default switch is also available to use with this toolkit, which may be preferrable when a smaller switch is needed.
+                    
+                    +demo({
+                        id: 'bootstrapSwitch'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-10.bg-light
+                                .mb-4
+                                    .form-check.form-switch
+                                        input#flexSwitchCheckDefault.form-check-input(type='checkbox')
+                                        label.form-check-label(for='flexSwitchCheckDefault') Default switch checkbox input
+                                    .form-check.form-switch
+                                        input#flexSwitchCheckChecked.form-check-input(type='checkbox' checked='')
+                                        label.form-check-label(for='flexSwitchCheckChecked') Checked switch checkbox input
+                                .mb-0
+                                    .form-check.form-switch
+                                        input#flexSwitchCheckDisabled.form-check-input(type='checkbox' disabled='')
+                                        label.form-check-label(for='flexSwitchCheckDisabled') Disabled switch checkbox input
+                                    .form-check.form-switch
+                                        input#flexSwitchCheckCheckedDisabled.form-check-input(type='checkbox' checked='' disabled='')
+                                        label.form-check-label(for='flexSwitchCheckCheckedDisabled') Disabled checked switch checkbox input
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="form-check form-switch">
+                                    <input class="form-check-input" id="flexSwitchCheckDefault" type="checkbox">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox" checked>
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" id="flexSwitchCheckDisabled" type="checkbox" disabled>
+                                    <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" id="flexSwitchCheckCheckedDisabled" type="checkbox" checked disabled>
+                                    <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.form-check.form-switch
+                                    input#flexSwitchCheckDefault.form-check-input(type='checkbox')
+                                    label.form-check-label(for='flexSwitchCheckDefault') Default switch checkbox input
+                                .form-check.form-switch
+                                    input#flexSwitchCheckChecked.form-check-input(type='checkbox' checked='')
+                                    label.form-check-label(for='flexSwitchCheckChecked') Checked switch checkbox input
+
+                                .form-check.form-switch
+                                    input#flexSwitchCheckDisabled.form-check-input(type='checkbox' disabled='')
+                                    label.form-check-label(for='flexSwitchCheckDisabled') Disabled switch checkbox input
+                                .form-check.form-switch
+                                    input#flexSwitchCheckCheckedDisabled.form-check-input(type='checkbox' checked='' disabled='')
+                                    label.form-check-label(for='flexSwitchCheckCheckedDisabled') Disabled checked switch checkbox input</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Checkbox Web Component Documentation
+                                p.card-text Docs for Material's checkbox web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/checkbox', target='_blank', title='Material Checkbox Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Radio Web Component Documentation
+                                p.card-text Docs for Material's radio web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/radio', target='_blank', title='Material Radio Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Switch Web Component Documentation
+                                p.card-text Docs for Material's switch web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/switch', target='_blank', title='Material Switch Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Checks and Radios Documentation
+                                p.card-text Bootstrap's checks and radios documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/forms/checks-radios/', target='_blank', title='Bootstrap Checks and Radios Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#material-checkbox') Material Checkbox
+                        li.nav-item
+                            a.nav-link(href='#material-radio') Material Radio Buttons
+                        li.nav-item
+                            a.nav-link(href='#material-switch') Material Switch
+                        li.nav-item
+                            a.nav-link(href='#bootstrap-checkbox') Bootstrap Checkbox
+                        li.nav-item
+                            a.nav-link(href='#bootstrap-radio') Bootstrap Radio Buttons
+                        li.nav-item
+                            a.nav-link(href='#bootstrap-switch') Bootstrap Switch
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

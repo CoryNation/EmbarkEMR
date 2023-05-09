@@ -1,0 +1,29 @@
+// * * * * * * * *
+// * * Ripple  * *
+// * * * * * * * *
+
+// Bring in Material ripple to create the ripple utility
+@use "@material/ripple";
+
+// 
+// Use Material's ripple mixins to create a ripple utility
+// for each color value defined in the color map
+// 
+// Note: An element should have overflow hidden and a
+// relative position in order to function properly when
+// using Material's ripple mixin.
+// 
+
+@each $color,
+$value in $theme-colors {
+    .ripple-#{$color} {
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($value);
+        @include ripple.states-opacities((hover: .12, focus: .18, press: .24));
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+    }
+}

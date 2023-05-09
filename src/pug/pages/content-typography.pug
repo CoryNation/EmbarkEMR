@@ -1,0 +1,359 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Typography'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/typography.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Typography
+
+        .row.gx-5
+            .col-lg-9
+                p
+                    | The Material Design type system is designed to display written content as clearly and efficiently as possible. In this theme, we have used Material Design fundamentals alongside Bootstrap's typography system.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * *
+                //- * * Headings  * *
+                //- * * * * * * * * *
+
+                #headings
+                    h2.mb-4 Headings
+                    p.mb-4
+                        | Traditional heading elements have been restyled to match the Material type system. The alternative Bootstrap classes,
+                        code.code-inline .h1
+                        | through
+                        code.code-inline .h6
+                        | are also available to use instead of the HTML heading elements.
+                    
+                    +demo({
+                        id: 'typographyHeadings'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                h1 Heading 1
+                                h2 Heading 2
+                                h3 Heading 3
+                                h4 Heading 4
+                                h5 Heading 5
+                                h6.mb-0 Heading 6
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><h1>Heading 1</h1>
+                                <h2>Heading 2</h2>
+                                <h3>Heading 3</h3>
+                                <h4>Heading 4</h4>
+                                <h5>Heading 5</h5>
+                                <h6>Heading 6</h6></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>h1 Heading 1
+                                h2 Heading 2
+                                h3 Heading 3
+                                h4 Heading 4
+                                h5 Heading 5
+                                h6 Heading 6</script>
+
+                    //- Divider
+                    hr.mb-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Display Headings  * *
+                //- * * * * * * * * * * * * *
+
+                #display-headings
+                    h2.mb-4 Display Headings
+                    p.mb-4
+                        | Bootstrap's display headings have their styling modified to match Material's headline elements. These elements can be used on any element, and are named using the format
+                        code.code-inline .display-{value}
+                        | where
+                        em value
+                        | is a number 1 through 6.
+
+                    +demo({
+                        id: 'typographyDisplayHeadings'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .display-1.mb-3 Display 1
+                                .display-2.mb-3 Display 2
+                                .display-3.mb-3 Display 3
+                                .display-4.mb-3 Display 4
+                                .display-5.mb-3 Display 5
+                                .display-6 Display 6
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="display-1">Display 1</div>
+                                <div class="display-2">Display 2</div>
+                                <div class="display-3">Display 3</div>
+                                <div class="display-4">Display 4</div>
+                                <div class="display-5">Display 5</div>
+                                <div class="display-6">Display 6</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.display-1 Display 1
+                                .display-2 Display 2
+                                .display-3 Display 3
+                                .display-4 Display 4
+                                .display-5 Display 5
+                                .display-6 Display 6</script>
+
+                    //- Divider
+                    hr.mb-5
+
+                //- * * * * * * * * * *
+                //- * * Subheadings * *
+                //- * * * * * * * * * *
+
+                #subheadings
+                    h2.mb-4 Subheadings
+                    p.mb-4
+                        | Three variations of subheadings are included with this theme. Two subheading variations, which match Material's subtitle options, and the more opinionated overline element.
+
+                    +demo({
+                        id: 'typographySubheadings'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .subheading-1 Subheading 1
+                                .subheading-2 Subheading 2
+                                .overline Overline
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="subheading-1">Subheading 1</div>
+                                <div class="subheading-2">Subheading 2</div>
+                                <div class="overline">Overline</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.subheading-1 Subheading 1
+                                .subheading-2 Subheading 2
+                                .overline Overline</script>
+
+                    //- Divider
+                    hr.mb-5
+
+                //- * * * * * * * * *
+                //- * * Body Text * *
+                //- * * * * * * * * *
+
+                #body-text
+                    h2.mb-4 Body Text
+                    p
+                        | By default, the type system for this theme uses the Material standard Roboto typeface. We have kept the
+                        code.code-inline .lead
+                        | option for emphasizing leading paragraph text, and we have modified the
+                        code.code-inline .small
+                        | or
+                        code.code-inline small
+                        | text option to match Material's type system. A caption text variant has also been created.
+                    p.mb-4
+                        | Material Admin Pro keeps the global letter spacing on body text at a normal default. In order to match the Material Design specification for body text, which is slightly expanded with an increased letter spacing, visit our
+                        a(href='utilities-text.html') text utilities
+                        | page.
+
+                    +demo({
+                        id: 'typographyBodyText'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                p.lead This is an example of lead text.
+                                p This is an example of a standard paragraph.
+                                p.small This is an example of a paragraph with small type.
+                                .caption This is an example of caption text.
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><p class="lead">This is an example of lead text.</p>
+                                <p>This is an example of a standard paragraph.</p>
+                                <p class="small">This is an example of a paragraph with small type.</p>
+                                <div class="caption">This is an example of caption text.</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>p.lead This is an example of lead text.
+                                p This is an example of a standard paragraph.
+                                p.small This is an example of a paragraph with small type.
+                                .caption This is an example of caption text.</script>
+
+                    p.mb-5
+                        | Inline text elements, abbreviations, blockquotes, and lists are all supported as a part of this theme, but have not had their markup or design significantly modified past what Bootstrap offers by default. Visit
+                        a(href='https://getbootstrap.com/docs/5.2/content/typography/', target='_blank') Bootstrap's typography documentation
+                        | for usage examples of these elements.
+
+                    //- Divider
+                    hr.mb-5
+
+                //- * * * * * * * * *
+                //- * * Code Text * *
+                //- * * * * * * * * *
+
+                #code
+                    h2.mb-4 Code
+                    p
+                        | Wrap inline snippets of code using the
+                        code.code-inline &lt;code&gt;
+                        | element, or larger blocks of code using the
+                        code.code-inline &lt;pre&gt;
+                        | element.
+                    p.mb-4
+                        | By default, the styling of the code and pre elements are simplified. For custom syntax highlighting (like in the HTML and Pug tabs of the demo below), use the
+                        a(href='plugins-code-blocks.html') code blocks plugin
+                        | for additional options.
+
+                    +demo({
+                        id: 'typographyCode'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5
+                                .mb-4
+                                    code &lt;code&gt;This is the default inline code.&lt;/code&gt;
+                                .mb-4
+                                    code.code-inline &lt;code&gt;This is inline code using the .code-inline class.&lt;/code&gt;
+                                .mb-0
+                                    pre
+                                        code
+                                            | &lt;pre&gt;
+                                            |     &lt;code&gt;This is the default code block.&lt;/code&gt;
+                                            | &lt;/pre&gt;
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><code>&lt;code&gt;This is the default inline code.&lt;/code&gt;</code>
+
+                                <code>&lt;code&gt;This is inline code using the .code-inline class.&lt;/code&gt;</code>
+
+                                <pre>
+                                    <code>
+                                        &lt;pre&gt;
+                                            &lt;code&gt;
+                                                This is the default code block.
+                                            &lt;/code&gt;
+                                        &lt;/pre&gt;
+                                    </code>
+                                </pre></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>code &lt;code&gt;This is the default inline code.&lt;/code&gt;
+
+                                code &lt;code&gt;This is inline code using the .code-inline class.&lt;/code&gt;
+                                
+                                pre
+                                    code
+                                        | &lt;pre&gt;
+                                        |     &lt;code&gt;This is the default code block.&lt;/code&gt;
+                                        | &lt;/pre&gt;</script>
+
+                    //- Divider
+                    hr.mb-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/icons/text.svg')
+                                .card-title.text-truncate.mb-2 Text Utilities
+                                p.card-text Material Admin Pro Text Utilities
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='utilities-text.html', title='Text Utilities') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Typography Documentation
+                                p.card-text Bootstrap's typograhy documentation page
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/content/typography/', target='_blank', title='Bootstrap Typography Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#headings') Headings
+                        li.nav-item
+                            a.nav-link(href='#display-headings') Display Headings
+                        li.nav-item
+                            a.nav-link(href='#subheadings') Subheadings
+                        li.nav-item
+                            a.nav-link(href='#body-text') Body Text
+                        li.nav-item
+                            a.nav-link(href='#code') Code
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

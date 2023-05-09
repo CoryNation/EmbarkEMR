@@ -1,0 +1,384 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Icons'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/icons.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Icons
+
+        .row.gx-5
+            .col-lg-9
+                p
+                    | Since Bootstrap does not include icons by default, Material Admin Pro predominantly uses the Material icons library, created by Google, to add beautifully crafted symbols for common actions and items.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Material Icons  * *
+                //- * * * * * * * * * * * *
+
+                #material-icons
+                    h2.mb-4 Material Icons
+                    img.img-fluid.border(src='/assets/demo/material-icons.png', title='Material Icons by Google', alt='Material Icons by Google')
+                    .mb-4
+                        small.fst-italic Material Icons by Google
+                    p
+                        | By using the icon font, there are
+                        strong over 900 Material icons
+                        | available to choose from
+                        strong in five different styles.
+                        | All five styles have been activated by default, but we recommend that you deactivate the icon font styles that are not being used when moving an app into production.
+                    p.mb-4
+                        | Below are some examples of the different icon fonts being used. For a full list of available icons, visit the
+                        a(href='https://material.io/resources/icons/', target='_blank') Material icons
+                        | reference page.
+                    a.btn.btn-primary.btn-raised(href='https://material.io/resources/icons/', target='_blank')
+                        | Launch Material Icons
+                        i.material-icons.trailing-icon launch
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * *
+                //- * * Variations  * *
+                //- * * * * * * * * * *
+
+                #variations
+                    h2.mb-4 Variations
+                    p
+                        | Each Material icon style has it's own unique class, which should be used with the
+                        code.code-inline &lt;i&gt;
+                        | or
+                        code.code-inline &lt;span&gt;
+                        | element.
+                    p.mb-4
+                        | Material icons use a typographic feature called ligatures, which allows rendering of an icon glyph simply by using its textual name. Visit
+                        a(href='https://material.io/resources/icons/', target='_blank') Material icons
+                        | for a list of all available icons.
+
+                    table.table.table-bordered.mb-0
+                        thead
+                            tr
+                                th(scope='col') Style
+                                th(scope='col') Class
+                                th(scope='col') Example
+                                th(scope='col') Rendering
+                        tbody
+                            tr
+                                td.align-middle Filled
+                                td.align-middle
+                                    code.code-inline .material-icons
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons face
+                            tr
+                                td.align-middle Outlined
+                                td.align-middle
+                                    code.code-inline .material-icons-outlined
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons-outlined"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons-outlined face
+                            tr
+                                td.align-middle Rounded
+                                td.align-middle
+                                    code.code-inline .material-icons-round
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons-round"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons-round face
+                            tr
+                                td.align-middle Two-Tone
+                                td.align-middle
+                                    code.code-inline .material-icons-two-tone
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons-two-tone"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons-two-tone face
+                            tr
+                                td.align-middle Sharp
+                                td.align-middle
+                                    code.code-inline .material-icons-sharp
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons-sharp"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons-sharp face
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * *
+                //- * * Sizing * *
+                //- * * * * * * *
+
+                #sizing
+                    h2.mb-4 Sizing
+                    p.mb-4
+                        | Four sizing variations are available in addition to the default. These classes named using the format
+                        code.code-inline .icon-{size}
+                        | where
+                        em size
+                        | is any size between xs and xxl.
+
+                    table.table.table-bordered.mb-4
+                        thead
+                            tr
+                                th(scope='col') Example
+                                th(scope='col') Size
+                                th(scope='col') Rendering
+                        tbody
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons icon-xs"&gt;face&lt;/i&gt;
+                                td.align-middle 12px
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.icon-xs face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons icon-sm"&gt;face&lt;/i&gt;
+                                td.align-middle 18px
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.icon-sm face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons"&gt;face&lt;/i&gt;
+                                td.align-middle 24px
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons icon-lg"&gt;face&lt;/i&gt;
+                                td.align-middle 36px
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.icon-lg face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons icon-xl"&gt;face&lt;/i&gt;
+                                td.align-middle 48px
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.icon-xl face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons icon-xxl"&gt;face&lt;/i&gt;
+                                td.align-middle 60px
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.icon-xxl face
+
+                    p.mb-4
+                        | Since Material icons are utilized as an icon font, the
+                        code.code-inline font-size
+                        | CSS property can be used to create additional custom sizes.
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * *
+                //- * * Color * *
+                //- * * * * * * *
+
+                #color
+                    h2.mb-4 Color
+                    p.mb-4
+                        | Use the
+                        a(href='utilities-text.html') text utilities
+                        | included with Material Admin Pro to style the color of icons.
+
+                    table.table.table-bordered.mb-0
+                        thead
+                            tr
+                                th(scope='col') Example
+                                th(scope='col') Rendering
+                        tbody
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-primary"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-primary face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-secondary"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-secondary face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-success"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-success face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-danger"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-danger face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-info"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-info face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-muted"&gt;face&lt;/i&gt;
+                                td.align-middle
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-muted face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-warning"&gt;face&lt;/i&gt;
+                                td.align-middle.table-dark
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-warning face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-light"&gt;face&lt;/i&gt;
+                                td.align-middle.table-dark
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-light face
+                            tr
+                                td.align-middle
+                                    code.code-inline &lt;i class="material-icons text-white"&gt;face&lt;/i&gt;
+                                td.align-middle.table-dark
+                                    .d-flex.align-items-center.justify-content-center
+                                        i.material-icons.text-white face
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * *
+                //- * * Extending * *
+                //- * * * * * * * * *
+
+                #extending
+                    h2.mb-4 Extending
+                    p
+                        | Visit the
+                        a(href='https://google.github.io/material-design-icons/', target='_blank') Material Icons Guide
+                        | for more information on how to work with and extend the Material Icons.
+                    p.mb-4
+                        | Alternative icon fonts are available to use with Material Admin Pro as well. The
+                        a(href='#DOCS_LINK') icons documentation
+                        | for this product contains more information on how to integrate other icon libraries into this project.
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Icons')
+                                .card-title.text-truncate.mb-2 Material Icons
+                                p.card-text Material's library of beautifully crafted symbols and icons
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://material.io/resources/icons/?style=baseline', target='_blank', title='Material Icons') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#material-icons') Material Icons
+                        li.nav-item
+                            a.nav-link(href='#variations') Variations
+                        li.nav-item
+                            a.nav-link(href='#sizing') Sizing
+                        li.nav-item
+                            a.nav-link(href='#color') Color
+                        li.nav-item
+                            a.nav-link(href='#extending') Extending
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

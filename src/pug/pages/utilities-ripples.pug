@@ -1,0 +1,280 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Ripples'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/ripples.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Ripples
+        .row.gx-5
+            .col-lg-9
+                p An iconic feature of Material Design is the ripple, which serves as a visual representation of a user interacting with an element.
+                p In this UI toolkit, we add the ripple effect, via Material's ripple mixin, to Bootstrap components that are interactive by nature, like buttons. In addition, we provide a utility class that you can add to other elements or components in your projects to provide interaction feedback to the user.
+                
+                //- Divider
+                hr.my-5
+
+                #overview
+                    h2.mb-4 Overview
+                    p
+                        | Ripple utility classes have been created for each theme color defined in the color map. These classes are named using the format 
+                        code.code-inline .ripple-{color}
+                        | where 
+                        em color
+                        | is any theme color defined in the color map.
+                    p.mb-4
+                        | Keep in mind that ripple utilities 
+                        strong do not set
+                        | text color or background color, so in some cases you may want to use a
+                        a(href='utilities-text.html') text utility
+                        |  and/or a 
+                        a(href='utilities-background.html') background utility 
+                        | in combination with a ripple.
+
+                    +demo({
+                        id: 'rippleDefault'
+                    })
+                        +slot('demo')
+                            .d-flex.border.border-top-0.px-3.pt-3.px-sm-4.pt-sm-4.bg-light
+                                .row.row-cols-1.row-cols-sm-2.row-cols-md-3.row-cols-lg-2.row-cols-xxl-3
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-primary.bg-white.small
+                                            code .ripple-primary
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-secondary.bg-white.small
+                                            code .ripple-secondary
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-danger.bg-white.small
+                                            code .ripple-danger
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-info.bg-white.small
+                                            code .ripple-info
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-warning.bg-white.small
+                                            code .ripple-warning
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-dark.bg-white.small
+                                            code .ripple-dark
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-gray.bg-white.small
+                                            code .ripple-gray
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-black.bg-white.small
+                                            code .ripple-black
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-light.bg-dark.small
+                                            code.text-white .ripple-light
+                                    .col.mb-3.mb-sm-4
+                                        .px-4.py-5.text-center.shadow-2.ripple-white.bg-dark.small
+                                            code.text-white .ripple-white
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="p-4 ripple-primary">.ripple-primary</div>
+                                <div class="p-4 ripple-secondary">.ripple-secondary</div>
+                                <div class="p-4 ripple-danger">.ripple-danger</div>
+                                <div class="p-4 ripple-info">.ripple-info</div>
+                                <div class="p-4 ripple-warning">.ripple-warning</div>
+                                <div class="p-4 ripple-dark">.ripple-dark</div>
+                                <div class="p-4 ripple-gray">.ripple-gray</div>
+                                <div class="p-4 ripple-black">.ripple-black</div>
+                                <div class="p-4 ripple-light bg-black text-white">.ripple-light</div>
+                                <div class="p-4 ripple-white bg-black text-white">.ripple-white</div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.p-4.ripple-primary .ripple-primary
+                                .p-4.ripple-secondary .ripple-secondary
+                                .p-4.ripple-danger .ripple-danger
+                                .p-4.ripple-info .ripple-info
+                                .p-4.ripple-warning .ripple-warning
+                                .p-4.ripple-dark .ripple-dark
+                                .p-4.ripple-gray .ripple-gray
+                                .p-4.ripple-black .ripple-black
+                                .p-4.ripple-light.bg-black.text-white .ripple-light
+                                .p-4.ripple-white.bg-black.text-white .ripple-white</script>
+
+                    //- Divider
+                    hr.my-5
+
+                #usage-examples
+                    h2.mb-4 Usage Examples
+                    p
+                        | It is recommended that you
+                        em use ripple utilities only on interactive elements and components. 
+                    p.mb-4
+                        | Below is an example of the ripple utility being applied to a card which is made interactive using the stretched link utility.
+
+                    +demo({
+                        id: 'rippleExampleCard'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+                                    .card.card-raised.ripple-primary
+                                        .card-body
+                                            h2.card-title Card with stretched link
+                                            h3.card-subtitle.mb-3 by Start Bootstrap
+                                            p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
+                                            a.stretched-link(href='javascript:void(0);') Go somewhere
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Stretched link card with ripple effect -->
+                                <div class="card card-raised ripple-primary mdc-ripple-upgraded">
+                                    <div class="card-body">
+                                        <h2 class="card-title">Card with stretched link</h2>
+                                        <h3 class="card-subtitle mb-3">by Start Bootstrap</h3>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <a class="stretched-link" href="javascript:void(0);">Go somewhere</a>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Stretched link card with ripple effect
+                                .card.card-raised.ripple-primary
+                                    .card-body
+                                        h2.card-title Card with stretched link
+                                        h3.card-subtitle.mb-3 by Start Bootstrap
+                                        p.card-text Some quick example text to build on the card title and make up the bulk of the card's content.
+                                        a.stretched-link(href='javascript:void(0);') Go somewhere</script>
+
+                    p
+                        | Next, we have another example where the ripple effect is being used on an image that is wrapped in the
+                        code.code-inline &lt;a&gt;
+                        | tag, making it a clickable link.
+                    p.mb-4
+                        | Note that in this example we use the
+                        code.code-inline .ripple-light
+                        | utility since the image is very dark.
+
+                    +demo({
+                        id: 'rippleExampleImage'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                div.w-100(style='max-width: 21.875rem;')
+
+                                    a(href='javascript:void(0);').d-block.mb-2.ripple-light
+                                        img.img-fluid(src='https://source.unsplash.com/K9QHL52rE2k/700x394', alt='...')
+                                    .text-muted.font-italic.small Click the image above to see the effect.
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Image link with ripple effect -->
+                                <a class="d-block mb-2 ripple-light" href="javascript:void(0);">
+                                    <img class="img-fluid" src="https://source.unsplash.com/K9QHL52rE2k/700x394" alt="...">
+                                </a>
+                                <div class="text-muted font-italic small">Click the image above to see the effect.</div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Image link with ripple effect
+                                a(href='javascript:void(0);').d-block.mb-2.ripple-light
+                                    img.img-fluid(src='https://source.unsplash.com/K9QHL52rE2k/700x394', alt='...')
+                                .text-muted.font-italic.small Click the image above to see the effect.</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/icons/background.svg')
+                                .card-title.text-truncate.mb-2 Background Utilities
+                                p.card-text Material Admin Pro background utilities
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='utilities-background.html', title='Background Utilities') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/icons/text.svg')
+                                .card-title.text-truncate.mb-2 Text Utilities
+                                p.card-text Material Admin Pro text utilities
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='utilities-text.html', title='Text Utilities') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#overview') Overview
+                        li.nav-item
+                            a.nav-link(href='#usage-examples') Usage Examples
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

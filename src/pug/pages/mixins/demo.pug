@@ -1,0 +1,123 @@
+//- This is the Pug mixin for the tabbed demo panes
+//- within the content, component, utilities, and plugin
+//- reference pages.
+//- 
+//- This demo can be used to create a similar effect
+//- within an appliation that requires the same
+//- functionality.
+//- 
+//- For reference, see any of the Pug pages that
+//- use the demo mixin for examples of how to implement.
+
+mixin demo(options)
+    - const slots = {}
+
+    mixin slot(key)
+        - slots[key] = block
+
+    - block() // Ignore block
+
+    //- Tab Navigation for Demo and Code Sample
+
+    mwc-tab-bar.nav.nav-tabs(role='tablist')
+        if slots.demo
+            mwc-tab.active(
+                label='demo',
+                data-bs-toggle='tab',
+                role='tab',
+                aria-selected='true'
+            )&attributes({
+                id: options.id + 'DemoTab',
+                'data-bs-target': '#' + options.id + 'Demo',
+                'aria-controls': options.id + 'Demo',
+            })
+        if slots.html
+            mwc-tab(
+                label='html',
+                data-bs-toggle='tab',
+                role='tab',
+                aria-selected='false'
+            )&attributes({
+                id: options.id + 'HtmlTab',
+                'data-bs-target': '#' + options.id + 'Html',
+                'aria-controls': options.id + 'Html',
+            })
+        if slots.pug
+            mwc-tab(
+                label='pug',
+                data-bs-toggle='tab',
+                data-bs-target='#mixinTestPug',
+                role='tab',
+                aria-controls='mixinTestPug',
+                aria-selected='false'
+            )&attributes({
+                id: options.id + 'PugTab',
+                'data-bs-target': '#' + options.id + 'Pug',
+                'aria-controls': options.id + 'Pug',
+            })
+        if slots.js
+            mwc-tab(
+                label='js',
+                data-bs-toggle='tab',
+                data-bs-target='#mixinTestJs',
+                role='tab',
+                aria-controls='mixinTestJs',
+                aria-selected='false'
+            )&attributes({
+                id: options.id + 'JsTab',
+                'data-bs-target': '#' + options.id + 'Js',
+                'aria-controls': options.id + 'Js',
+            })
+
+    //- Tab Content
+
+    .tab-content.mb-5
+
+        //- Demo Tab Pane
+        if slots.demo
+            .tab-pane.show.active(role='tabpanel')&attributes({
+                id: options.id + 'Demo',
+                'aria-labelledby': options.id + 'DemoTab',
+            })
+
+                if slots.demo
+                    - slots.demo()
+
+        //- HTML Tab Pane
+        if slots.html
+            .tab-pane(role='tabpanel')&attributes({
+                id: options.id + 'Html',
+                'aria-labelledby': options.id + 'HtmlTab',
+            })
+
+                .d-flex.justify-content-start.border.border-top-0.bg-light.p-3.p-sm-4
+                    pre.language-html.m-0
+
+                        if slots.html
+                            - slots.html()
+
+        //- Pug Tab Pane
+        if slots.pug
+            .tab-pane(role='tabpanel')&attributes({
+                id: options.id + 'Pug',
+                'aria-labelledby': options.id + 'PugTab',
+            })
+
+                .d-flex.justify-content-start.border.border-top-0.bg-light.p-3.p-sm-4
+                    pre.language-pug.m-0
+
+                        if slots.pug
+                            - slots.pug()
+
+        //- JS Tab Pane
+        if slots.js
+            .tab-pane(role='tabpanel')&attributes({
+                id: options.id + 'Js',
+                'aria-labelledby': options.id + 'JsTab',
+            })
+
+                .d-flex.justify-content-start.border.border-top-0.bg-light.p-3.p-sm-4
+                    pre.language-js.m-0
+
+                        if slots.js
+                            - slots.js()

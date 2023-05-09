@@ -1,0 +1,75 @@
+// * * * * * * * * * *
+// * * Form Inputs * *
+// * * * * * * * * * *
+
+// 
+// Restyle form control defaults to match Material specs
+// 
+
+.form-control,
+.form-select {
+    &:hover {
+        border-color: $black;
+    }
+
+    &:focus {
+        border-width: 2px;
+        border-color: $primary;
+        padding: add($input-padding-y, -1px) add($input-padding-x, -1px);
+    }
+
+    &[disabled] {
+        color: $input-disabled-color;
+        border-color: $input-disabled-border-color;
+    }
+}
+
+// 
+// Adjust the focus padding for thicker border on floating form selects
+// 
+
+.form-floating .form-select {
+    &:focus {
+        padding-top: add($form-floating-input-padding-t, -1px);
+        padding-bottom: add($form-floating-input-padding-b, -1px);
+    }
+}
+
+// 
+// Form control and input group sizing styling
+// 
+
+.form-control-sm,
+.form-select-sm,
+.input-group-sm .form-control {
+    &:focus {
+        padding: add($input-padding-y-sm, -1px) add($input-padding-x-sm, -1px) !important;
+    }
+}
+
+.form-control-lg,
+.form-select-lg,
+.input-group-lg .form-control {
+    &:focus {
+        padding: add($input-padding-y-lg, -1px) add($input-padding-x-lg, -1px) !important;
+    }
+}
+
+// 
+// Form control color picker
+// 
+
+.form-control-color {
+    &:focus {
+        padding-left: calc(0.40625rem - 1px);
+        padding-right: calc(0.40625rem - 1px);
+    }
+}
+
+// Apply primary color to material web component styling
+
+mwc-textfield,
+mwc-textarea,
+mwc-select {
+    --mdc-theme-primary: #{$primary};
+}

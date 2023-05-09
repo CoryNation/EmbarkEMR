@@ -1,0 +1,12 @@
+// * * * * * * * *
+// * * Badges  * *
+// * * * * * * * *
+
+// Remove the top shift on badges used within badges
+
+.btn .badge,
+div.code-toolbar>.toolbar a .badge,
+div.code-toolbar>.toolbar button .badge,
+div.code-toolbar>.toolbar span .badge {
+    top: 0px;
+}

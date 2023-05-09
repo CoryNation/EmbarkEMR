@@ -1,0 +1,55 @@
+// * * * * * * * * *
+// * * Nav Stick * *
+// * * * * * * * * *
+
+//
+// The nav stick is a custom component created
+// for Material Admin Pro. It serves as a page-level
+// side navigation component and is used in unison
+// with Bootstrap's built in scrollspy plugin
+// 
+
+.nav-stick {
+    font-size: $font-size-sm;
+    color: $gray-700;
+
+    .nav-heading {
+        font-family: $font-family-monospace;
+        margin-bottom: 0.25rem;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
+
+    .nav {
+        display: block;
+        margin-top: 1rem;
+
+        .nav-item {
+            .nav-link {
+                color: $gray-700;
+                padding: 0.5rem 0 0.5rem 1rem;
+                border-left: 2px solid $border-color;
+                letter-spacing: 0.0178571429em;
+
+                &.active {
+                    border-color: $gray-900;
+                    color: $gray-900;
+                    font-weight: 500;
+                }
+            }
+        }
+
+    }
+
+    ul.nav>li.nav-item>.nav {
+        display: none;
+    }
+
+    ul.nav>li.nav-item>a.nav-link.active~.nav {
+        display: flex;
+    }
+
+    &.sticky-top {
+        top: add($app-bar-base-height, 2.5rem);
+    }
+}

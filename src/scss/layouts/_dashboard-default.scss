@@ -1,0 +1,97 @@
+// * * * * * * * * * * * * * * * * * * *
+// * * Dashboard Default Page Layout * * 
+// * * * * * * * * * * * * * * * * * * *
+
+// 
+// A flexbox based layout for dashboard pages
+// used within Material Admin Pro
+// 
+// See src/pug/layouts/dashboard-default.pug for the
+// corresponding Pug layout. These styles also apply to the
+// fixed layout, which has additional styling in it's SCSS file
+// 
+
+// Default behavior for the drawer layout
+// The default positioning for the drawer is a static position
+
+#layoutDrawer {
+    display: flex;
+
+    // Wraps the .drawer element and sets the size
+    #layoutDrawer_nav {
+        flex-basis: $drawer-base-width;
+        flex-shrink: 0;
+        transition: transform 0.15s ease-in-out;
+        z-index: $zindex-drawer;
+        // Mobile first transform - by default the drawer will be moved off-canvas
+        transform: translateX(-$drawer-base-width);
+    }
+
+    // Wraps the content when using the drawer layout
+    #layoutDrawer_content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-width: 0;
+        flex-grow: 1;
+        min-height: calc(100vh - #{$app-bar-base-height});
+        margin-left: -$drawer-base-width;
+    }
+}
+
+// Default behavior for the static drawer collapse
+.drawer-toggled {
+    #layoutDrawer {
+        #layoutDrawer_nav {
+            transform: translateX(0);
+        }
+
+        #layoutDrawer_content {
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: $black;
+                z-index: $zindex-content;
+                opacity: 0.5;
+                transition: opacity 0.3s ease-in-out;
+            }
+        }
+    }
+}
+
+// Responsive styling for the drawer layout
+@include media-breakpoint-up(xl) {
+    #layoutDrawer {
+        #layoutDrawer_nav {
+            transform: translateX(0);
+        }
+
+        #layoutDrawer_content {
+            margin-left: 0;
+        }
+    }
+
+    // Behavior for the drawer collapse on screens larger than the med breakpoint
+    .drawer-toggled {
+        #layoutDrawer {
+            #layoutDrawer_nav {
+                transform: translateX(-$drawer-base-width);
+            }
+
+            #layoutDrawer_content {
+                margin-left: -$drawer-base-width;
+
+                // Removes the drawer overlay on screens larger than the med breakpoint
+                &:before {
+                    display: none;
+                }
+            }
+        }
+    }
+}

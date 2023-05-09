@@ -1,0 +1,25 @@
+// Theme colors are defined in a separate from _colors.scss
+// to allow for color overrides in the _variables-colors-overrides.scss
+// file to function if included.
+
+// Redeclare the color map
+$theme-colors: ('primary': $primary,
+    'primarycontainer': $primarycontainer,
+    'primaryoncontainer':$primaryoncontainer,
+    'secondary': $secondary,
+    'secondarycontainer': $secondarycontainer,
+    'secondaryoncontainer': $secondaryoncontainer,
+    'success': $success,
+    'info': $info,
+    'warning': $warning,
+    'danger': $danger,
+    'light': $light,
+    'dark': $dark,
+    'white': $white,
+    'black': $black,
+    'gray': $gray,
+);
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark".
+// Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast

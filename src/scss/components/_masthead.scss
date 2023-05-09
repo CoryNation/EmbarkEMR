@@ -1,0 +1,41 @@
+// * * * * * * * * *
+// * * Masthead  * *
+// * * * * * * * * *
+
+// Styling for the masthead that is shown in
+// index.pug / index.html
+
+.masthead {
+    @extend .text-white-75;
+
+    svg {
+        color: $white;
+    }
+
+    .masthead-heading {
+        color: $white;
+    }
+
+    .btn-masthead {
+        @extend .btn-outline-light;
+    }
+}
+
+
+.masthead.bg-light,
+.masthead.bg-white {
+    @extend .text-muted;
+    @extend .border-bottom;
+
+    svg {
+        color: $headings-color;
+    }
+
+    .masthead-heading {
+        color: $headings-color;
+    }
+
+    .btn-masthead {
+        @extend .btn-outline-dark;
+    }
+}

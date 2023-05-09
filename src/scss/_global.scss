@@ -1,0 +1,34 @@
+// Global styling for this template
+
+html,
+body {
+    height: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: inherit;
+}
+
+// Expand CSS variables with added root values
+// for use with Chart.js or other uses
+
+:root {
+    --bs-body-color: #{$body-color};
+    --bs-border-color: #{$border-color};
+    --bs-text-muted-color: #{$text-muted};
+}
+
+// Scroll target offest
+
+:target:before {
+    content: '';
+    display: block;
+    height: 8.75rem;
+    margin: -8.75rem 0 0;
+}
+
+// Alternative to scroll target offset above
+// Awaiting Safari and iOS Safai support
+
+// :target {
+//     scroll-margin-top: 8.75rem;
+// }

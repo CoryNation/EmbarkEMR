@@ -1,0 +1,218 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Overview'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.masthead.bg-dark
+        .container-xl.px-5
+            .row.justify-content-center.gx-5
+                .col-md-8.col-lg-6
+                    .text-center.py-10
+
+                        // Example brand image (inline SVG image)
+                        svg.mb-3(viewBox='0 0 527 527', style='enable-background:new 0 0 527 527; height: 2.5rem; width: 2.5rem;', xml:space='preserve')
+                            style(type='text/css').
+                                .st0{fill:none; stroke:currentColor; stroke-width:15; stroke-miterlimit:10; enable-background:new;}
+                            rect.st0(x='7.5' y='7.5' width='512' height='512')
+                            g
+                                polygon.st0(points='317.5,207.6 317.5,430.3 428.5,430.3 428.5,96.7')
+                                polygon.st0(points='209.5,207.6 209.5,430.3 98.5,430.3 98.5,96.7')
+
+                        // Masthead content
+                        h1.masthead-heading.mb-3.display-5 Build beautiful products, fast.
+                        p Build high-quality digital experiences with the world's most intuitive union between Bootstrap 5 and Material Design.
+                        a.btn.btn-masthead(href='#scrollTarget') Explore Demos
+
+    .container-xl.p-5
+        #scrollTarget
+
+        // Dashboard demos
+        h2.display-6.mb-0 Dashboards
+        p.small.text-muted Six pre-built, customizable dashboard demos
+        hr.mb-5.mt-0
+
+        .row.gx-5
+            .col-sm-6.col-lg-4.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-dashboard-default.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/dashboards/default.png', alt='...')
+                .small.font-monospace.text-center Default Dashboard
+            .col-sm-6.col-lg-4.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-dashboard-minimal.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/dashboards/minimal.png', alt='...')
+                .small.font-monospace.text-center Minimal Dashboard
+            .col-sm-6.col-lg-4.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-dashboard-analytics.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/dashboards/analytics.png', alt='...')
+                .small.font-monospace.text-center Analytics Dashboard
+            .col-sm-6.col-lg-4.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-dashboard-accounting.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/dashboards/accounting.png', alt='...')
+                .small.font-monospace.text-center Accounting Dashboard
+            .col-sm-6.col-lg-4.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-dashboard-orders.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/dashboards/orders.png', alt='...')
+                .small.font-monospace.text-center Orders Dashboard
+            .col-sm-6.col-lg-4.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-dashboard-projects.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/dashboards/projects.png', alt='...')
+                .small.font-monospace.text-center Projects Dashboard
+
+        // Page demos
+        h2.display-6.mb-0.mt-5 Pages
+        p.small.text-muted Custom made, fully responsive pages to get you started
+        hr.mb-5.mt-0
+
+        .row.gx-5
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-auth-login-basic.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/auth-login-1.png', alt='...')
+                .small.font-monospace.text-center Auth - Login 1
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-auth-login-styled-1.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/auth-login-2.png', alt='...')
+                .small.font-monospace.text-center Auth - Login 2
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-auth-login-styled-2.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/auth-login-3.png', alt='...')
+                .small.font-monospace.text-center Auth - Login 3
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-auth-register-basic.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/auth-register.png', alt='...')
+                .small.font-monospace.text-center Auth - Register
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-auth-password-basic.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/auth-password.png', alt='...')
+                .small.font-monospace.text-center Auth - Forgot Password
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-account-billing.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/account-billing.png', alt='...')
+                .small.font-monospace.text-center Account - Billing
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-account-notifications.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/account-notifications.png', alt='...')
+                .small.font-monospace.text-center Account - Notifications
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-account-profile.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/account-profile.png', alt='...')
+                .small.font-monospace.text-center Account - Profile
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-account-security.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/account-security.png', alt='...')
+                .small.font-monospace.text-center Account - Security
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-invoice.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/invoice.png', alt='...')
+                .small.font-monospace.text-center Invoice
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-knowledgebase-home.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/knowledgebase-home.png', alt='...')
+                .small.font-monospace.text-center Knowledgebase - Home
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-knowledgebase-categories.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/knowledgebase-categories.png', alt='...')
+                .small.font-monospace.text-center Knowledgebase - Categories
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-knowledgebase-article.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/knowledgebase-article.png', alt='...')
+                .small.font-monospace.text-center Knowledgebase - Article
+            .col-sm-6.col-lg-3.mb-5
+                a.d-block.ripple-gray.rounded.shadow-3.overflow-hidden.mb-2(href='app-pricing.html')
+                    img.img-fluid(src='https://assets.startbootstrap.com/img/screenshots-product-pages/material-admin-pro/pages/pricing.png', alt='...')
+                .small.font-monospace.text-center Pricing
+        
+        // Error page demos
+        h2.display-6.mb-0.mt-5 Error Pages
+        p.small.text-muted Illustrated pages to cover common errors
+        hr.mb-5.mt-0
+
+        .row.gx-5
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-400.html') 400 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-401.html') 401 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-403.html') 403 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-404.html') 404 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-429.html') 429 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-500.html') 500 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-503.html') 503 Error
+            .col-sm-6.col-lg-3.mb-5
+                .card.card-raised.ripple-gray
+                    .card-body.text-center
+                        a.stretched-link.text-decoration-none.font-monospace(href='app-error-504.html') 504 Error

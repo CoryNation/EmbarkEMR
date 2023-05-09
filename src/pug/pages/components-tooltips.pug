@@ -1,0 +1,225 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Tooltips'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/tooltips.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Tooltips
+        .row.gx-5
+            .col-lg-9
+                p Tooltips and popovers display informative text when users hover over, focus on, or tap an element.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Default tooltips  * *
+                //- * * * * * * * * * * * * *
+
+                #tooltips
+                    h2.mb-4 Tooltips
+                    p 
+                        | Bootstrap tooltips have been enabled by default in the
+                        code.code-inline scripts.js
+                        | file. The styling and formatting has been modified past the Bootstrap defaults to match Material Design's guidelines for their tooltip component.
+                    p.mb-4
+                        | Visit
+                        a(href='https://getbootstrap.com/docs/5.2/components/tooltips/', target='_blank') Bootstrap's tooltip documentation
+                        | for more information about implementing tooltips.
+                    +demo({
+                        id: 'defaultTooltips'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-10.bg-light
+                                .row.row-cols-2.gx-3.gx-lg-5
+                                    .col.text-center.mb-4
+                                        button.btn.btn-outline-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='top', title='Tooltip on top')
+                                            | Tooltip on top
+                                    .col.text-center.mb-4
+                                        button.btn.btn-outline-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='right', title='Tooltip on right')
+                                            | Tooltip on right
+                                    .col.text-center
+                                        button.btn.btn-outline-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='bottom', title='Tooltip on bottom')
+                                            | Tooltip on bottom
+                                    .col.text-center
+                                        button.btn.btn-outline-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='left', title='Tooltip on left')
+                                            | Tooltip on left
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-text-primary" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top">Tooltip on top</button>
+                                <button class="btn btn-text-primary" type="button" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right">Tooltip on right</button>
+                                <button class="btn btn-text-primary" type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+                                <button class="btn btn-text-primary" type="button" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left">Tooltip on left</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-text-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='top', title='Tooltip on top')
+                                    | Tooltip on top
+                                button.btn.btn-text-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='right', title='Tooltip on right')
+                                    | Tooltip on right
+                                button.btn.btn-text-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='bottom', title='Tooltip on bottom')
+                                    | Tooltip on bottom
+                                button.btn.btn-text-primary(type='button', data-bs-toggle='tooltip', data-bs-placement='left', title='Tooltip on left')
+                                    | Tooltip on left</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Default popovers  * *
+                //- * * * * * * * * * * * * *
+
+                #popovers
+                    h2.mb-4 Popovers
+                    p
+                        | Bootstrap popovers have also been enabled by default in the
+                        code.code-inline scripts.js
+                        | file. The styling and formatting has been modified past the Bootstrap defaults to match Material Design's guidelines for their rich tooltip component.
+                    p.mb-4
+                        | Visit
+                        a(href='https://getbootstrap.com/docs/5.2/components/popovers/', target='_blank') Bootstrap's popovers documentation
+                        | for more information about implementing popovers.
+                    +demo({
+                        id: 'defaultPopovers'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-10.bg-light
+                                .row.row-cols-2.gx-3.gx-lg-5
+                                    .col.text-center.mb-4
+                                        button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='top', data-bs-content='This is an example of a top popover.')
+                                            | Popover on top
+                                    .col.text-center.mb-4
+                                        button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='right', data-bs-content='This is an example of a right popover')
+                                            | Popover on right
+                                    .col.text-center
+                                        button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='bottom', data-bs-content='This is an example of a bottom popover')
+                                            | Popover on bottom
+                                    .col.text-center
+                                        button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='left', data-bs-content='This is an example of a left popover')
+                                            | Popover on left
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><button class="btn btn-primary btn-raised" type="button" title="Popover Title" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="This is an example of a top popover.">Popover on top</button>
+                                <button class="btn btn-primary btn-raised" type="button" title="Popover Title" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="This is an example of a right popover">Popover on right</button>
+                                <button class="btn btn-primary btn-raised" type="button" title="Popover Title" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="This is an example of a bottom popover">Popover on bottom</button>
+                                <button class="btn btn-primary btn-raised" type="button" title="Popover Title" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="This is an example of a left popover">Popover on left</button></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='top', data-bs-content='This is an example of a top popover.')
+                                    | Popover on top
+                                button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='right', data-bs-content='This is an example of a right popover')
+                                    | Popover on right
+                                button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='bottom', data-bs-content='This is an example of a bottom popover')
+                                    | Popover on bottom
+                                button.btn.btn-primary.btn-raised(type='button', title='Popover Title', data-bs-container='body', data-bs-toggle='popover', data-bs-placement='left', data-bs-content='This is an example of a left popover')
+                                    | Popover on left</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0.mb-lg-4.mb-xxl-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Tooltips Documentation
+                                p.card-text Bootstrap's tooltips documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/tooltips/', target='_blank', title='Bootstrap Tooltips Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Popovers Documentation
+                                p.card-text Bootstrap's popovers documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/popovers/', target='_blank', title='Bootstrap Popovers Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#tooltips') Tooltips
+                        li.nav-item
+                            a.nav-link(href='#popovers') Popovers
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

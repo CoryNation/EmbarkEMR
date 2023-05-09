@@ -1,0 +1,207 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Dashboard'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    .container-xl.p-5
+
+        .row.gx-5
+            
+            .col-lg-5.col-md-6.mb-5
+                .card.card-raised.border-top.border-4.border-primary.h-100
+                    .card-body.p-5
+                        .overline.text-muted.mb-4 Company Inc.
+                        h1 Welcome, Roger
+                        p.card-text.mb-4 Here are your most recent transactions:
+                        table.table.table-sm.mb-0
+                            tbody
+                                tr
+                                    td
+                                        .text-muted.fst-italic Pending
+                                    td Roger Henn
+                                    td.text-end
+                                        .text-muted -$5,400.00
+                                tr
+                                    td.text-muted
+                                        .fst-italic Pending
+                                    td Caroline McLean
+                                    td.text-end
+                                        .text-muted -$5,400.00
+                                tr
+                                    td.text-muted Mar 15
+                                    td PayPal
+                                    td.text-end
+                                        .text-success.fw-500 $264.48
+                                tr
+                                    td.border-bottom-0.text-muted Mar 12
+                                    td.border-bottom-0 Stripe
+                                    td.border-bottom-0.text-end
+                                        .text-success.fw-500 $311.15
+                    .card-footer.bg-transparent.position-relative.ripple-gray
+                        a.d-flex.align-items-center.justify-content-end.text-decoration-none.stretched-link.text-primary(href='#!')
+                            .fst-button View More
+                            i.material-icons.icon-sm.ms-1 chevron_right
+
+            .col-lg-7.col-md-6.mb-5
+                .card.card-raised.bg-primary.bg-gradient.text-white.h-100
+                    .card-body.p-5
+                        .text-center
+                            .overline.text-white-50.mb-4 Current Balance
+                            h2.text-white.mb-2
+                                sup $
+                                | 1,681
+                                sup .28
+                            .d-flex.align-items-center.justify-content-center.text-white-50
+                                i.material-icons.icon-sm.me-2 trending_up
+                                .small $948.72 Today, Mar 16
+                    .px-1
+                        canvas#dashboardAreaChartLight
+
+        .row.gx-5
+            
+            .col-md-6.mb-5
+                .card.card-raised.border-top.border-4.border-secondary.h-100
+                    .card-body.p-5
+                        .overline.text-muted.mb-4 Money Out Last 30 Days
+                        h2.mb-4
+                            sup $
+                            | -10,800
+                            sup .22
+                        .mb-2
+                            .mb-1 Roger Henn
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-secondary(role='progressbar', style='width: 50%;', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $5K
+                        .mb-2
+                            .mb-1 Caroline McLean
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-secondary(role='progressbar', style='width: 50%;', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $5K
+                        .mb-0
+                            .mb-1 PayPal
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-secondary(role='progressbar', style='width: 1%;', aria-valuenow='1', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $0.22
+                    .card-footer.bg-transparent.position-relative.ripple-gray
+                        a.d-flex.align-items-center.justify-content-end.text-decoration-none.stretched-link.text-primary(href='#!')
+                            .fst-button View All
+                            i.material-icons.icon-sm.ms-1 chevron_right
+            .col-md-6.mb-5
+                .card.card-raised.border-top.border-4.border-success.h-100
+                    .card-body.p-5
+                        .overline.text-muted.mb-4 Money In Last 30 Days
+                        h2.mb-4
+                            sup $
+                            | 11,532
+                            sup .78
+                        .mb-2
+                            .mb-1 Bank Transfer
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-success(role='progressbar', style='width: 75%;', aria-valuenow='75', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $11K
+                        .mb-2
+                            .mb-1 Stripe
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-success(role='progressbar', style='width: 5%;', aria-valuenow='5', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $459.66
+                        .mb-2
+                            .mb-1 PayPal
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-success(role='progressbar', style='width: 1%;', aria-valuenow='1', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $0.22
+                        .mb-0
+                            .mb-1 Other
+                            .d-flex.align-items-center
+                                .progress.w-100.me-3(style='height: 0.25rem;')
+                                    .progress-bar.bg-success(role='progressbar', style='width: 1%;', aria-valuenow='1', aria-valuemin='0', aria-valuemax='100')
+                                .flex-shrink-0
+                                    | $0.81
+                    .card-footer.bg-transparent.position-relative.ripple-gray
+                        a.d-flex.align-items-center.justify-content-end.text-decoration-none.stretched-link.text-primary(href='#!')
+                            .fst-button View All
+                            i.material-icons.icon-sm.ms-1 chevron_right
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Chart.js via CDN
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js', crossorigin='anonymous')
+    // Load Chart.js customized defaults
+    script(src='js/charts/chart-defaults.js')
+    // Load chart demos for this page
+    script(src='js/charts/demos/dashboard-chart-area-light-demo.js')

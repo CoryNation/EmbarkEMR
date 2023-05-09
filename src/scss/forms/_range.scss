@@ -1,0 +1,80 @@
+// * * * * * * *
+// * * Range * *
+// * * * * * * *
+
+// 
+// Modify Bootstrap form range component to
+// match Material Design slider specs
+// 
+
+.form-range {
+    padding: 1.4375rem 0;
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+        transition: transform 0.1s ease-in-out;
+    }
+
+    &::-moz-range-thumb {
+        transition: transform 0.1s ease-in-out;
+    }
+
+    &:active {
+
+        &::-webkit-slider-thumb {
+            transform: scale(1.75);
+        }
+
+        &::-moz-range-thumb {
+            transform: scale(1.75);
+        }
+
+    }
+}
+
+// 
+// Styling for the range progress for Firefox and
+// and other browsers that support this feature
+// 
+
+.form-range::-moz-range-progress {
+    height: 0.125rem;
+    background-color: $primary;
+}
+
+.form-range::-ms-fill-lower {
+    height: 0.125rem;
+    background-color: $primary;
+}
+
+// 
+// Styling for disabled state
+// 
+
+.form-range:disabled {
+    &::-webkit-slider-runnable-track {
+        background-color: fade-out($form-range-thumb-disabled-bg, 0.74);
+    }
+
+    &::-moz-range-track {
+        background-color: fade-out($form-range-thumb-disabled-bg, 0.74);
+    }
+
+    &::-moz-range-progress {
+        background-color: $form-range-thumb-disabled-bg;
+    }
+
+    &::-ms-fill-lower {
+        background-color: $form-range-thumb-disabled-bg;
+    }
+}
+
+// 
+// Set the default color (secondary) of the slider
+// web component to instead be the primary color of
+// the theme.
+// 
+
+mwc-slider {
+    --mdc-theme-secondary: #{$primary};
+}

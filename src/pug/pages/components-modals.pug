@@ -1,0 +1,596 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Modals'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/modals.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Modals
+        .row.gx-5
+            .col-lg-9
+                p Modals are a JavaScript driven component that is default to the Bootstrap framework. In Material Admin Pro, we have taken the styling from Material's dialog component and applied the same principles to the Bootstrap defaults, creating a customized Modal component.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * Default modals  * *
+                //- * * * * * * * * * * * *
+
+                #default
+                    h2.mb-4 Default Modals
+                    p Modals are togglable dialogs that inform users of actions or events that have taken place. In this theme, the modal default animates in with a zoom in effect over a darkened backdrop.
+                    p The modal header, body, and footer have also been modified outside of Bootstrap to match the Material Design style, which includes our text button components as the action buttons in the modal footer.
+                    p.mb-4 Click on the button below to see this theme's default modal component in action.
+
+                    +demo({
+                        id: 'defaultModal'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal')
+                                    | Launch demo modal
+                                    i.trailing-icon.material-icons launch
+                                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                                    .modal-dialog
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Default modal example-->
+
+                                <!-- Button that triggers the modal dialog-->
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Launch demo modal<i class="trailing-icon material-icons">launch</i></button>
+
+                                <!-- Modal-->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Get this party started?</h5>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Turn up the jams and have a good time.</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-text-primary me-2" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-text-primary" type="button">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Default modal example
+
+                                //- Button that triggers the modal dialog
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal')
+                                    | Launch demo modal
+                                    i.trailing-icon.material-icons launch
+
+                                //- Modal
+                                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                                    .modal-dialog
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Scrollable modal  * *
+                //- * * * * * * * * * * * * *
+
+                #scrollable
+                    h2.mb-4 Scrollable Modals
+                    p.mb-4
+                        | The scrollable modal allows for content in the modal that exceeds the height of the viewport. In this example, we use Bootstrap's
+                        code.code-inline .modal-dialog-scrollable
+                        | class on the modal dialog with custom styling applied to add borders to the header and footer, matching Material Design's style specifications.
+
+                    +demo({
+                        id: 'scrollableModal'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalScrollable')
+                                    | Launch scrollable modal
+                                    i.trailing-icon.material-icons launch
+                                #exampleModalScrollable.modal.fade(tabindex='-1' aria-labelledby='exampleModalScrollableLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-scrollable
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalScrollableLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                p Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia numquam ea consectetur nisi qui culpa earum rem porro? Nobis tempore soluta quia quis velit delectus animi veritatis molestias ab ut.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quidem dolorum doloribus possimus id quod molestias incidunt, rem voluptates sint praesentium magni debitis repellat impedit maiores blanditiis similique autem minus.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint corporis harum ad dolor consequatur reprehenderit, aperiam, minima nostrum, laborum modi accusantium nisi ullam aliquam aut ea sit qui sequi mollitia.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ex quo? Eaque veritatis magni sapiente adipisci molestiae suscipit. Nam, illo voluptatum veniam similique maiores temporibus iusto quo eum minima ad.
+                                                p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur commodi ex ipsam atque, facere est unde rerum deleniti totam, voluptatum numquam aspernatur assumenda quaerat ipsa accusantium. Ipsam illum aliquid impedit!
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quibusdam odit voluptates quam voluptatem praesentium fugit dignissimos rem porro quia distinctio, at non autem illum ipsum quod enim amet ipsam.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint corporis harum ad dolor consequatur reprehenderit, aperiam, minima nostrum, laborum modi accusantium nisi ullam aliquam aut ea sit qui sequi mollitia.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ex quo? Eaque veritatis magni sapiente adipisci molestiae suscipit. Nam, illo voluptatum veniam similique maiores temporibus iusto quo eum minima ad.
+                                                p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur commodi ex ipsam atque, facere est unde rerum deleniti totam, voluptatum numquam aspernatur assumenda quaerat ipsa accusantium. Ipsam illum aliquid impedit!
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quibusdam odit voluptates quam voluptatem praesentium fugit dignissimos rem porro quia distinctio, at non autem illum ipsum quod enim amet ipsam.
+
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Scrollable modal example-->
+
+                                <!-- Button that triggers the modal dialog-->
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Launch scrollable modal<i class="trailing-icon material-icons">launch</i></button>
+
+                                <!-- Modal-->
+                                <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalScrollableLabel">Get this party started?</h5>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia numquam ea consectetur nisi qui culpa earum rem porro? Nobis tempore soluta quia quis velit delectus animi veritatis molestias ab ut.</p>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quidem dolorum doloribus possimus id quod molestias incidunt, rem voluptates sint praesentium magni debitis repellat impedit maiores blanditiis similique autem minus.</p>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint corporis harum ad dolor consequatur reprehenderit, aperiam, minima nostrum, laborum modi accusantium nisi ullam aliquam aut ea sit qui sequi mollitia.</p>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ex quo? Eaque veritatis magni sapiente adipisci molestiae suscipit. Nam, illo voluptatum veniam similique maiores temporibus iusto quo eum minima ad.</p>
+                                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur commodi ex ipsam atque, facere est unde rerum deleniti totam, voluptatum numquam aspernatur assumenda quaerat ipsa accusantium. Ipsam illum aliquid impedit!</p>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quibusdam odit voluptates quam voluptatem praesentium fugit dignissimos rem porro quia distinctio, at non autem illum ipsum quod enim amet ipsam.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-text-primary me-2" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-text-primary" type="button">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Scrollable modal example
+
+                                //- Button that triggers the modal dialog
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalScrollable')
+                                    | Launch scrollable modal
+                                    i.trailing-icon.material-icons launch
+
+                                //- Modal
+                                #exampleModalScrollable.modal.fade(tabindex='-1' aria-labelledby='exampleModalScrollableLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-scrollable
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalScrollableLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                p Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia numquam ea consectetur nisi qui culpa earum rem porro? Nobis tempore soluta quia quis velit delectus animi veritatis molestias ab ut.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quidem dolorum doloribus possimus id quod molestias incidunt, rem voluptates sint praesentium magni debitis repellat impedit maiores blanditiis similique autem minus.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint corporis harum ad dolor consequatur reprehenderit, aperiam, minima nostrum, laborum modi accusantium nisi ullam aliquam aut ea sit qui sequi mollitia.
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. At, ex quo? Eaque veritatis magni sapiente adipisci molestiae suscipit. Nam, illo voluptatum veniam similique maiores temporibus iusto quo eum minima ad.
+                                                p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur commodi ex ipsam atque, facere est unde rerum deleniti totam, voluptatum numquam aspernatur assumenda quaerat ipsa accusantium. Ipsam illum aliquid impedit!
+                                                p Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quibusdam odit voluptates quam voluptatem praesentium fugit dignissimos rem porro quia distinctio, at non autem illum ipsum quod enim amet ipsam.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * * *
+                //- * * Vertically centered modal * *
+                //- * * * * * * * * * * * * * * * * *
+
+                #centering
+                    h2.mb-4 Centering Modals
+                    p.mb-4
+                        | In Material Design, dialogs are vertially centered by default. To acheive this, simple add the
+                        code.code-inline .modal-dialog-centered
+                        | class to the modal dialog and the dialog will be centered after it animates in.
+
+                    +demo({
+                        id: 'centeredModal'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalCentered')
+                                    | Launch centered modal
+                                    i.trailing-icon.material-icons launch
+                                #exampleModalCentered.modal.fade(tabindex='-1' aria-labelledby='exampleModalCenteredLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalCenteredLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Centered modal example-->
+
+                                <!-- Button that triggers the modal dialog-->
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCentered">Launch centered modal<i class="trailing-icon material-icons">launch</i></button>
+
+                                <!-- Modal-->
+                                <div class="modal fade" id="exampleModalCentered" tabindex="-1" aria-labelledby="exampleModalCenteredLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalCenteredLabel">Get this party started?</h5>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Turn up the jams and have a good time.</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-text-primary me-2" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-text-primary" type="button">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Centered modal example
+
+                                //- Button that triggers the modal dialog
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalCentered')
+                                    | Launch centered modal
+                                    i.trailing-icon.material-icons launch
+
+                                //- Modal
+                                #exampleModalCentered.modal.fade(tabindex='-1' aria-labelledby='exampleModalCenteredLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalCenteredLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * *
+                //- * * Static backdrop modal * *
+                //- * * * * * * * * * * * * * * *
+
+                #static
+                    h2.mb-4 Static Backdrop Modals
+                    p.mb-4
+                        | By default, modals will dismiss when clicking outside of the modal dialog. This behavior can be disabled by adding the
+                        code.code-inline data-bs-backdrop="static"
+                        | and
+                        code.code-inline data-bs-keyboard="false"
+                        | data attributes to the modal element, demonstrated below.
+
+                    +demo({
+                        id: 'staticModal'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalStatic')
+                                    | Launch static modal
+                                    i.trailing-icon.material-icons launch
+                                #exampleModalStatic.modal.fade(tabindex='-1' aria-labelledby='exampleModalStaticLabel' aria-hidden='true', data-bs-backdrop='static', data-bs-keyboard='false')
+                                    .modal-dialog.modal-dialog-centered
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalStaticLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><!-- Static modal example-->
+
+                                <!-- Button that triggers the modal dialog-->
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalStatic">Launch static modal<i class="trailing-icon material-icons">launch</i></button>
+
+                                <!-- Modal-->
+                                <div class="modal fade" id="exampleModalStatic" tabindex="-1" aria-labelledby="exampleModalStaticLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalStaticLabel">Get this party started?</h5>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">Turn up the jams and have a good time.</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-text-primary me-2" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-text-primary" type="button">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">//- Static modal example
+
+                                //- Button that triggers the modal dialog
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalStatic')
+                                    | Launch static modal
+                                    i.trailing-icon.material-icons launch
+
+                                //- Modal
+                                #exampleModalStatic.modal.fade(tabindex='-1' aria-labelledby='exampleModalStaticLabel' aria-hidden='true', data-bs-backdrop='static', data-bs-keyboard='false')
+                                    .modal-dialog.modal-dialog-centered
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalStaticLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * *
+                //- * * Modal sizing options  * *
+                //- * * * * * * * * * * * * * * *
+
+                #sizing
+                    h2.mb-4 Modal Sizing Options
+                    p.mb-4
+                        | Append the modal dialog class with either the
+                        code.code-inline .modal-xl
+                        | ,
+                        code.code-inline .modal-lg
+                        | , or
+                        code.code-inline .modal-sm
+                        | class for sizing options other than the default.
+
+                    +demo({
+                        id: 'modalSizing'
+                    })
+                        +slot('demo')
+                            .d-flex.flex-column.align-items-center.border.border-top-0.p-3.p-sm-10.bg-light
+
+                                //- Static modal example
+
+                                //- Buttons that trigger the modal dialogs
+                                .mb-2
+                                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalXl')
+                                        | Launch extra large modal
+                                        i.trailing-icon.material-icons launch
+
+                                .mb-2
+                                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalLg')
+                                        | Launch large modal
+                                        i.trailing-icon.material-icons launch
+
+                                .mb-0
+                                    button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalSm')
+                                        | Launch small modal
+                                        i.trailing-icon.material-icons launch
+
+                                //- Extra Large Modal
+                                #exampleModalXl.modal.fade(tabindex='-1' aria-labelledby='exampleModalXlLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered.modal-xl
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalXlLabel.modal-title Extra large modal!
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+
+                                //- Large Modal
+                                #exampleModalLg.modal.fade(tabindex='-1' aria-labelledby='exampleModalLgLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered.modal-lg
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalLgLabel.modal-title Large modal!
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+
+                                //- Small Modal
+                                #exampleModalSm.modal.fade(tabindex='-1' aria-labelledby='exampleModalSmLabel' aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered.modal-sm
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalSmLabel.modal-title Small modal!
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="modal-dialog modal-xl">...</div>
+                                <div class="modal-dialog modal-lg">...</div>
+                                <div class="modal-dialog modal-sm">...</div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.modal-dialog.modal-xl
+                                .modal-dialog.modal-lg
+                                .modal-dialog.modal-sm</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * Full screen modal * *
+                //- * * * * * * * * * * * * *
+
+                #full-screen
+                    h2.mb-4 Full Screen Modal
+                    p.mb-4
+                        | A final sizing option available is the full screen modal. Add the
+                        code.code-inline .modal-fullscreen
+                        | class to the modal dialog to use this variant. There are also responsive options available for full screen modals, which you can see on
+                        a(href='https://getbootstrap.com/docs/5.2/components/modal/#fullscreen-modal', target='_blank') Bootstrap's modal documentation
+                        | page.
+
+                    +demo({
+                        id: 'modalFullScreen'
+                    })
+                        +slot('demo')
+                            .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#exampleModalFullscreen')
+                                    | Launch full screen modal
+                                    i.trailing-icon.material-icons launch
+                                #exampleModalFullscreen.modal.fade(tabindex='-1' aria-labelledby='exampleModalFullscreenLabel' aria-hidden='true')
+                                    .modal-dialog.modal-fullscreen
+                                        .modal-content
+                                            .modal-header
+                                                h5#exampleModalFullscreenLabel.modal-title Get this party started?
+                                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                                            .modal-body
+                                                | Turn up the jams and have a good time.
+                                            .modal-footer
+                                                button.btn.btn-text-primary.me-2(type='button' data-bs-dismiss='modal') Close
+                                                button.btn.btn-text-primary(type='button') Save changes
+                        +slot('html')
+                            code.
+                                <script type="text/plain"><div class="modal-dialog modal-fullscreen">...</div></script>
+                        +slot('pug')
+                            code.
+                                <script type="text/plain">.modal-dialog.modal-fullscreen</script>
+
+                    //- Divider
+                    hr.my-5
+
+                p.mb-4
+                    strong Note:
+                    | In the examples above, the modals are called using data attributes. Bootstrap's modals work with a combination of HTML, CSS, and JavaScript, and there are JavaScript implementation options available that you can reference on
+                    a(href='https://getbootstrap.com/docs/5.2/components/modal/#usage', target='_blank') Bootstrap's modal documentation
+                    | page.
+
+                //- Divider
+                hr.my-5
+
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Modal Documentation
+                                p.card-text Bootstrap's modal component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/components/modal/', target='_blank', title='Bootstrap Modal Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#scrollable') Scrollable
+                        li.nav-item
+                            a.nav-link(href='#centering') Centering
+                        li.nav-item
+                            a.nav-link(href='#static') Static
+                        li.nav-item
+                            a.nav-link(href='#sizing') Sizing
+                        li.nav-item
+                            a.nav-link(href='#full-screen') Full Screen
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

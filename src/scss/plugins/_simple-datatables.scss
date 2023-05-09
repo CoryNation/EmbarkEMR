@@ -1,0 +1,264 @@
+// * * * * * * * * * * * * *
+// * * Simple DataTables * * 
+// * * * * * * * * * * * * *
+
+// 
+// Simple DataTables is a third party plugin included with this
+// theme to create functional data tables
+// 
+// Plugin docs: https://github.com/fiduswriter/Simple-DataTables
+// 
+
+// Override the Simple DataTables Styling
+
+// Sets default responsiveness of the dataTable
+.datatable-wrapper .datatable-container {
+    @extend .table-responsive;
+}
+
+.datatable-wrapper.no-header .datatable-container {
+    border-top: none;
+}
+
+.datatable-wrapper.no-footer .datatable-container {
+    border-bottom: none;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+
+.datatable-top {
+    padding: 0 0 1rem;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+
+.datatable-bottom {
+    padding: 0;
+}
+
+.datatable-top>nav:first-child,
+.datatable-top>div:first-child,
+.datatable-bottom>nav:first-child,
+.datatable-bottom>div:first-child {
+    float: left;
+}
+
+.datatable-top>nav:last-child,
+.datatable-top>div:last-child,
+.datatable-bottom>nav:last-child,
+.datatable-bottom>div:last-child {
+    float: right;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+
+.datatable-selector {
+    @extend .form-select;
+    width: auto;
+    display: inline-block;
+    padding-left: 1.125rem;
+    padding-right: 2.125rem;
+    margin-right: 0.25rem;
+
+    &:focus {
+        padding-left: add(1.125rem, -1px);
+        padding-right: add(2.125rem, -1px);
+    }
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+
+.datatable-input {
+    @extend .form-control;
+}
+
+.datatable-info {
+    margin: 7px 0;
+}
+
+/* PAGER */
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-pagination ul {
+    @extend .pagination;
+    // margin: 0;
+    // padding-left: 0;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-pagination li {
+    @extend .page-item;
+    // list-style: none;
+    // float: left;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-pagination a {
+    @extend .page-link;
+    // border: 1px solid transparent;
+    // float: left;
+    // margin-left: 2px;
+    // padding: 6px 12px;
+    // position: relative;
+    // text-decoration: none;
+    // color: #333;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-pagination a:hover {
+    background-color: $pagination-hover-bg;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-pagination .active a,
+.datatable-pagination .active a:focus,
+.datatable-pagination .active a:hover {
+    background-color: $pagination-active-bg;
+    // cursor: default;
+}
+
+.datatable-pagination .ellipsis a,
+.datatable-pagination .disabled a,
+.datatable-pagination .disabled a:focus,
+.datatable-pagination .disabled a:hover {
+    cursor: not-allowed;
+}
+
+.datatable-pagination .disabled a,
+.datatable-pagination .disabled a:focus,
+.datatable-pagination .disabled a:hover {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.datatable-pagination .pager a {
+    font-weight: bold;
+}
+
+/* TABLE */
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+
+.datatable-table {
+    @extend .table;
+    @extend .table-hover;
+    @extend .table-bordered;
+    @extend .table-striped;
+
+    // max-width: 100%;
+    // width: 100%;
+    // border-spacing: 0;
+    border-collapse: collapse;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+
+.datatable-table>tbody>tr>td,
+.datatable-table>tbody>tr>th,
+.datatable-table>tfoot>tr>td,
+.datatable-table>tfoot>tr>th,
+.datatable-table>thead>tr>td,
+.datatable-table>thead>tr>th {
+    vertical-align: top;
+    padding: $table-cell-padding-y $table-cell-padding-x;
+}
+
+.datatable-table>thead>tr>th {
+    vertical-align: bottom;
+    text-align: left;
+    border-bottom: none;
+}
+
+.datatable-table>tfoot>tr>th {
+    vertical-align: bottom;
+    text-align: left;
+    // border-top: 1px solid #d9d9d9;
+}
+
+.datatable-table th {
+    vertical-align: bottom;
+    text-align: left;
+}
+
+.datatable-table th a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.datatable-sorter {
+    display: inline-block;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.datatable-sorter::before,
+.datatable-sorter::after {
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    right: 4px;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    opacity: 0.2;
+}
+
+.datatable-pagination li.datatable-hidden {
+    visibility: visible;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-sorter::before {
+    // border-top: 4px solid #000;
+    bottom: 2px;
+}
+
+// * * * * * * * *
+// * * Updated * *
+// * * * * * * * *
+.datatable-sorter::after {
+    // border-bottom: 4px solid #000;
+    // border-top: 4px solid transparent;
+    top: -2px;
+}
+
+.asc .datatable-sorter::after,
+.desc .datatable-sorter::before {
+    opacity: 0.6;
+}
+
+.datatables-empty {
+    text-align: center;
+}
+
+.datatable-top::after,
+.datatable-bottom::after {
+    clear: both;
+    content: " ";
+    display: table;
+}

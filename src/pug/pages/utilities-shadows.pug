@@ -1,0 +1,377 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Shadows'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/shadows.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Shadows
+
+        .row.gx-5
+            .col-lg-9
+                p Shadows convey meaning by implying the elevation of elements on a page. According to the principles of Material Design, "shadows provide important visual cues about objects’ depth and directional movement. They are the only visual cue indicating the amount of separation between surfaces. An object’s elevation determines the appearance of its shadow."
+                p In this adaptation of Material Design for Bootstrap, we have extended Bootstrap's shadow utilities to include all of the elevation options defined by Material Design.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * * * * * * * 
+                //- * * Bootstrap Shadow Utility  * *
+                //- * * * * * * * * * * * * * * * * *
+
+                #bootstrap
+                    h2.mb-4 Bootstrap Shadow Utilities
+                    p.mb-4
+                        | By default, Bootstrap uses the four following shadow utilities, which have been modified to fit the Material Design styling of this toolkit.
+
+                    +demo({
+                        id: 'bootstrapShadowUtility'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .row.row-cols-2.gx-3.gx-lg-5
+                                    .col
+                                        .shadow-none.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small No shadow
+                                                code .shadow-none
+                                    .col
+                                        .shadow-sm.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small Small shadow
+                                                code .shadow-sm
+                                    .col
+                                        .shadow
+                                            .p-4.text-center
+                                                .small Regular shadow
+                                                code .shadow
+                                    .col
+                                        .shadow-lg
+                                            .p-4.text-center
+                                                .small Large shadow
+                                                code .shadow-lg
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="shadow-none">.shadow-none</div>
+                                <div class="shadow-sm">.shadow-sm</div>
+                                <div class="shadow">.shadow</div>
+                                <div class="shadow-lg">.shadow-lg</div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.shadow-none shadow-none
+                                .shadow-sm shadow-sm
+                                .shadow shadow
+                                .shadow-lg shadow-lg</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * * * * * *
+                //- * * Material Design Shadow Utilites * *
+                //- * * * * * * * * * * * * * * * * * * * *
+
+                #material
+                    h2.mb-4 Material Design Shadows Utilities
+                    p In addition to the default Bootstrap shadow utilities, this toolkit has been expanded to include the complete set of Material Design elevation variations.
+
+                    p.mb-4
+                        | This expanded set of utility classes are named using the format
+                        code.code-inline .shadow-{elevation}
+                        | where 
+                        em elevation 
+                        | is any number between 0 and 24. See all of the variations in the examples below.
+
+                    +demo({
+                        id: 'materialDesignShadowUtilities'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-lg-5
+                                .row.row-cols-2.row-cols-xxl-3.gx-3.gx-lg-5
+                                    .col
+                                        .shadow-0.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 0dp
+                                                code .shadow-0
+
+                                    .col
+                                        .shadow-1.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 1dp
+                                                code .shadow-1
+
+                                    .col
+                                        .shadow-2.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 2dp
+                                                code .shadow-2
+
+                                    .col
+                                        .shadow-3.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 3dp
+                                                code .shadow-3
+
+                                    .col
+                                        .shadow-4.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 4dp
+                                                code .shadow-4
+
+                                    .col
+                                        .shadow-5.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 5dp
+                                                code .shadow-5
+
+                                    .col
+                                        .shadow-6.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 6dp
+                                                code .shadow-6
+
+                                    .col
+                                        .shadow-7.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 7dp
+                                                code .shadow-7
+
+                                    .col
+                                        .shadow-8.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 8dp
+                                                code .shadow-8
+
+                                    .col
+                                        .shadow-9.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 9dp
+                                                code .shadow-9
+
+                                    .col
+                                        .shadow-10.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 10dp
+                                                code .shadow-10
+
+                                    .col
+                                        .shadow-11.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 11dp
+                                                code .shadow-11
+
+                                    .col
+                                        .shadow-12.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 12dp
+                                                code .shadow-12
+
+                                    .col
+                                        .shadow-13.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 13d
+                                                code .shadow-13
+
+                                    .col
+                                        .shadow-14.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 14dp
+                                                code .shadow-14
+
+                                    .col
+                                        .shadow-15.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 15dp
+                                                code .shadow-15
+
+                                    .col
+                                        .shadow-16.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 16dp
+                                                code .shadow-16
+
+                                    .col
+                                        .shadow-17.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 17dp
+                                                code .shadow-17
+
+                                    .col
+                                        .shadow-18.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 18dp
+                                                code .shadow-18
+
+                                    .col
+                                        .shadow-19.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 19dp
+                                                code .shadow-19
+
+                                    .col
+                                        .shadow-20.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 20dp
+                                                code .shadow-20
+
+                                    .col
+                                        .shadow-21.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 21dp
+                                                code .shadow-21
+
+                                    .col
+                                        .shadow-22.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 22dp
+                                                code .shadow-22
+
+                                    .col
+                                        .shadow-23.mb-3.mb-lg-5
+                                            .p-4.text-center
+                                                .small 23dp
+                                                code .shadow-23
+
+                                    .col
+                                        .shadow-24
+                                            .p-4.text-center
+                                                .small 24dp
+                                                code .shadow-24
+                        +slot('html')
+                            code.
+                                <script type='text/plain'>.shadow-0 .shadow-0
+                                .shadow-1 .shadow-1
+                                .shadow-2 .shadow-2
+                                .shadow-3 .shadow-3
+                                .shadow-4 .shadow-4
+                                .shadow-5 .shadow-5
+                                .shadow-6 .shadow-6
+                                .shadow-7 .shadow-7
+                                .shadow-8 .shadow-8
+                                .shadow-9 .shadow-9
+                                .shadow-10 .shadow-10
+                                .shadow-11 .shadow-11
+                                .shadow-12 .shadow-12
+                                .shadow-13 .shadow-13
+                                .shadow-14 .shadow-14
+                                .shadow-15 .shadow-15
+                                .shadow-16 .shadow-16
+                                .shadow-17 .shadow-17
+                                .shadow-18 .shadow-18
+                                .shadow-19 .shadow-19
+                                .shadow-20 .shadow-20
+                                .shadow-21 .shadow-21
+                                .shadow-22 .shadow-22
+                                .shadow-23 .shadow-23
+                                .shadow-24 .shadow-24</script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.shadow-0 .shadow-0
+                                .shadow-1 .shadow-1
+                                .shadow-2 .shadow-2
+                                .shadow-3 .shadow-3
+                                .shadow-4 .shadow-4
+                                .shadow-5 .shadow-5
+                                .shadow-6 .shadow-6
+                                .shadow-7 .shadow-7
+                                .shadow-8 .shadow-8
+                                .shadow-9 .shadow-9
+                                .shadow-10 .shadow-10
+                                .shadow-11 .shadow-11
+                                .shadow-12 .shadow-12
+                                .shadow-13 .shadow-13
+                                .shadow-14 .shadow-14
+                                .shadow-15 .shadow-15
+                                .shadow-16 .shadow-16
+                                .shadow-17 .shadow-17
+                                .shadow-18 .shadow-18
+                                .shadow-19 .shadow-19
+                                .shadow-20 .shadow-20
+                                .shadow-21 .shadow-21
+                                .shadow-22 .shadow-22
+                                .shadow-23 .shadow-23
+                                .shadow-24 .shadow-24</script>
+
+                    //- Spacer
+                    .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#bootstrap') Bootstrap Shadow Utilities
+                        li.nav-item
+                            a.nav-link(href='#material') Material Shadow Utilities
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

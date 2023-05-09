@@ -1,0 +1,321 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Form Range'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/range.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Form Range
+        .row.gx-5
+            .col-lg-9
+                p Range inputs allow users to use a slider bar to select a value from a range of values.
+                p In Material Admin Pro, we have utilized range sliders from two different sources. First, we use the slider web component from the Material Design Web Components catalog, giving developers access to the fully functional Material Design range slider.
+                p Second, we have restyled Bootstrap's default range slider to match Material Design's styling as closely as possible. This is for developers who prefer using the HTML range input element over a web component.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * *
+                //- * * * * * * * * * * * *
+                //- * * Material Slider * *
+                //- * * * * * * * * * * * *
+                //- * * * * * * * * * * * *
+
+                #material-slider
+                    h2.mb-4 Material Slider
+                    p.mb-4
+                        | The slider web component from the
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/slider', target='_blank') Material Web Components Catalog
+                        | has a true Material Design stlying. By using the web component instead of HTML's default range input type, the functionality and user experience, especially on mobile, is drastically improved.
+
+                    //- * * * * * * * * * * * * * * * * *
+                    //- * * Default - Material Slider * *
+                    //- * * * * * * * * * * * * * * * * *
+
+                    #material-slider-default
+                        h3.mb-4 Default
+
+                        p
+                            | By default, the Material slider web component uses the primary coloring of the theme, and includes click, drag, and touch events.
+                        p.mb-4
+                            | In this example, the
+                            code.code-inline .w-100
+                            | utility is being used to adjust the sliders width to fill the width of its parent element. The min, max, and value attributes are used to set the values of the range slider.
+
+                        +demo({
+                            id: 'materialSliderDefault'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    mwc-slider.w-100(value='25', min='0', max='50')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><mwc-slider class="w-100" value="25" min="0" max="50"></mwc-slider></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>mwc-slider.w-100(value='25', min='0', max='50')</script>
+
+                    //- * * * * * * * * * * * * * * * *
+                    //- * * Steps - Material Slider * *
+                    //- * * * * * * * * * * * * * * * *
+
+                    #material-slider-steps
+                        h3.mb-4 Steps
+
+                        p
+                            | Steps can be set within the slider web component using the
+                            code.code-inline step='{value}'
+                            | attribute, where
+                            em value
+                            | is equal to the number of steps displayed on the slider.
+                        p.mb-4
+                            | Two other optional attributes can be used on this variation. The
+                            code.code-inline markers
+                            | attribute will show small circles across the slider to indicate where the steps are located. The
+                            code.code-inline pin
+                            | attribute shows tooltips displaying the current value of the range slider when it is being used.
+
+                        +demo({
+                            id: 'materialSliderSteps'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    mwc-slider.w-100(discrete, withTickMarks, value='25', min='0', max='50', step='5')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><mwc-slider class="w-100" value="25" min="0" max="50" step="5" pin markers></mwc-slider></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>mwc-slider.w-100(value='25', min='0', max='50', step='5', pin, markers)</script>
+
+                    //- * * * * * * * * * * * * * * * * * *
+                    //- * * Disabled - Material Slider  * *
+                    //- * * * * * * * * * * * * * * * * * *
+
+                    #material-slider-disabled
+                        h3.mb-4 Disabled
+
+                        p.mb-4
+                            | Use the
+                            code.code-inline disabled
+                            | attribute to prevent users from interacting with the slider web component.
+
+                        +demo({
+                            id: 'materialSliderDisabled'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    mwc-slider.w-100(value='25', min='0', max='50', disabled)
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><mwc-slider class="w-100" value="25" min="0" max="50" disabled></mwc-slider></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>mwc-slider.w-100(value='25', min='0', max='50', disabled)</script>
+
+                //- * * * * * * * * * * * *
+                //- * * * * * * * * * * * *
+                //- * * Bootstrap Range * *
+                //- * * * * * * * * * * * *
+                //- * * * * * * * * * * * *
+
+                #bootstrap-range
+                    h2.mb-4 Bootstrap Range
+                    p
+                        | The Bootstrap range component has been restyled to match Material Design specifications as closely as possible. Since this element is styled based off of browser defaults for the range input type, the component may not be perfectly consistent across browsers.
+                    p.mb-4
+                        | Using these range inputs however use the familiar HTML input markup, which may be preferrable to some developers.
+
+
+                    //- * * * * * * * * * * * * * * * * *
+                    //- * * Default - Bootstrap Range * *
+                    //- * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-range-default
+                        h3.mb-4 Default
+
+                        p.mb-4 By default, the Bootstrap range input is styled to appear as close as possible to Material guidelines. Only Edge Legacy and Firefox browsers support "filling" the slider track from the left hand side of the thumb.
+
+                        +demo({
+                            id: 'bootstrapRangeDefault'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    input.form-range(type='range', value='25', min='0', max='50')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><input class="form-range" type="range" value="25" min="0" max="50"></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>input.form-range(type='range', value='25', min='0', max='50')</script>
+
+                    //- * * * * * * * * * * * * * * * *
+                    //- * * Steps - Bootstrap Range * *
+                    //- * * * * * * * * * * * * * * * *
+
+                    #bootstrap-range-steps
+                        h3.mb-4 Steps
+
+                        p.mb-4 The default behavior of the range input type allows for steps. There is no visual feedback like in the web component example, but the slider does lock to each step rather than sliding smoothly.
+
+                        +demo({
+                            id: 'bootstrapRangeSteps'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    input.form-range(type='range', step='5', value='25', min='0', max='50')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><input class="form-range" type="range" step="5" value="25" min="0" max="50"></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>input.form-range(type='range', step='5', value='25', min='0', max='50')</script>
+
+                    //- * * * * * * * * * * * * * * * * * *
+                    //- * * Disabled - Bootstrap Range  * *
+                    //- * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-range-disabled
+                        h3.mb-4 Disabled
+
+                        p.mb-4
+                            | Adding the
+                            code.code-inline disabled
+                            | attribute to the input element will disable the slider and prevent interaction.
+
+                        +demo({
+                            id: 'bootstrapRangeDisabled'
+                        })
+                            +slot('demo')
+                                .d-flex.justify-content-center.border.border-top-0.p-3.p-sm-10.bg-light
+                                    input.form-range(type='range', value='25', min='0', max='50', disabled)
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><input class="form-range" type="range" step="5" value="25" min="0" max="50" disabled></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>input.form-range(type='range', value='25', min='0', max='50', disabled)</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0.mb-lg-4.mb-xxl-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Slider Web Component Documentation
+                                p.card-text Docs for Material's slider web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/slider', target='_blank', title='Material Slider Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Range Documentation
+                                p.card-text Bootstrap's range input documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/forms/range/', target='_blank', title='Bootstrap Range Input Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#material-slider') Material Slider
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-slider-default') Default
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-slider-steps') Steps
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-slider-disabled') Disabled
+                        li.nav-item
+                            a.nav-link(href='#bootstrap-range') Bootstrap Range
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-range-default') Default
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-range-steps') Steps
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-range-disabled') Disabled
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

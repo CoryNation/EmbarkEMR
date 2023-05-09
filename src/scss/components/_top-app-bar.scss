@@ -1,0 +1,71 @@
+// * * * * * * * * * *
+// * * Top App Bar * *
+// * * * * * * * * * *
+
+// 
+// The top app bar is a custom implementation of
+// the Bootstrap navbar which uses styling based
+// on Material Design's specifications for their
+// app bar component.
+// 
+
+// Base styling for the top app bar
+
+.top-app-bar {
+    padding-left: 0;
+    height: $app-bar-base-height;
+    z-index: $zindex-topnav;
+    box-shadow: $top-app-bar-box-shadow;
+
+    #drawerToggle {
+
+        @include media-breakpoint-up(lg) {
+            margin-right: 0.75rem;
+            margin-left: -0.75rem;
+        }
+    }
+
+    .navbar-nav {
+        .nav-link {
+            position: relative;
+            line-height: $top-app-bar-nav-link-height;
+            padding: $top-app-bar-nav-link-padding-y $top-app-bar-nav-link-padding-x;
+
+            &.active {
+                &::after {
+                    display: block;
+                    content: '';
+                    background-color: $white;
+                    width: calc(100% - #{$top-app-bar-nav-link-padding-x * 2});
+                    height: 4px;
+                    position: absolute;
+                    bottom: 0;
+                    left: $top-app-bar-nav-link-padding-x;
+                }
+            }
+        }
+    }
+
+    // Sets specific styling for .navbar-dark variant
+    &.navbar-dark {
+        .btn {
+            @extend .btn-text-white;
+        }
+
+        .navbar-nav .nav-link.active::after {
+            background-color: $white;
+        }
+    }
+
+    // Sets specific styling for .navbar-light variant
+    &.navbar-light {
+        .btn {
+            @extend .btn-text-dark;
+        }
+
+        .navbar-nav .nav-link.active::after {
+            background-color: $gray-900;
+        }
+    }
+
+}

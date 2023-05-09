@@ -1,0 +1,44 @@
+// * * * * * * * *
+// * * Modals  * *
+// * * * * * * * *
+
+// Adjusts the global defaults for modals
+
+.modal-content {
+    @extend .shadow-24;
+
+    .modal-title {
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .modal-header {
+        padding: $modal-header-padding-y $modal-header-padding-x;
+    }
+
+    .modal-body {
+        padding: $modal-body-padding-y $modal-body-padding-x;
+    }
+
+    .modal-header+.modal-body {
+        padding-top: 0;
+    }
+
+    .modal-footer {
+        padding: $modal-footer-padding-y $modal-footer-padding-x;
+    }
+}
+
+.modal-dialog-scrollable {
+    .modal-header {
+        border-width: 1px;
+    }
+
+    .modal-header+.modal-body {
+        padding-top: $modal-body-padding-y;
+    }
+
+    .modal-footer {
+        border-width: 1px;
+    }
+}

@@ -1,0 +1,47 @@
+// * * * * * * * * * * * * * * * *
+// * * Import color variables  * *
+// * * * * * * * * * * * * * * * *
+
+// Set the base color system
+@import './variables/colors';
+
+// Add color overrides in this file
+@import './variables-colors-overrides';
+
+// Redeclares the color map after any new
+// color variables have been defined
+@import './variables/theme-colors';
+
+// * * * * * * * * * * * * * * * * * *
+// * * Import component variables  * *
+// * * * * * * * * * * * * * * * * * *
+
+// Toggle Bootstrap options
+@import './variables/options';
+
+// The following files include variables that override the
+// Bootstrap default variables as well as new variables
+// created for use specifically in Material Admin Pro.
+
+@import './variables/spacing';
+@import './variables/body';
+@import './variables/components';
+@import './variables/typography';
+@import './variables/icons';
+@import './variables/tables';
+@import './variables/buttons-forms';
+@import './variables/z-index';
+@import './variables/navigation';
+@import './variables/dropdowns';
+@import './variables/cards';
+@import './variables/tooltips';
+@import './variables/popovers';
+@import './variables/toasts';
+@import './variables/modals';
+@import './variables/alerts';
+@import './variables/progress';
+@import './variables/spinners';
+@import './variables/code';
+
+// Override any Material Admin Pro variables in this file
+@import './variables-material-admin-pro-overrides';

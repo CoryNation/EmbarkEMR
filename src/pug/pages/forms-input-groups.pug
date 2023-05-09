@@ -1,0 +1,413 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Input Groups'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/input-groups.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Input Groups
+        .row.gx-5
+            .col-lg-9
+                p In Material Admin Pro, input groups are are an extension of Bootstrap's form controls which add text, buttons, or button groups on either side of form inputs.
+                p Since Material has no specification for input groups, the Bootstrap defaults have been restyled to match the Material Design system as closely as possible.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * *
+                //- * * Default * *
+                //- * * * * * * * *
+
+                #default
+                    h2.mb-4 Default
+                    p.mb-4
+                        | By default, the Bootstrap input groups allow the addition of input group text addings before, after, or in-between inputs. Multiple addons and multiple inputs are supported. Input groups also support the text area element.
+
+                    +demo({
+                        id: 'inputGroupDefault'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+
+                                label.form-label.small Prepend the input
+                                .input-group.mb-3
+                                    span#basic-addon1.input-group-text @
+                                    input.form-control(type='text' placeholder='Username', aria-label='Username', aria-describedby='basic-addon1')
+
+                                label.form-label.small Append the input
+                                .input-group.mb-3
+                                    input.form-control(type='text' placeholder='Username', aria-label='Username', aria-describedby='basic-addon2')
+                                    span#basic-addon2.input-group-text @example.com
+
+                                label.form-label.small Before and after input
+                                .input-group.mb-3
+                                    span.input-group-text $
+                                    input.form-control(type='number' aria-label='Amount (to the nearest dollar)')
+                                    span.input-group-text .00
+
+                                label.form-label.small Addon between multiple inputs
+                                .input-group.mb-3
+                                    input.form-control(type='text' placeholder='Username' aria-label='Username')
+                                    span.input-group-text @
+                                    input.form-control(type='text' placeholder='Server' aria-label='Server')
+
+                                label.form-label.small With textarea
+                                .input-group
+                                    span.input-group-text Comment:
+                                    textarea.form-control(aria-label='Comment')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><label class="form-label small">Prepend the input</label>
+                                <div class="input-group"><span class="input-group-text" id="basic-addon1">@</span>
+                                    <input class="form-control" type="text" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+
+                                <label class="form-label small">Append the input</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="Username" aria-label="Username" aria-describedby="basic-addon2"><span class="input-group-text" id="basic-addon2">@example.com</span>
+                                </div>
+
+                                <label class="form-label small">Before and after input</label>
+                                <div class="input-group"><span class="input-group-text">$</span>
+                                    <input class="form-control" type="number" aria-label="Amount (to the nearest dollar)"><span class="input-group-text">.00</span>
+                                </div>
+
+                                <label class="form-label small">Addon between multiple inputs</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="Username" aria-label="Username"><span class="input-group-text">@</span>
+                                    <input class="form-control" type="text" placeholder="Server" aria-label="Server">
+                                </div>
+
+                                <label class="form-label small">With textarea</label>
+                                <div class="input-group"><span class="input-group-text">Comment:</span>
+                                    <textarea class="form-control" aria-label="Comment"></textarea>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>label.form-label.small Prepend the input
+                                .input-group
+                                    span#basic-addon1.input-group-text @
+                                    input.form-control(type='text' placeholder='Username', aria-label='Username', aria-describedby='basic-addon1')
+
+                                label.form-label.small Append the input
+                                .input-group
+                                    input.form-control(type='text' placeholder='Username', aria-label='Username', aria-describedby='basic-addon2')
+                                    span#basic-addon2.input-group-text @example.com
+
+                                label.form-label.small Before and after input
+                                .input-group
+                                    span.input-group-text $
+                                    input.form-control(type='number' aria-label='Amount (to the nearest dollar)')
+                                    span.input-group-text .00
+
+                                label.form-label.small Addon between multiple inputs
+                                .input-group
+                                    input.form-control(type='text' placeholder='Username' aria-label='Username')
+                                    span.input-group-text @
+                                    input.form-control(type='text' placeholder='Server' aria-label='Server')
+
+                                label.form-label.small With textarea
+                                .input-group
+                                    span.input-group-text Comment:
+                                    textarea.form-control(aria-label='Comment')</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * *
+                //- * * Sizing  * *
+                //- * * * * * * * *
+
+                #sizing
+                    h2.mb-4 Sizing
+                    p.mb-4
+                        | Small, default, and large sizing options are supported as well. Sizing individual input group eleements is not supported however.
+
+                    +demo({
+                        id: 'inputGroupSizing'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .input-group.input-group-sm.mb-3
+                                    span#inputGroup-sizing-sm.input-group-text Small
+                                    input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-sm')
+                                .input-group.mb-3
+                                    span#inputGroup-sizing-default.input-group-text Default
+                                    input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-default')
+                                .input-group.input-group-lg
+                                    span#inputGroup-sizing-lg.input-group-text Large
+                                    input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-lg')
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="input-group input-group-sm"><span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
+                                    <input class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                </div>
+
+                                <div class="input-group"><span class="input-group-text" id="inputGroup-sizing-default">Default</span>
+                                    <input class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                </div>
+
+                                <div class="input-group input-group-lg"><span class="input-group-text" id="inputGroup-sizing-lg">Large</span>
+                                    <input class="form-control" type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.input-group.input-group-sm
+                                    span#inputGroup-sizing-sm.input-group-text Small
+                                    input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-sm')
+
+                                .input-group
+                                    span#inputGroup-sizing-default.input-group-text Default
+                                    input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-default')
+
+                                .input-group.input-group-lg
+                                    span#inputGroup-sizing-lg.input-group-text Large
+                                    input.form-control(type='text' aria-label='Sizing example input' aria-describedby='inputGroup-sizing-lg')</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * *
+                //- * * Button Addons * *
+                //- * * * * * * * * * * *
+
+                #button-addons
+                    h2.mb-4 Button Addons
+                    p.mb-4
+                        | Input groups also support button addons in place of text. They can be used alongside input group text, or independently. Button dropdowns are also supported along with any button color or style referenced on the
+                        a(href='components-buttons.html') button component
+                        | page.
+
+                    +demo({
+                        id: 'inputGroupButtons'
+                    })
+                        +slot('demo')
+                            .border.border-top-0.p-3.p-sm-5.bg-light
+                                .input-group.mb-3
+                                    button#button-addon1.btn.btn-primary(type='button') Button
+                                    input.form-control(type='text' placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1')
+                                .input-group.mb-3
+                                    input.form-control(type='text' placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby='button-addon2')
+                                    button#button-addon2.btn.btn-primary(type='button') Button
+                                .input-group.mb-3
+                                    button.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                    input.form-control(type='text' aria-label='Text input with dropdown button')
+                                .input-group
+                                    input.form-control(type='text' aria-label='Text input with dropdown button')
+                                    button.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu.dropdown-menu-end
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                        +slot('html')
+                            code.
+                                <script type='text/plain'><div class="input-group">
+                                    <button class="btn btn-primary" id="button-addon1" type="button">Button</button>
+                                    <input class="form-control" type="text" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                </div>
+
+                                <div class="input-group">
+                                    <input class="form-control" type="text" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button class="btn btn-primary" id="button-addon2" type="button">Button</button>
+                                </div>
+
+                                <div class="input-group">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown<i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#!">Action</a></li>
+                                        <li><a class="dropdown-item" href="#!">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#!">Something else here</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="#!">Separated link</a></li>
+                                    </ul>
+                                    <input class="form-control" type="text" aria-label="Text input with dropdown button">
+                                </div>
+
+                                <div class="input-group">
+                                    <input class="form-control" type="text" aria-label="Text input with dropdown button">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown<i class="trailing-icon material-icons dropdown-caret">arrow_drop_down</i></button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#!">Action</a></li>
+                                        <li><a class="dropdown-item" href="#!">Another action</a></li>
+                                        <li><a class="dropdown-item" href="#!">Something else here</a></li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="#!">Separated link</a></li>
+                                    </ul>
+                                </div></script>
+                        +slot('pug')
+                            code.
+                                <script type='text/plain'>.input-group
+                                    button#button-addon1.btn.btn-primary(type='button') Button
+                                    input.form-control(type='text' placeholder='' aria-label='Example text with button addon' aria-describedby='button-addon1')
+
+                                .input-group
+                                    input.form-control(type='text' placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby='button-addon2')
+                                    button#button-addon2.btn.btn-primary(type='button') Button
+
+                                .input-group
+                                    button.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link
+                                    input.form-control(type='text' aria-label='Text input with dropdown button')
+
+                                .input-group
+                                    input.form-control(type='text' aria-label='Text input with dropdown button')
+                                    button.btn.btn-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                                        | Dropdown
+                                        i.trailing-icon.material-icons.dropdown-caret arrow_drop_down
+                                    ul.dropdown-menu.dropdown-menu-end
+                                        li
+                                            a.dropdown-item(href='#!') Action
+                                        li
+                                            a.dropdown-item(href='#!') Another action
+                                        li
+                                            a.dropdown-item(href='#!') Something else here
+                                        li
+                                            hr.dropdown-divider
+                                        li
+                                            a.dropdown-item(href='#!') Separated link</script>
+
+                    p.mb-5
+                        | For even more input group options, like custom selects and file uploads, visit
+                        a(href='https://getbootstrap.com/docs/5.2/forms/input-group/', target='_blank') Bootstrap's input group documentation
+                        | page.
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Input Group Documentation
+                                p.card-text Bootstrap's input group component documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/forms/input-group/', target='_blank', title='Bootstrap Input Group Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+
+                //- Spacer
+                .mb-5
+
+            .col-lg-3
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#default') Default
+                        li.nav-item
+                            a.nav-link(href='#sizing') Sizing
+                        li.nav-item
+                            a.nav-link(href='#button-addons') Button Addons
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

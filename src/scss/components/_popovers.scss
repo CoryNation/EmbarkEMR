@@ -1,0 +1,14 @@
+// * * * * * * * * *
+// * * Popovers  * *
+// * * * * * * * * *
+
+// Adjust global styling for popovers
+
+.popover {
+    @extend .shadow-1;
+
+    .popover-header {
+        @extend .subheading-2;
+        padding-bottom: 0;
+    }
+}

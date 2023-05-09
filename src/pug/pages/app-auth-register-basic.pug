@@ -1,0 +1,64 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/authentication.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-primary';
+    - var pageTitle = 'Create Account'; // String. Enter the page title within a string
+
+block content
+    // Main content container
+    .container
+        .row.justify-content-center
+            .col-xxl-7.col-xl-10
+                .card.card-raised.shadow-10.mt-5.mt-xl-10.mb-5
+                    .card-body.p-5
+                        // Auth header with logo image
+                        .text-center
+                            img.mb-3(src='assets/img/icons/background.svg', alt='...', style='height: 48px;')
+                            h1.display-5.mb-0 Create New Account
+                            .subheading-1.mb-5 to continue to app
+                        // Register new account form
+                        form
+                            .row
+                                .col-sm-6.mb-4
+                                    mwc-textfield.w-100(label='First Name', outlined)
+                                .col-sm-6.mb-4
+                                    mwc-textfield.w-100(label='Last Name', outlined)
+                            .mb-4
+                                mwc-textfield.w-100(label='Email Address', outlined)
+                            .row
+                                .col-sm-6.mb-4
+                                    mwc-textfield.w-100(label='Password', outlined, icontrailing='visibility_off', type='password')
+                                .col-sm-6.mb-4
+                                    mwc-textfield.w-100(label='Verify Password', outlined, icontrailing='visibility_off', type='password')
+                            .d-flex.align-items-center
+                                mwc-formfield(label='I agree to the website terms and conditions')
+                                    mwc-checkbox
+                            .form-group.d-flex.align-items-center.justify-content-between.mt-4.mb-0
+                                a.small.fw-500.text-decoration-none(href='app-auth-login-basic.html') Sign in instead
+                                a.btn.btn-primary(href='app-auth-login-basic.html') Create Account
+
+block footer
+    // Auth footer
+    footer.p-4
+        .d-flex.flex-column.flex-sm-row.align-items-center.justify-content-between.small
+            .me-sm-3.mb-2.mb-sm-0
+                .fw-500.text-white Copyright &copy; Your Website 2023
+            .ms-sm-3
+                a.fw-500.text-decoration-none.link-white(href='#!') Privacy
+                a.fw-500.text-decoration-none.link-white.mx-4(href='#!') Terms
+                a.fw-500.text-decoration-none.link-white(href='#!') Help

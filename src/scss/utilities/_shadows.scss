@@ -1,0 +1,41 @@
+// * * * * * * * *
+// * * Shadows * *
+// * * * * * * * *
+
+// 
+// Extends the Bootstrap shadow utility using
+// Material Design's elevation component
+// 
+
+// Use files from @material
+@use '@material/theme/custom-properties';
+@use '@material/base/mixins'as base-mixins;
+@use '@material/feature-targeting/feature-targeting';
+@use '@material/theme/theme';
+@use '@material/theme/theme-color';
+@use '@material/elevation/elevation-theme';
+
+// Material Design's elevation mixin modfied to use the .shadow-* prefix
+@mixin core-styles($query: feature-targeting.all()) {
+    $feat-animation: feature-targeting.create-target($query, animation);
+    $feat-structure: feature-targeting.create-target($query, structure);
+
+    @for $z-value from 0 through 24 {
+        .shadow-#{$z-value} {
+            @include elevation-theme.elevation($z-value, $query: $query);
+        }
+    }
+
+    .shadow-transition {
+        @include feature-targeting.targets($feat-animation) {
+            transition: elevation-theme.transition-value();
+        }
+
+        @include feature-targeting.targets($feat-structure) {
+            will-change: elevation-theme.$property;
+        }
+    }
+}
+
+// Include the elevation mixin to create the utility classes
+@include core-styles;

@@ -1,0 +1,27 @@
+// * * * * * * * * * *
+// * * Background  * *
+// * * * * * * * * * *
+
+// Create custom border style utilities
+
+.bg-pattern-doubs {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('../assets/img/patterns/doubs.svg');
+    background-position: center;
+}
+
+.bg-pattern-waihou {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('../assets/img/patterns/waihou.svg');
+    background-position: center;
+}
+
+.bg-white-50 {
+    background-color: fade-out($white, 0.5);
+}
+
+.bg-black-50 {
+    background-color: fade-out($black, 0.5);
+}

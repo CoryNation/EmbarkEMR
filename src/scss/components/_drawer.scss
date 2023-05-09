@@ -1,0 +1,259 @@
+// * * * * * * * *
+// * * Drawer  * *
+// * * * * * * * *
+
+// Bring in Material ripple for use with drawer links
+
+@use "@material/ripple";
+
+// 
+// Base styling for the drawer component
+// 
+
+// The drawer component is the side navigation menu
+// that slides out with a toggle button. This is
+// a component that is specific to the layout that
+// is made to match Material's drawer styling.
+
+.drawer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-wrap: nowrap;
+    border-right-width: 1px;
+    border-right-style: solid;
+
+    .drawer-menu {
+        flex-grow: 1;
+        padding-bottom: 2.5rem;
+        // Sets the scrollbar width for the fixed variant
+        scrollbar-width: auto;
+
+        .nav {
+            flex-direction: column;
+            flex-wrap: nowrap;
+
+            .drawer-menu-heading {
+                padding-top: 2.5rem;
+                padding-right: $spacer * 1.5;
+                padding-bottom: 0.75rem;
+                padding-left: $spacer * 1.5;
+                font-size: 1.125rem;
+            }
+
+            .drawer-menu-divider {
+                display: block;
+                height: 0px;
+                border-top-style: solid;
+                border-top-width: 1px;
+                margin-top: 2.5rem;
+                margin-bottom: 0;
+            }
+
+            .nav-link {
+                display: flex;
+                align-items: center;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                padding-left: $spacer * 1.5;
+                padding-right: $spacer * 1.5;
+                position: relative;
+                font-size: $font-size-sm;
+                line-height: 1;
+                min-height: 2.75rem;
+
+                .nav-link-icon {
+                    display: inline-flex;
+                    margin-right: 1rem;
+
+                    i.material-icons {
+                        font-size: 1.25rem;
+                    }
+                }
+
+                .drawer-collapse-arrow {
+                    display: inline-block;
+                    margin-left: auto;
+                    transition: transform 0.15s ease;
+
+                    i.material-icons {
+                        font-size: 1.125rem;
+                    }
+                }
+
+                &.collapsed {
+                    .drawer-collapse-arrow {
+                        transform: rotate(-90deg);
+                    }
+                }
+
+                &.active {
+                    font-weight: 500;
+                }
+            }
+
+            .drawer-menu-nested {
+                flex-direction: column;
+
+                .nav-link {
+                    padding-left: 3.75rem;
+
+                }
+            }
+
+            // Sets the left padding for the third level (second nested) menu
+            .drawer-menu-nested>.collapsing>.drawer-menu-nested,
+            .drawer-menu-nested>.collapse.show>.drawer-menu-nested {
+                .nav-link {
+                    padding-left: 5.25rem;
+                }
+            }
+        }
+
+    }
+
+    .drawer-footer {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: $spacer * 1.5;
+        padding-right: $spacer * 1.5;
+        flex-shrink: 0;
+    }
+}
+
+// 
+// Light theme for drawer
+// 
+
+// Usage: append .drawer-light to .drawer
+
+.drawer-light {
+    background-color: $white;
+    color: $drawer-light-color;
+    border-right-color: $drawer-light-border-color;
+
+    .drawer-menu {
+        .drawer-menu-heading {
+            color: $drawer-light-heading-color;
+        }
+
+        .drawer-menu-divider {
+            border-color: $drawer-light-border-color;
+        }
+
+        .nav-link {
+            @include ripple.surface;
+            @include ripple.radius-bounded;
+            @include ripple.states-base-color($drawer-light-link-color);
+            @include ripple.states-opacities((hover: .1, focus: .15, press: .2));
+            overflow: hidden;
+            color: $drawer-light-link-color;
+
+            .nav-link-icon {
+                color: $drawer-light-icon-color;
+            }
+
+            .drawer-collapse-arrow {
+                color: $drawer-light-icon-color;
+            }
+
+            &:hover {
+                color: $drawer-light-link-active-color;
+                // background-color: $drawer-light-link-hover-bg;
+            }
+
+            &.active {
+                color: $drawer-light-link-active-color;
+
+                .nav-link-icon {
+                    color: $drawer-light-link-active-color;
+                }
+            }
+        }
+
+    }
+
+    .drawer-footer {
+        background-color: $drawer-light-footer-bg;
+    }
+}
+
+// 
+// Dark theme for drawer
+// 
+
+// Usage: Append .drawer-dark to .drawer
+
+.drawer-dark {
+    background-color: $gray-900;
+    color: $drawer-dark-color;
+    border-right-color: $drawer-dark-border-color;
+
+    .drawer-menu {
+
+        // Sets scrollbar color defaults for fixed variant
+        scrollbar-color: $drawer-dark-scrollbar-thumb $drawer-dark-scrollbar-track;
+
+        // Additional scrollbar styling fallbacks for dark styling
+        &::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: $drawer-dark-scrollbar-track;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 8px;
+            background: $drawer-dark-scrollbar-thumb;
+            border: 4px solid $drawer-dark-scrollbar-track;
+
+            &:hover {
+                background: $drawer-dark-scrollbar-thumb-hover;
+            }
+        }
+
+        .drawer-menu-heading {
+            color: $drawer-dark-heading-color;
+        }
+
+        .drawer-menu-divider {
+            border-color: $drawer-dark-border-color;
+        }
+
+        .nav-link {
+            @include ripple.surface;
+            @include ripple.radius-bounded;
+            @include ripple.states-base-color($white);
+            @include ripple.states-opacities((hover: .05, focus: .1, press: .15));
+            overflow: hidden;
+            color: $drawer-dark-link-color;
+
+            .nav-link-icon {
+                color: $drawer-dark-icon-color;
+            }
+
+            .drawer-collapse-arrow {
+                color: $drawer-dark-icon-color;
+            }
+
+            &:hover {
+                color: $drawer-dark-link-active-color;
+            }
+
+            &.active {
+                color: $drawer-dark-link-active-color;
+
+                .nav-link-icon {
+                    color: $drawer-dark-link-active-color;
+                }
+            }
+        }
+
+    }
+
+    .drawer-footer {
+        border-color: $drawer-dark-border-color !important;
+        background-color: $drawer-dark-footer-bg;
+    }
+}

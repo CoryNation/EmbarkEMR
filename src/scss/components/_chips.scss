@@ -1,0 +1,72 @@
+// * * * * * * *
+// * * Chips * *
+// * * * * * * *
+
+// Bring in Material ripple for use with chips
+
+@use "@material/ripple";
+
+// Global styling for custom chip component
+
+.chip-set {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.25rem;
+
+    .chip {
+        @include ripple.surface;
+        @include ripple.radius-bounded;
+        @include ripple.states-base-color($gray-800);
+        @include ripple.states-opacities((hover: .08, focus: .12, press: .16));
+
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        user-select: none;
+
+        margin: 0.25rem;
+        border-radius: $border-radius-pill;
+        line-height: 1.25;
+        letter-spacing: .0178571429em;
+
+        height: 2rem;
+        display: inline-flex;
+        align-items: center;
+
+        padding: 0 0.75rem;
+        font-size: $font-size-sm;
+
+        background-color: $gray-300;
+        color: fade-out($black, .13);
+
+        &.active {
+            @include ripple.states-base-color($primary);
+            @include ripple.states-opacities((hover: .08, focus: .12, press: .24));
+            color: $primary;
+            background-color: fade-out($primary, 0.92);
+        }
+
+        .chip-leading-icon {
+            margin: -0.25rem 0.25rem -0.25rem -0.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 1.25rem;
+        }
+
+        .chip-close-icon {
+            color: $gray-600;
+            margin: -0.125rem -0.325rem -0.125rem 0.25rem;
+            width: 1.125rem;
+            height: 1.125rem;
+            font-size: 1.125rem;
+        }
+
+        .chip-leading-image {
+            margin: -0.5rem 0.5rem -0.5rem -0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 100%;
+        }
+
+    }
+}

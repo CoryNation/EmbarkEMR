@@ -1,0 +1,150 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Profile'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.bg-dark
+        .container-xl.px-5
+            h1.text-white.py-3.mb-0.display-6 Account Settings - Profile
+
+    // Account profile page content
+
+    .container-xl.p-5
+
+        // Tab bar navigation
+        mwc-tab-bar(style='margin-bottom: -1px;', activeIndex='2')
+            mwc-tab(label='Billing', icon='account_balance', stacked, onClick='location.href="app-account-billing.html"')
+            mwc-tab(label='Notifications', icon='notifications', stacked, onClick='location.href="app-account-notifications.html"')
+            mwc-tab(label='Profile', icon='person', stacked, onClick='location.href="app-account-profile.html"')
+            mwc-tab(label='Security', icon='security', stacked, onClick='location.href="app-account-security.html"')
+
+        // Divider
+        hr.mt-0.mb-5
+
+        // Profile content row
+        .row.gx-5
+            .col-xl-4
+                // Profile picture card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Profile Image
+                        .card-subtitle.mb-4 This image will be publicly visible to other users.
+                        .text-center
+                            // Profile picture image
+                            img.img-fluid.rounded-circle.mb-1(src='https://source.unsplash.com/jSUsJWvnnEA/500x500', alt='...', style='max-width: 150px; max-height: 150px;')
+                            // Profile picture help block
+                            .caption.fst-italic.text-muted.mb-4 JPG or PNG no larger than 5 MB
+                            // Profile picture upload button
+                            button.btn.btn-primary(type='button')
+                                | Upload new image
+                                i.material-icons.trailing-icon upload
+            .col-xl-8
+                // Account details card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Account Details
+                        .card-subtitle.mb-4 Review and update your account information below.
+                        form
+                            // Form Group (username)
+                            .mb-4
+                                mwc-textfield.w-100(label='Username', outlined, value='my-username')
+                            // Form Row
+                            .row.mb-4
+                                // Form Group (first name)
+                                .col-md-6
+                                    mwc-textfield.w-100(label='First Name', outlined, value='Valerie')
+                                // Form Group (last name)
+                                .col-md-6
+                                    mwc-textfield.w-100(label='Last Name', outlined, value='Luna')
+                            // Form Row        
+                            .row.mb-4
+                                // Form Group (organization name)
+                                .col-md-6
+                                    mwc-textfield.w-100(label='Organization Name', outlined, value='Start Bootstrap')
+                                // Form Group (location)
+                                .col-md-6
+                                    mwc-textfield.w-100(label='Location', outlined, value='Orlando, FL')
+                            // Form Group (email address)
+                            .mb-4
+                                mwc-textfield.w-100(label='Location', outlined, type='email', value='name@example.com')
+                            // Form Row
+                            .row.mb-4
+                                // Form Group (phone number)
+                                .col-md-6
+                                    mwc-textfield.w-100(label='SMS Number', outlined, type='tel', value='407-555-0187')
+                                // Form Group (birth month)
+                                .col-md-6
+                                    mwc-select.w-100(outlined, label='Birth Month')
+                                        mwc-list-item(value='January', selected) January
+                                        mwc-list-item(value='February') February
+                                        mwc-list-item(value='March') March
+                                        mwc-list-item(value='April') April
+                                        mwc-list-item(value='May') May
+                                        mwc-list-item(value='June') June
+                                        mwc-list-item(value='July') July
+                                        mwc-list-item(value='August') August
+                                        mwc-list-item(value='September') September
+                                        mwc-list-item(value='October') October
+                                        mwc-list-item(value='November') November
+                                        mwc-list-item(value='December') December
+                            // Save changes button
+                            .text-end
+                                button.btn.btn-primary(type='button') Save changes

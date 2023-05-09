@@ -1,0 +1,152 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Invoice'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    .container-xl.p-5
+        .row.gx-5.justify-content-center
+            .col-lg-9.col-xl-10.col-xxl-9
+                .card.card-raised
+                    .card-header.bg-primary.p-4
+                        .row.justify-content-between.align-items-center
+                            .col-auto
+                                // Invoice branding
+                                h1.display-6.text-white Invoice
+                                .text-white.mb-0 Start Bootstrap LLC
+                                .text-white-50 #29301
+                            .col-auto.text-end.d-none.d-lg-block
+                                // Invoice actions
+                                .d-flex.gap-2
+                                    button.btn.btn-lg.btn-text-white.btn-icon(type='button')
+                                        i.material-icons download
+                                    button.btn.btn-lg.btn-text-white.btn-icon(type='button')
+                                        i.material-icons print
+                    .card-body.p-0
+                        // Invoice table
+                        .table-responsive
+                            table.table.table-borderless.mb-0
+                                thead.border-bottom
+                                    tr.text-xs.font-monospace.text-muted.fw-500
+                                        th(scope='col') Description
+                                        th.text-end(scope='col') Hours
+                                        th.text-end(scope='col') Rate
+                                        th.text-end(scope='col') Amount
+                                tbody
+                                    // Invoice item 1
+                                    tr.border-bottom
+                                        td
+                                            .fw-500 SB Admin Pro
+                                            .small.text-muted.d-none.d-md-block A professional UI toolkit for designing admin dashboards and web applications
+                                        td.text-end.fw-500 12
+                                        td.text-end.fw-500 $50.00
+                                        td.text-end.fw-500 $600.00
+                                    // Invoice item 2
+                                    tr.border-bottom
+                                        td
+                                            .fw-500 SB UI Kit Pro
+                                            .small.text-muted.d-none.d-md-block A UI toolkit for creating marketing websites and landing pages
+                                        td.text-end.fw-500 15
+                                        td.text-end.fw-500 $55.00
+                                        td.text-end.fw-500 $825.00
+                                    // Invoice item 3
+                                    tr.border-bottom
+                                        td
+                                            .fw-500 Pro HTML Bundle
+                                            .small.text-muted.d-none.d-md-block A fully coded set of UI resources for creating a comprehensive web application
+                                        td.text-end.fw-500 4
+                                        td.text-end.fw-500 $125.00
+                                        td.text-end.fw-500 $500.00
+                                    // Invoice subtotal
+                                    tr
+                                        td.align-middle.text-end.pb-0(colspan='3')
+                                            .overline.text-muted Subtotal
+                                        td.align-middle.text-end.pb-0
+                                            .fw-bold $,1925.00
+                                    // Invoice tax column
+                                    tr
+                                        td.align-middle.text-end.pb-0(colspan='3')
+                                            .overline.text-muted Tax (7%)
+                                        td.align-middle.text-end.pb-0
+                                            .fw-bold $134.75
+                                    // Invoice total
+                                    tr
+                                        td.align-middle.text-end(colspan='3')
+                                            .overline.text-muted Total Amount Due
+                                        td.align-middle.text-end
+                                            .display-6.text-primary $2059.75
+                    .card-footer.p-4
+                        .row
+                            .col-md-6.col-lg-3.mb-4.mb-lg-0
+                                // Invoice - sent to info
+                                .text-xs.font-monospace.text-muted.mb-1 To
+                                .mb-1 Company Name
+                                .text-muted 1234 Company Dr.
+                                .text-muted Yorktown, MA 39201
+                            .col-md-6.col-lg-3.mb-4.mb-lg-0
+                                // Invoice - sent from info
+                                .text-xs.font-monospace.text-muted.mb-1 From
+                                .mb-1 Start Bootstrap
+                                .text-muted 5678 Company Rd.
+                                .text-muted Yorktown, MA 39201
+                            .col-lg-6
+                                // Invoice - additional notes
+                                .text-xs.font-monospace.text-muted.mb-1 Note
+                                .small.mb-0
+                                    | Payment is due 15 days after receipt of this invoice. Please make checks or money orders out to Company Name, and include the invoice number in the memo. We appreciate your business, and hope to be working with you again very soon!

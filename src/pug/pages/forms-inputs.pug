@@ -1,0 +1,923 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Form Inputs'; // String. Enter the page title within a string
+
+//- Declare the demo mixin used on this page
+//- NOTE: Requires Prism.js
+include mixins/demo.pug
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: null
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+    .container-xl.px-5
+        .d-flex.mt-10.mb-4.align-items-center
+            img.me-4(src='assets/img/icons/inputs.svg', alt='...', style='height: 48px;')
+            h1.page-header.mb-0 Form Inputs
+        .row.gx-5
+            .col-lg-9
+                p
+                    | Form inputs allow users to enter and edit text.
+                p
+                    | In Material Admin Pro, our approach to form inputs is twofold. First, we have brought in the textfield and textarea web components from the Material Web Components Catalog, giving developers access to true Material Design text inputs. These
+                    em web components
+                    | are reusable, custom elements that have their functionality encapsulated away from the rest of the code, making them concise and easy to use within your web app.
+                p
+                    | Second, we have restyled the default Bootstrap form controls to match Material Design standards as closely as possible without interfering with the compatability between Bootstrap's form controls and buttons.
+
+                //- Divider
+                hr.my-5
+
+                //- * * * * * * * * * * * * * *
+                //- * * * * * * * * * * * * * *
+                //- * * Material Textfield  * *
+                //- * * * * * * * * * * * * * *
+                //- * * * * * * * * * * * * * *
+
+                #material-textfield
+                    h2.mb-4 Material Textfield
+                    p.mb-4
+                        | The textfield web component from the 
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/textfield', target='blank') Material Web Components Catalog
+                        | has been utilized in this specific case to add true Material Design form inputs to this theme.
+
+                    //- * * * * * * * * * * * * * * * * * * *
+                    //- * * Standard - Material Textfield * *
+                    //- * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-standard
+                        h3.mb-4 Standard
+                        p.mb-4
+                            | There are two style variations available for this component, filled and outlined. Take note of how simple the markup is when using a web component.
+
+                        +demo({
+                            id: 'materialTextfieldStandard'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textfield(label='Filled')
+                                    .m-3
+                                        mwc-textfield(label='Outlined', outlined)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield label="Filled"></mwc-textfield>
+                                    <mwc-textfield label="Outlined" outlined></mwc-textfield></script>
+                                
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield(label='Filled')
+                                    mwc-textfield(label='Outlined', outlined)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * *
+                    //- * * Disabled - Material Textfield * *
+                    //- * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-disabled
+                        h3.mb-4 Disabled
+                        p.mb-4
+                            | Adding the
+                            code.code-inline disabled
+                            | state attribute will apply disabled styling to the textfield and prevent it from being selectable.
+
+                        +demo({
+                            id: 'materialTextfieldDisabled'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textfield(label='Filled', disabled)
+                                    .m-3
+                                        mwc-textfield(label='Outlined', outlined, disabled)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield label="Filled" disabled></mwc-textfield>
+                                    <mwc-textfield label="Outlined" outlined disabled></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield(label='Filled', disabled)
+                                    mwc-textfield(label='Outlined', outlined, disabled)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Leading Icon - Material Textfield * *
+                    //- * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-leading-icon
+                        h3.mb-4 Leading Icon
+                        p.mb-4
+                            | Leading icons can be included within a textfield by using a single data attribute. Add the 
+                            code.code-inline icon='{name}'
+                            | attribute to the element with
+                            em name
+                            | being any icon name from the Material Icons library.
+
+                        +demo({
+                            id: 'materialTextfieldLeadingIcon'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textfield(label='My Textfield', icon='event')
+                                    .m-3
+                                        mwc-textfield(label='My Textfield', outlined, icon='event')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><mwc-textfield label="My Textfield" icon="event"></mwc-textfield>
+                                    <mwc-textfield label="My Textfield" outlined icon="event"></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>mwc-textfield(label='My Textfield', icon='event')
+                                    mwc-textfield(label='My Textfield', outlined, icon='event')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Trailing Icon - Material Textfield  * *
+                    //- * * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-trailing-icon
+                        h3.mb-4 Trailing Icon
+                        p.mb-4
+                            | Trailing icons are also supported inside of the textfield by using a single data attribute. Add the 
+                            code.code-inline icontrailing='{name}'
+                            | attribute to the element with
+                            em name
+                            | being any icon name from the Material Icons library.
+
+                        +demo({
+                            id: 'materialTextfieldTrailingIcon'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textfield(label='My Textfield', icontrailing='delete')
+                                    .m-3
+                                        mwc-textfield(label='My Textfield', outlined, icontrailing='delete')
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield label="My Textfield" icontrailing="delete"></mwc-textfield>
+                                    <mwc-textfield label="My Textfield" outlined icontrailing="delete"></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield(label='My Textfield', icontrailing='delete')
+                                    mwc-textfield(label='My Textfield', outlined, icontrailing='delete')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Helper Text - Material Textfield  * *
+                    //- * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-helper-text
+                        h3.mb-4 Helper Text
+                        p.mb-4
+                            | Helper text can be added to a form input using the
+                            code.code-inline helper='{text}'
+                            | attribute, where
+                            em text
+                            | is the help text you want to display below the form input. The
+                            code.code-inline helperpersistent
+                            | attribute will show the helper text at all times. Without it, the helper text will only appear when the input is selected.
+
+                        +demo({
+                            id: 'materialTextfieldHelperText'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    div
+                                        .m-3
+                                            mwc-textfield(label='My Textfield', helper='Helper Text', helperpersistent)
+                                        .m-3
+                                            mwc-textfield(label='My Textfield', outlined, helper='Helper Text', helperpersistent)
+                                    div
+                                        .m-3
+                                            mwc-textfield(label='Select Me!', helper='Hello there!')
+                                        .m-3
+                                            mwc-textfield(label='Select Me!', outlined, helper='Hello there!')
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield label="My Textfield" helper="Helper Text" helperpersistent></mwc-textfield>
+                                    <mwc-textfield label="My Textfield" outlined helper="Helper Text" helperpersistent></mwc-textfield>
+                                    <mwc-textfield label="Select Me!" helper="Hello there!"></mwc-textfield>
+                                    <mwc-textfield label="Select Me!" outlined helper="Hello there!"></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield(label='My Textfield', helper='Helper Text', helperpersistent)
+                                    mwc-textfield(label='My Textfield', outlined, helper='Helper Text', helperpersistent)
+                                    mwc-textfield(label='Select Me!', helper='Hello there!')
+                                    mwc-textfield(label='Select Me!', outlined, helper='Hello there!')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Character Counter - Material Textfield  * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-character-counter
+                        h3.mb-4 Character Counter
+                        p.mb-4
+                            | Activate the character counter using the
+                            code.code-inline charcounter
+                            | attribute, along with the 
+                            code.code-inline maxlength='{number}'
+                            | attribute, where
+                            em number
+                            | is the maximum number of characters allowed in the form input.
+
+                        +demo({
+                            id: 'materialTextfieldCharCounter'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textfield(label='My Textfield', maxlength='20', charcounter)
+                                    .m-3
+                                        mwc-textfield(label='My Textfield', outlined, maxlength='20', charcounter)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield label="My Textfield" maxlength="20" charcounter></mwc-textfield>
+                                    <mwc-textfield label="My Textfield" outlined maxlength="20" charcounter></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield(label='My Textfield', maxlength='20', charcounter)
+                                    mwc-textfield(label='My Textfield', outlined, maxlength='20', charcounter)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * *
+                    //- * * Full Width - Material Textfield * *
+                    //- * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-full-width
+                        h3.mb-4 Full Width
+                        p.mb-4
+                            | Use the
+                            code.code-inline .w-100
+                            | utility class to set the width of the textfield component to equal the full width of it's parent.
+
+                        +demo({
+                            id: 'materialTextfieldFullWidth'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-4
+                                        mwc-textfield.w-100(label='My Textfield')
+                                    .mb-0
+                                        mwc-textfield.w-100(label='My Textfield', outlined)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield class="w-100" label="My Textfield"></mwc-textfield>
+                                    <mwc-textfield class="w-100" label="My Textfield" outlined></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield.w-100(label='My Textfield')
+                                    mwc-textfield.w-100(label='My Textfield', outlined)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Comprehensive Example - Material Textfield  * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textfield-comprehensive
+                        h3.mb-4 Comprehensive Example
+                        p.mb-4
+                            | All of the above features can be used together on a single textfield component. Below is an exhaustive example of all of the options being used.
+
+                        +demo({
+                            id: 'materialTextfieldComprehensive'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-4
+                                        mwc-textfield.w-100(label='My Textfield', icon='favorite', icontrailing='visibility', helper='Helper Text', helperpersistent, maxlength='20', charcounter)
+                                    .mb-0
+                                        mwc-textfield.w-100(label='My Textfield', outlined, icon='favorite', icontrailing='visibility', helper='Helper Text', helperpersistent, maxlength='20', charcounter)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textfield class="w-100" label="My Textfield" icon="favorite" icontrailing="visibility" helper="Helper Text" helperpersistent maxlength="20" charcounter></mwc-textfield>
+                                    <mwc-textfield class="w-100" label="My Textfield" outlined icon="favorite" icontrailing="visibility" helper="Helper Text" helperpersistent maxlength="20" charcounter></mwc-textfield></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textfield.w-100(label='My Textfield', icon='favorite', icontrailing='visibility', helper='Helper Text', helperpersistent, maxlength='20', charcounter)
+                                    mwc-textfield.w-100(label='My Textfield', outlined, icon='favorite', icontrailing='visibility', helper='Helper Text', helperpersistent, maxlength='20', charcounter)</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * *
+                //- * * * * * * * * * * * * *
+                //- * * Material Textarea * *
+                //- * * * * * * * * * * * * *
+                //- * * * * * * * * * * * * *
+
+                #material-textarea
+                    h2.mb-4 Material Textarea
+                    p.mb-4
+                        | The textarea web component from the 
+                        a(href='https://github.com/material-components/material-components-web-components/tree/master/packages/textarea', target='blank') Material Web Components Catalog
+                        | has been utilized in this specific case to add true Material Design text areas to this theme.
+
+                    //- * * * * * * * * * * * * * * * * * * *
+                    //- * * Standard - Material Textarea  * *
+                    //- * * * * * * * * * * * * * * * * * * *
+
+                    #material-textarea-standard
+                        h3.mb-4 Standard
+                        p.mb-4
+                            | There are two style variations available for this component, filled and outlined. Take note of how simple the markup is when using a web component.
+
+                        +demo({
+                            id: 'materialTextareaStandard'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textarea(label='Filled')
+                                    .m-3
+                                        mwc-textarea(label='Outlined', outlined)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textarea label="Filled"></mwc-textarea>
+                                    <mwc-textarea label="Outlined" outlined></mwc-textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textarea(label='Filled')
+                                    mwc-textarea(label='Outlined', outlined)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * *
+                    //- * * Disabled - Material Textarea  * *
+                    //- * * * * * * * * * * * * * * * * * * *
+
+                    #material-textarea-disabled
+                        h3.mb-4 Disabled
+                        p.mb-4
+                            | Adding the
+                            code.code-inline disabled
+                            | state attribute will apply disabled styling to the textarea and prevent it from being selectable.
+
+                        +demo({
+                            id: 'materialTextareaDisabled'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textarea(label='Filled', disabled)
+                                    .m-3
+                                        mwc-textarea(label='Outlined', outlined, disabled)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textarea label="Filled" disabled></mwc-textarea>
+                                    <mwc-textarea label="Outlined" outlined disabled></mwc-textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textarea(label='Filled', disabled)
+                                    mwc-textarea(label='Outlined', outlined, disabled)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * *
+                    //- * * Helper Text - Material Textarea * *
+                    //- * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textarea-helper-text
+                        h3.mb-4 Helper Text
+                        p.mb-4
+                            | Helper text can be added to a textarea using the
+                            code.code-inline helper='{text}'
+                            | attribute, where
+                            em text
+                            | is the help text you want to display below the textarea. The
+                            code.code-inline helperpersistent
+                            | attribute will show the helper text at all times. Without it, the helper text will only appear when the textarea is selected.
+
+                        +demo({
+                            id: 'materialTextareaHelperText'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    div
+                                        .m-3
+                                            mwc-textarea(label='My Textarea', helper='Helper Text', helperpersistent)
+                                        .m-3
+                                            mwc-textarea(label='My Textarea', outlined, helper='Helper Text', helperpersistent)
+                                    div
+                                        .m-3
+                                            mwc-textarea(label='Select Me!', helper='Hello there!')
+                                        .m-3
+                                            mwc-textarea(label='Select Me!', outlined, helper='Hello there!')
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textarea label="My Textarea" helper="Helper Text" helperpersistent></mwc-textarea>
+                                    <mwc-textarea label="My Textarea" outlined helper="Helper Text" helperpersistent></mwc-textarea>
+                                    <mwc-textarea label="Select Me!" helper="Hello there!"></mwc-textarea>
+                                    <mwc-textarea label="Select Me!" outlined helper="Hello there!"></mwc-textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textarea(label='My Textarea', helper='Helper Text', helperpersistent)
+                                    mwc-textarea(label='My Textarea', outlined, helper='Helper Text', helperpersistent)
+                                    mwc-textarea(label='Select Me!', helper='Hello there!')
+                                    mwc-textarea(label='Select Me!', outlined, helper='Hello there!')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Character Counter - Material Textarea * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textarea-character-counter
+                        h3.mb-4 Character Counter
+                        p.mb-4
+                            | Activate the character counter using the
+                            code.code-inline charcounter
+                            | attribute, along with the 
+                            code.code-inline maxlength='{number}'
+                            | attribute, where
+                            em number
+                            | is the maximum number of characters allowed in the textarea.
+
+                        +demo({
+                            id: 'materialTextareaCharCounter'
+                        })
+                            +slot('demo')
+                                .d-flex.align-items-center.justify-content-center.flex-column.flex-sm-row.border.border-top-0.p-3.p-sm-5
+                                    .m-3
+                                        mwc-textarea(label='My Textarea', maxlength='200', charcounter)
+                                    .m-3
+                                        mwc-textarea(label='My Textarea', outlined, maxlength='200', charcounter)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textarea label="My Textarea" maxlength="200" charcounter></mwc-textarea>
+                                    <mwc-textarea label="My Textarea" outlined maxlength="200" charcounter></mwc-textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textarea(label='My Textarea', maxlength='200', charcounter)
+                                    mwc-textarea(label='My Textarea', outlined, maxlength='200', charcounter)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * *
+                    //- * * Full Width - Material Textarea  * *
+                    //- * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textarea-full-width
+                        h3.mb-4 Full Width
+                        p.mb-4
+                            | Use the
+                            code.code-inline .w-100
+                            | utility class to set the width of the textarea component to equal the full width of it's parent.
+
+                        +demo({
+                            id: 'materialTextareaFullWidth'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-4
+                                        mwc-textarea.w-100(label='My Textarea')
+                                    .mb-0
+                                        mwc-textarea.w-100(label='My Textarea', outlined)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textarea class="w-100" label="My Textarea"></mwc-textarea>
+                                    <mwc-textarea class="w-100" label="My Textarea" outlined></mwc-textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textarea.w-100(label='My Textarea')
+                                    mwc-textarea.w-100(label='My Textarea', outlined)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Comprehensive Example - Material Textarea * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #material-textarea-comprehensive
+                        h3.mb-4 Comprehensive Example
+                        p.mb-4
+                            | All of the above features can be used together on a single textarea component. Below is an exhaustive example of all of the options being used.
+
+                        +demo({
+                            id: 'materialTextareaComprehensive'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-4
+                                        mwc-textarea.w-100(label='My Textarea', helper='Helper Text', helperpersistent, maxlength='200', charcounter)
+                                    .mb-0
+                                        mwc-textarea.w-100(label='My Textarea', outlined, helper='Helper Text', helperpersistent, maxlength='200', charcounter)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><mwc-textarea class="w-100" label="My Textarea" helper="Helper Text" helperpersistent maxlength="200" charcounter></mwc-textarea>
+                                    <mwc-textarea class="w-100" label="My Textarea" outlined helper="Helper Text" helperpersistent maxlength="200" charcounter></mwc-textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">mwc-textarea.w-100(label='My Textarea', helper='Helper Text', helperpersistent, maxlength='200', charcounter)
+                                    mwc-textarea.w-100(label='My Textarea', outlined, helper='Helper Text', helperpersistent, maxlength='200', charcounter)</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- * * * * * * * * * * * * * * * *
+                //- * * * * * * * * * * * * * * * *
+                //- * * Bootstrap Form Controls * *
+                //- * * * * * * * * * * * * * * * *
+                //- * * * * * * * * * * * * * * * *
+
+                #bootstrap
+                    h2.mb-4 Default Bootstrap Form Controls
+                    p.mb-4
+                        | For developers who wish to use Bootstrap's form input markup, the Bootstrap form control has been redesign in a Material Design inspired style while preserving the compatability these elements have with Bootstrap's button component.
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Basic Form Example - Bootstrap Form Controls  * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-basic-example
+                        h3.mb-4 Basic Example
+
+                        p.mb-4
+                            | The hover state, focus state, label sizing, and font sizing have been restyled to match the look and feel of Material Design.
+
+                        +demo({
+                            id: 'bootstrapFormBasic'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-3
+                                        label.form-label(for='exampleFormControlInput') Email address
+                                        input#exampleFormControlInput.form-control(type='email', placeholder='name@example.com')
+                                    .mb-0
+                                        label.form-label(for='exampleFormControlTextarea') Example textarea
+                                        textarea#exampleFormControlTextarea.form-control(rows='3')
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><label class="form-label" for="exampleFormControlInput">Email address</label>
+                                    <input class="form-control" id="exampleFormControlInput" type="email" placeholder="name@example.com">
+
+                                    <label class="form-label" for="exampleFormControlTextarea">Example textarea</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea" rows="3"></textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">label.form-label(for='exampleFormControlInput') Email address
+                                    input#exampleFormControlInput.form-control(type='email', placeholder='name@example.com')
+
+                                    label.form-label(for='exampleFormControlTextarea') Example textarea
+                                    textarea#exampleFormControlTextarea.form-control(rows='3')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Sizing - Bootstrap Form Controls  * *
+                    //- * * * * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-sizing
+                        h3.mb-4 Sizing
+
+                        p.mb-4
+                            | The standard
+                            code.code-inline .form-control-lg
+                            | and
+                            code.code-inline .form-control-sm
+                            | classes can be used to change the height and other styling applied to a Bootstrap form control. Text inputs are used as an example, however these classes will work with the textarea and select elements as well.
+
+                        +demo({
+                            id: 'bootstrapFormSizing'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-3
+                                        input.form-control.form-control-lg(type='text', placeholder='.form-control-lg', aria-label='.form-control-lg example')
+                                    .mb-3
+                                        input.form-control(type='text', placeholder='Default input', aria-label='default input example')
+                                    .mb-0
+                                        input.form-control.form-control-sm(type='text', placeholder='.form-control-sm', aria-label='.form-control-sm example')
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><input class="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example">
+                                    <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+                                    <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm" aria-label=".form-control-sm example"></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">input.form-control.form-control-lg(type='text', placeholder='.form-control-lg', aria-label='.form-control-lg example')
+                                    input.form-control(type='text', placeholder='Default input', aria-label='default input example')
+                                    input.form-control.form-control-sm(type='text', placeholder='.form-control-sm', aria-label='.form-control-sm example')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Disabled - Bootstrap Form Controls  * *
+                    //- * * * * * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-disabled
+                        h3.mb-4 Disabled
+
+                        p.mb-4
+                            | Add the
+                            code.code-inline disabled
+                            | attribute to either the input or textarea element to see the disabled input styling applied.
+
+                        +demo({
+                            id: 'bootstrapFormDisabled'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-3
+                                        label.form-label(for='exampleFormControlInputDisabled') Email address
+                                        input#exampleFormControlInputDisabled.form-control(type='email', placeholder='name@example.com', disabled)
+                                    .mb-0
+                                        label.form-label(for='exampleFormControlTextareaDisabled') Example textarea
+                                        textarea#exampleFormControlTextareaDisabled.form-control(rows='3', disabled)
+                            +slot('html')
+                                code.
+                                    <script type="text/plain"><label class="form-label" for="exampleFormControlInputDisabled">Email address</label>
+                                    <input class="form-control" id="exampleFormControlInputDisabled" type="email" placeholder="name@example.com" disabled>
+
+                                    <label class="form-label" for="exampleFormControlTextareaDisabled">Example textarea</label>
+                                    <textarea class="form-control" id="exampleFormControlTextareaDisabled" rows="3" disabled></textarea></script>
+                            +slot('pug')
+                                code.
+                                    <script type="text/plain">label.form-label(for='exampleFormControlInputDisabled') Email address
+                                    input#exampleFormControlInputDisabled.form-control(type='email', placeholder='name@example.com', disabled)
+                                    
+                                    label.form-label(for='exampleFormControlTextareaDisabled') Example textarea
+                                    textarea#exampleFormControlTextareaDisabled.form-control(rows='3', disabled)</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * File Input - Bootstrap Form Controls  * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-file-input
+                        h3.mb-4 File Input
+
+                        p.mb-4 File inputs allow users to choose a file from device storage. They are available in three sizes and allow for multiple files or a single file.
+
+                        +demo({
+                            id: 'bootstrapFormFileInput'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-3
+                                        label.form-label(for='formFile') Default file input example
+                                        input#formFile.form-control(type='file')
+                                    .mb-3
+                                        label.form-label(for='formFileMultiple') Multiple files input example
+                                        input#formFileMultiple.form-control(type='file', multiple)
+                                    .mb-3
+                                        label.form-label(for='formFileDisabled') Disabled file input example
+                                        input#formFileDisabled.form-control(type='file', disabled)
+                                    .mb-3
+                                        label.form-label(for='formFileSm') Small file input example
+                                        input#formFileSm.form-control.form-control-sm(type='file')
+                                    div
+                                        label.form-label(for='formFileLg') Large file input example
+                                        input#formFileLg.form-control.form-control-lg(type='file')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><div class="mb-3">
+                                        <label class="form-label" for="formFile">Default file input example</label>
+                                        <input class="form-control" id="formFile" type="file">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="formFileMultiple">Multiple files input example</label>
+                                        <input class="form-control" id="formFileMultiple" type="file" multiple>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="formFileDisabled">Disabled file input example</label>
+                                        <input class="form-control" id="formFileDisabled" type="file" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="formFileSm">Small file input example</label>
+                                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="formFileLg">Large file input example</label>
+                                        <input class="form-control form-control-lg" id="formFileLg" type="file">
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>.mb-3
+                                        label.form-label(for='formFile') Default file input example
+                                        input#formFile.form-control(type='file')
+                                    .mb-3
+                                        label.form-label(for='formFileMultiple') Multiple files input example
+                                        input#formFileMultiple.form-control(type='file', multiple)
+                                    .mb-3
+                                        label.form-label(for='formFileDisabled') Disabled file input example
+                                        input#formFileDisabled.form-control(type='file', disabled)
+                                    .mb-3
+                                        label.form-label(for='formFileSm') Small file input example
+                                        input#formFileSm.form-control.form-control-sm(type='file')
+                                    div
+                                        label.form-label(for='formFileLg') Large file input example
+                                        input#formFileLg.form-control.form-control-lg(type='file')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Color Input - Bootstrap Form Controls * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-color-input
+                        h3.mb-4 Color Input
+
+                        p.mb-4 The color picker input option gives users an interface to specity a color.
+
+                        +demo({
+                            id: 'bootstrapFormColorPicker'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    label.form-label(for='exampleColorInput') Color picker
+                                    input#exampleColorInput.form-control.form-control-color(type='color', value='#6200ea', title='Choose your color')
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><label for="exampleColorInput" class="form-label">Color picker</label>
+                                    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color"></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>label.form-label(for='exampleColorInput') Color picker
+                                    input#exampleColorInput.form-control.form-control-color(type='color', value='#6200ea', title='Choose your color')</script>
+
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * *
+                    //- * * Floating Labels - Bootstrap Form Controls * *
+                    //- * * * * * * * * * * * * * * * * * * * * * * * * *
+
+                    #bootstrap-floating-labels
+                        h3.mb-4 Floating Labels
+
+                        p
+                            | In Bootstrap 5, Bootstrap has added a floating label option for their input fields. The input and textarea are demonstrated below, but selects are also supported, which you can see on our
+                            a(href='forms-select.html') form selects
+                            | page.
+                        p
+                            | Bootstrap's floating label elements are similar to the outline style of Material's textfield and textarea components.
+                        p.mb-4
+                            | These elements require a value in the
+                            code.code-inline placeholder
+                            | attribute, even though it will not show.
+
+                        +demo({
+                            id: 'bootstrapFloatingLabels'
+                        })
+                            +slot('demo')
+                                .border.border-top-0.p-3.p-sm-5
+                                    .mb-4
+                                        .form-floating
+                                            input#floatingInputExample.form-control(type='email' placeholder='name@example.com')
+                                            label(for='floatingInputExample') Floating label input
+                                    .mb-0
+                                        .form-floating
+                                            textarea#floatingTextareaExample.form-control(placeholder='Leave a comment here' style='height: 100px')
+                                            label(for='floatingTextareaExample') Floating label textarea
+                            +slot('html')
+                                code.
+                                    <script type='text/plain'><div class="form-floating">
+                                        <input class="form-control" id="floatingInputExample" type="email" placeholder="name@example.com" />
+                                        <label for="floatingInputExample">Floating label input</label>
+                                    </div>
+
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="floatingTextareaExample" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                                        <label for="floatingTextareaExample">Floating label textarea</label>
+                                    </div></script>
+                            +slot('pug')
+                                code.
+                                    <script type='text/plain'>.form-floating
+                                        input#floatingInputExample.form-control(type='email' placeholder='name@example.com')
+                                        label(for='floatingInputExample') Floating label input
+
+                                    .form-floating
+                                        textarea#floatingTextareaExample.form-control(placeholder='Leave a comment here' style='height: 100px')
+                                        label(for='floatingTextareaExample') Floating label textarea</script>
+
+                    //- Divider
+                    hr.my-5
+
+                //- Related Links
+                h3.overline Related Links
+                .row
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0.mb-lg-4.mb-xxl-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Textfield Web Component Documentation
+                                p.card-text Docs for Material's textfield web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/textfield', target='_blank', title='Material Textfield Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4.mb-4.mb-md-0.mb-lg-4.mb-xxl-0
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/material-design.svg', alt='Material Web Components Icon')
+                                .card-title.text-truncate.mb-2 Material Textarea Web Component Documentation
+                                p.card-text Docs for Material's textarea web component
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://github.com/material-components/material-web/tree/mwc/packages/textarea', target='_blank', title='Material Textarea Web Component') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                    .col-md-4.col-lg-6.col-xxl-4
+                        .card.card-quick-link.card-raised.ripple-gray
+                            .card-body
+                                img.card-quick-link-img(src='assets/img/brands/bootstrap.svg', alt='Bootstrap Brand Icon')
+                                .card-title.text-truncate.mb-2 Bootstrap Form Controls Documentation
+                                p.card-text Bootstrap's form controls documentation
+                            .card-actions
+                                a.card-link.text-muted.text-decoration-none.stretched-link(href='https://getbootstrap.com/docs/5.2/forms/form-control/', target='_blank', title='Bootstrap Form Controls Documentation') Related Link
+                                i.material-icons.text-muted.rotate-45 arrow_upward
+                
+                //- Spacer
+                .mb-5
+
+            .col-lg-3.mb-5.mb-lg-0
+                .sticky-top.nav-stick
+                    .nav-heading
+                        | Contents
+                    ul.nav.flex-column#navStick
+                        li.nav-item
+                            a.nav-link(href='#material-textfield') Material Textfield
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-standard') Standard
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-disabled') Disabled
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-leading-icon') Leading Icon
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-trailing-icon') Trailing Icon
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-helper-text') Helper Text
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-character-counter') Character Counter
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-full-width') Full Width
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textfield-comprehensive') Comprehensive
+                        li.nav-item
+                            a.nav-link(href='#material-textarea') Material Textarea
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textarea-standard') Standard
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textarea-disabled') Disabled
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textarea-helper-text') Helper Text
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textarea-character-counter') Character Counter
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textarea-full-width') Full Width
+                                li.nav-item
+                                    a.nav-link.border-0(href='#material-textarea-comprehensive') Comprehensive
+                        li.nav-item
+                            a.nav-link(href='#bootstrap') Bootstrap Form Controls
+                            ul.nav.flex-column.mt-0.ms-3
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-basic-example') Basic Example
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-sizing') Sizing
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-disabled') Disabled
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-file-input') File Input
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-color-input') Color Input
+                                li.nav-item
+                                    a.nav-link.border-0(href='#bootstrap-floating-labels') Floating Labels
+
+//- * * * * * * * * * * * * * * *
+//- * * Page Specific Scripts * *
+//- * * * * * * * * * * * * * * *
+
+//- The main JS is already included within the layout.
+//- Below, the Pug `append` directive is used to add scripts
+//- that are specific to this page.
+
+append scripts
+    // Load Prism plugin scripts
+    script(src='/js/prism.js')

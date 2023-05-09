@@ -1,0 +1,139 @@
+//- * * * * * * * *
+//- * * Layout  * *
+//- * * * * * * * *
+
+//- The page layout is set using the Pug `extends` directive
+//- which points to a layout template. All of the layout options
+//- are contained in src/pug/layouts.
+
+extends ../layouts/dashboard.pug
+
+//- * * * * * * * *
+//- * * Config  * *
+//- * * * * * * * *
+
+//- These are page-level configuration options that should be
+//- set for each page.
+
+block config
+    - var bodyClasses = 'bg-light'; // Use any background color utility
+    - var navPosition = 'nav-fixed'; // Use 'nav-fixed' or null
+    - var pageTitle = 'Billing'; // String. Enter the page title within a string
+
+//- * * * * * * * * * * * * * * * *
+//- * * Top App Bar Navigation  * *
+//- * * * * * * * * * * * * * * * *
+
+//- Declare the `block top-app-bar` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block top-app-bar
+
+    //- Declare the top-app-bar mixin 
+    include mixins/top-app-bar.pug
+    //- Use the top-app-bar mixin
+    +top-app-bar({
+        topAppBarStyle: 'navbar-dark',
+        topAppBarBg: 'bg-dark'
+    })
+
+//- * * * * * * * * * * * * *
+//- * * Drawer Navigation * *
+//- * * * * * * * * * * * * *
+
+//- Declare the `block drawer` from the layout
+//- Note: This is required when using the dashboard layout!
+
+block drawer
+
+    //- Declare the drawer mixin 
+    include mixins/drawer.pug
+    //- Use the drawer mixin
+    +drawer({
+        drawerStyle: 'drawer-light',
+        drawerBg: 'bg-white'
+    })
+
+//- * * * * * * * * * * *
+//- * * Page Content  * *
+//- * * * * * * * * * * *
+
+block content
+
+    // Page header
+    header.bg-dark
+        .container-xl.px-5
+            h1.text-white.py-3.mb-0.display-6 Account Settings - Security
+
+    // Account security page content
+
+    .container-xl.p-5
+
+        // Tab bar navigation
+        mwc-tab-bar(style='margin-bottom: -1px;', activeIndex='3')
+            mwc-tab(label='Billing', icon='account_balance', stacked, onClick='location.href="app-account-billing.html"')
+            mwc-tab(label='Notifications', icon='notifications', stacked, onClick='location.href="app-account-notifications.html"')
+            mwc-tab(label='Profile', icon='person', stacked, onClick='location.href="app-account-profile.html"')
+            mwc-tab(label='Security', icon='security', stacked, onClick='location.href="app-account-security.html"')
+
+        // Divider
+        hr.mt-0.mb-5
+
+        // Security content row
+        .row.gx-5
+            .col-lg-7
+                // Change password card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Change Password
+                        .card-subtitle.mb-4 New passwords must contain at least 8 characters.
+                        form
+                            .mb-4
+                                mwc-textfield.w-100(label='Current Password', outlined, type='password')
+                            .mb-4
+                                mwc-textfield.w-100(label='New Password', outlined, type='password')
+                            .mb-4
+                                mwc-textfield.w-100(label='Confirm New Password', outlined, type='password')
+                            .text-end
+                                button.btn.btn-primary(type='submit') Reset Password
+                // Security preferences card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Security Preferences
+                        .card-subtitle.mb-5 Change how other people view your account.
+                        // Account privacy optinos
+                        .h6.mb-1 Account Privacy
+                        p.small.text-muted By setting your account to private, your profile information and posts will not be visible to users outside of your user groups.
+                        form
+                            mwc-formfield(label='Public (posts are available to all users)')
+                                mwc-radio(name='securityPreference', checked)
+                            mwc-formfield(label='Private (posts are available to only users in your groups)')
+                                mwc-radio(name='securityPreference')
+                        hr.my-5
+                        // Data sharing options
+                        .h6.mb-1 Data Sharing
+                        p.small.text-muted Sharing usage data can help us to improve our products and better serve our users as they navigation through our application. When you agree to share usage data with us, crash reports and usage analytics will be automatically sent to our development team for investigation.
+                        form
+                            mwc-formfield(label='Yes, share data and crash reports with app developers')
+                                mwc-radio(name='dataSharing', checked)
+                            mwc-formfield(label='No, limit my data sharing with app developers')
+                                mwc-radio(name='dataSharing')
+            .col-lg-5
+                // Two factor authentication card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Two-Factor Authentication
+                        .card-subtitle.mb-4 Add another level of security to your account by enabling two-factor authentication. We will send you a text message to verify your login attempts on unrecognized devices and browsers.
+                        form
+                            .mb-4
+                                mwc-formfield(label='On')
+                                    mwc-radio(name='twoFactorAuth', checked)
+                                mwc-formfield(label='Off')
+                                    mwc-radio(name='twoFactorAuth')
+                            mwc-textfield.w-100(label='SMS Number', outlined, type='tel', value='407-555-0187')
+                // Delete account card
+                .card.card-raised.mb-5
+                    .card-body.p-5
+                        .card-title Delete Account
+                        .card-subtitle.mb-4 Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.
+                        button.btn.btn-text-danger(type='button') I understand, delete my account
